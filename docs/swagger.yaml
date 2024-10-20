@@ -1,0 +1,454 @@
+basePath: /
+definitions:
+  api.TitleObj:
+    properties:
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
+  dataaccess.CartItemObj:
+    properties:
+      CartId:
+        type: integer
+      Description:
+        type: string
+      ProductId:
+        type: integer
+      Quantity:
+        type: integer
+      UserId:
+        type: integer
+    type: object
+  dataaccess.RemoveCartItemObj:
+    properties:
+      CartId:
+        type: integer
+      ProductId:
+        type: integer
+      UserId:
+        type: integer
+    type: object
+  dataaccess.TitleResp:
+    properties:
+      CreatedAt:
+        type: string
+      Id:
+        type: integer
+      Name:
+        type: string
+      Status:
+        type: boolean
+    type: object
+  dataaccess.User:
+    properties:
+      createdAt:
+        type: string
+      emailAddress:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      mobileNumber:
+        type: string
+      nickName:
+        type: string
+      password:
+        type: string
+      status:
+        type: string
+      titleId:
+        type: string
+      userName:
+        type: string
+    type: object
+  obj.CartObj:
+    properties:
+      cartName:
+        type: string
+      cartTypeId:
+        type: integer
+      createdById:
+        type: integer
+      description:
+        type: string
+      groupId:
+        type: integer
+      userId:
+        type: integer
+    type: object
+  obj.CartUserObj:
+    properties:
+      cartId:
+        type: integer
+      memberEmail:
+        type: string
+      ringMasterEmail:
+        type: string
+      ringStatus:
+        type: integer
+    type: object
+  obj.CloseCartObj:
+    properties:
+      cartId:
+        type: integer
+      reason:
+        type: string
+      ringMasterEmail:
+        type: string
+    type: object
+  obj.RemoveUserFromCartObj:
+    properties:
+      cartId:
+        type: integer
+      memberEmail:
+        type: string
+      ringMasterEmail:
+        type: string
+    type: object
+  obj.ResponseMessage:
+    properties:
+      responseCode:
+        type: string
+      responseMessage:
+        type: string
+    type: object
+  obj.UserObj:
+    properties:
+      FirstName:
+        type: string
+      LastName:
+        type: string
+      MobileNumber:
+        minLength: 8
+        type: string
+      NickName:
+        type: string
+      Password:
+        minLength: 8
+        type: string
+      Status:
+        minLength: 1
+        type: string
+      TitleId:
+        type: string
+      UserName:
+        minLength: 8
+        type: string
+      email:
+        type: string
+    required:
+    - FirstName
+    - LastName
+    - MobileNumber
+    - Password
+    - Status
+    - TitleId
+    - UserName
+    - email
+    type: object
+  obj.UserResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+      mobileNumber:
+        type: string
+      nickName:
+        type: string
+      status:
+        type: string
+      titleId:
+        type: string
+      userName:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: alao.adebusy@gmail.com
+    name: Alao Adebisi
+  description: This service is meant to manage Cart request.
+  license:
+    name: Cart Manager Concept
+    url: https://github.com/MartinHeinz/go-project-blueprint/blob/master/LICENSE
+  termsOfService: http://swagger.io/terms/
+  title: Cart Backend service
+  version: "1.0"
+paths:
+  /api/admin/CreateTitle:
+    post:
+      consumes:
+      - '*/*'
+      description: Create new Title.
+      parameters:
+      - description: Create new title
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/api.TitleObj'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create new Title.
+      tags:
+      - admin
+  /api/admin/GetTitles:
+    get:
+      consumes:
+      - '*/*'
+      description: Get all Title.
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dataaccess.TitleResp'
+            type: array
+      summary: Get all Titles.
+      tags:
+      - admin
+  /api/cart/AddItemToCart:
+    post:
+      consumes:
+      - '*/*'
+      description: Add item to an existing cart.
+      parameters:
+      - description: Add item to cart
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dataaccess.CartItemObj'
+      responses:
+        "200":
+          description: Item added to cart successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to add item to cart at the monent!!
+          schema:
+            type: string
+      summary: Add item to an existing cart.
+      tags:
+      - cart
+  /api/cart/CloseCart:
+    put:
+      consumes:
+      - '*/*'
+      description: Close Cart.
+      parameters:
+      - description: Close cart
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.CloseCartObj'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.ResponseMessage'
+      summary: Close  Cart.
+      tags:
+      - cart
+  /api/cart/CreateCart:
+    post:
+      consumes:
+      - '*/*'
+      description: Create new cart user.
+      parameters:
+      - description: Create new user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.CartObj'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.ResponseMessage'
+      summary: Create new  cart user.
+      tags:
+      - cart
+  /api/cart/CreateCartMember:
+    post:
+      consumes:
+      - '*/*'
+      description: Create new Cart Member.
+      parameters:
+      - description: Create new cart member
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.CartUserObj'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.ResponseMessage'
+      summary: Create new  Cart Member.
+      tags:
+      - cart
+  /api/cart/RemoveItemFromCart:
+    post:
+      consumes:
+      - '*/*'
+      description: This action can only be performed by the cart master.
+      parameters:
+      - description: Remove item from cart
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dataaccess.RemoveCartItemObj'
+      responses:
+        "200":
+          description: Item removed from cart successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to remove item to cart at the monent!!
+          schema:
+            type: string
+      summary: Remove item  from existing cart.
+      tags:
+      - cart
+  /api/cart/RemoveUserFromCart:
+    post:
+      consumes:
+      - '*/*'
+      description: Remove user from cart.
+      parameters:
+      - description: Remove member from cart
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.RemoveUserFromCartObj'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.ResponseMessage'
+      summary: Remove user from cart.
+      tags:
+      - cart
+  /api/user/CreateNewUser:
+    post:
+      consumes:
+      - '*/*'
+      description: Create new user cart user.
+      parameters:
+      - description: Create new user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.UserObj'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.User'
+      summary: Create new user cart user.
+      tags:
+      - user
+  /api/user/GetUserByEmailAddress/{EmailAddress}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get user by email address new cart user.
+      parameters:
+      - description: User email address
+        in: path
+        name: UserEmail
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.UserResponse'
+      summary: Get user by email address new cart user.
+      tags:
+      - user
+  /api/user/GetUserByMobile/{MobileNumber}:
+    get:
+      consumes:
+      - '*/*'
+      description: existing user destails by mobile number.
+      parameters:
+      - description: User mobile number
+        in: path
+        name: MobileNumber
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.UserResponse'
+      summary: existing user destails by mobile number.
+      tags:
+      - user
+  /api/user/LogIn/{UserName}/{Password}:
+    get:
+      consumes:
+      - '*/*'
+      description: Log user In with username and password.
+      parameters:
+      - description: Username
+        in: path
+        name: UserName
+        required: true
+        type: string
+      - description: Password
+        in: path
+        name: Password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.UserResponse'
+      summary: Log user In with username and password.
+      tags:
+      - user
+  /testSvc:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show the status of server.
+      tags:
+      - root
+schemes:
+- http
+swagger: "2.0"
