@@ -98,5 +98,5 @@ func main() {
 func testSvc(ctx *gin.Context) {
 	logrus.Info("testing service")
 	fmt.Println("i am running")
-	ctx.JSONP(http.StatusOK, "good to go")
+	ctx.JSON(http.StatusOK, "good to go")
 }
