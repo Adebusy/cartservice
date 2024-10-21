@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM golang:1.19 AS build
+FROM golang:alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /go/src/app
@@ -14,7 +14,7 @@ COPY . .
 RUN go build -o /go/src/app/bin/app
 
 # Stage 2: Production stage
-FROM alpine:3.18
+FROM alpine:3.13
 
 # Copy the Go binary from the 'build' stage
 COPY --from=build /go/src/app/bin/app /go/bin/app
