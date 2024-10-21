@@ -16,6 +16,20 @@ RUN go build -o /go/src/app/bin/app
 # Stage 2: Production stage
 FROM alpine:3.13
 
+ENV ENVIRONMENT = "live"
+ENV DATABASE_SERVER_dev = "localhost"
+ENV PASSWORD_dev = "Password1"
+ENV DATABASE_dev = "DigitalCartDB"
+ENV USERID_dev = "postgres"
+ENV PORT_dev = "5432"
+ENV LISTEN_ADDR_dev = ":8080"
+ENV DATABASE_SERVER_live="my-db-postgresql-nyc3-62498-do-user-17863435-0.m.db.ondigitalocean.com"
+ENV PASSWORD_live = "AVNS_4p8LzBbUn5iE6NeHLQP"
+ENV DATABASE_live = "cartbackeddb"
+ENV USERID_live = "cartusr"
+ENV PORT_live = "25060"
+ENV LISTEN_ADDR_live = ":8080"
+
 # Copy the Go binary from the 'build' stage
 COPY --from=build /go/src/app/bin/app /go/bin/app
 
