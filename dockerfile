@@ -1,16 +1,24 @@
-# syntax=docker/dockerfile:1
+# Stage 1: Build stage
+FROM golang:1.19 AS build
 
-FROM golang:alpine AS build
-RUN apk --no-cache add gcc g++ make git
+# Set the working directory inside the container
 WORKDIR /go/src/app
+
+# Copy the Go module files and download dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the source code into the container
 COPY . .
 
-RUN go mod tidy
-RUN GOOS=linux go build -ldflags="-s -w" -o ./bin/web-app ./main.go
+# Build the Go binary
+RUN go build -o /go/src/app/bin/app
 
-FROM alpine:3.13
-RUN apk --no-cache add ca-certificates
-WORKDIR /usr/bin
-COPY --from=build /go/src/app/bin /go/bin
-EXPOSE 8080
-ENTRYPOINT /go/bin/web-app --port 8080
+# Stage 2: Production stage
+FROM alpine:3.18
+
+# Copy the Go binary from the 'build' stage
+COPY --from=build /go/src/app/bin/app /go/bin/app
+
+# Set the binary as the entry point
+ENTRYPOINT ["/go/bin/app"]
