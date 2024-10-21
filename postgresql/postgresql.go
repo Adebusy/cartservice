@@ -16,7 +16,8 @@ var err error
 
 func GetDB() *gorm.DB {
 	if loadEnv := godotenv.Load(); loadEnv != nil {
-		fmt.Println("Unable to load environment variable.")
+		ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
+		fmt.Println(ret)
 	}
 	env := os.Getenv("ENVIRONMENT")
 	SERVER := os.Getenv("DATABASE_SERVER" + "_" + env)
