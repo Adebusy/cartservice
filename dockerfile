@@ -34,5 +34,7 @@ ENV LISTEN_ADDR_live = ":8080"
 COPY --from=build /go/src/app/bin/app /go/bin/app
 
 COPY .env /go/bin/app
+
+RUN chmod +x /go/bin/app
 # Set the binary as the entry point
 ENTRYPOINT ["/go/bin/app"]
