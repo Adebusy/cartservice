@@ -15,4 +15,4 @@ RUN CGO_ENABLED=0 GOOS=linux
 
 RUN go build -o /backendapi
 EXPOSE 8080
-CMD [ "/backendapi" ] 
+CMD ["go", "run", "main.go"] 
