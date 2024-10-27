@@ -10,7 +10,7 @@ COPY go.mod go.sum .env ./
 # Copy the source code into the container
 COPY . .
 
-ENV GOOS=linux GOARCH=amd64 CGO_ENABLED=0
+# ENV GOOS=linux GOARCH=amd64 CGO_ENABLED=0
 # Build the Go binary
 RUN go build -o /go/bin/app
 
