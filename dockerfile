@@ -12,7 +12,7 @@ COPY . .
 
 ENV GOOS=linux GOARCH=amd64 CGO_ENABLED=0
 # Build the Go binary
-RUN go build -o /go/src/app/bin/app
+RUN go build -o /go/bin/app
 
 # Stage 2: Production stage
 FROM alpine:3.13
@@ -32,10 +32,11 @@ ENV PORT_live = "25060"
 ENV LISTEN_ADDR_live = ":8080"
 
 # Copy the Go binary from the 'build' stage
-COPY --from=build /go/src/app/bin/app /go/bin/app
+COPY --from=build /go/bin/app /go/bin/app
 
 COPY .env /go/bin/app
 
 RUN chmod +x /go/bin/app
+
 # Set the binary as the entry point
 ENTRYPOINT ["/go/bin/app"]
