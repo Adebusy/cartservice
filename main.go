@@ -51,7 +51,7 @@ func main() {
 	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
 	svc.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
-	svc.GET("/", testSvc)
+	svc.GET("/health", testSvc)
 	svc.POST("/api/user/CreateNewUser", api.CreateNewUser)                             //done
 	svc.GET("api/user/GetUserByEmailAddress/:EmailAddress", api.GetUserByEmailAddress) //done
 	svc.GET("api/user/LogIn/:UserName/:Password", api.LogIn)                           //done

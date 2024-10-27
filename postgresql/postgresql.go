@@ -25,11 +25,18 @@ func GetDB() *gorm.DB {
 	// DATABASE := os.Getenv("DATABASE" + "_" + env)
 	// PASSWORD := os.Getenv("PASSWORD" + "_" + env)
 	// PORT := os.Getenv("PORT" + "_" + env)
-	SERVER := "my-db-postgresql-nyc3-62498-do-user-17863435-0.m.db.ondigitalocean.com"
-	PASSWORD := "AVNS_4p8LzBbUn5iE6NeHLQP"
-	DATABASE := "cartbackeddb"
-	USERID := "cartusr"
-	PORT := "25060"
+
+	SERVER := "localhost"
+	PASSWORD := "Password1"
+	DATABASE := "DigitalCartDB"
+	USERID := "postgres"
+	PORT := "5432"
+
+	// SERVER := "my-db-postgresql-nyc3-62498-do-user-17863435-0.m.db.ondigitalocean.com"
+	// PASSWORD := "AVNS_4p8LzBbUn5iE6NeHLQP"
+	// DATABASE := "cartbackeddb"
+	// USERID := "cartusr"
+	// PORT := "25060"
 
 	connectionString := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
