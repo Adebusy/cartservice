@@ -29,13 +29,6 @@ type TitleResp struct {
 	CreatedAt time.Time `json:"CreatedAt" validate:"omitempty"`
 }
 
-// type TblCart struct {
-// 	Id        int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
-// 	Name      string    `json:"Name" validate:"omitempty"`
-// 	Status    bool      `json:"Status" validate:"omitempty"`
-// 	CreatedAt time.Time `json:"CreatedAt" validate:"omitempty"`
-// }
-
 type ITitle interface {
 	CreateTitle(prod TblTitle) int
 	GetTitleByTitleId(TitleId int) TblTitle

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mssql"
@@ -24,8 +23,6 @@ func OptionMessage(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "http://localhost:8080")
 	c.Header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT")
 }
-
-var devenv = os.Getenv("ENVIRONMENT")
 
 // @title			Cart Backend service
 // @version		1.0
@@ -48,7 +45,7 @@ func main() {
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	svc := gin.Default()
-	// url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	//url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
 	url := ginSwagger.URL("https://jellyfish-app-emxxl.ondigitalocean.app/swagger/doc.json")
 
 	svc.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

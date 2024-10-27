@@ -60,6 +60,13 @@ type CartType struct {
 	DateAdded    time.Time `gorm:"column:DateAdded"`
 }
 
+type TblCartType struct {
+	Id           int       `gorm:"column:Id"`
+	CartTypeName string    `gorm:"column:CartTypeName"`
+	Status       int       `gorm:"column:Status"`
+	DateAdded    time.Time `gorm:"column:DateAdded"`
+}
+
 type ICart interface {
 	CreateCart(crt TblCart) int
 	GetCartByCartId(CartId int) TblCart

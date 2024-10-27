@@ -1,6 +1,8 @@
 package dataaccess
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -15,6 +17,20 @@ type User struct {
 	Password     string `gorm:"column:Password"`
 	Status       string `gorm:"column:Status"`
 	CreatedAt    string `gorm:"column:CreatedAt"`
+}
+
+type TblUser struct {
+	Id           int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
+	TitleId      int       `gorm:"column:TitleId"`
+	UserName     string    `gorm:"column:UserName"`
+	NickName     string    `gorm:"column:NickName"`
+	FirstName    string    `gorm:"column:FirstName"`
+	LastName     string    `gorm:"column:LastName"`
+	EmailAddress string    `gorm:"column:EmailAddress"`
+	MobileNumber string    `gorm:"column:MobileNumber"`
+	Password     string    `gorm:"column:Password"`
+	Status       int       `gorm:"column:Status"`
+	CreatedAt    time.Time `gorm:"column:CreatedAt"`
 }
 
 type DbConnect struct {
