@@ -1,14 +1,18 @@
-# Step 1: Build the Go binary
-FROM golang:alpine as build
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o cartservice
+#!/bin/bash
+# syntax=docker/dockerfile:1
 
-# Step 2: Create a minimal Docker image and add the binary
-FROM alpine:latest
-WORKDIR /root/
-COPY --from=build /app/cartservice .
+FROM golang:alpine
+
+WORKDIR /app
+
+
+COPY go.mod ./
+COPY go.sum ./
+
+RUN go mod download
+
+COPY . ./
+
+RUN go build -o /cartservice
 EXPOSE 8080
-ENTRYPOINT ["./cartservice"]
+CMD [ "/cartservice" ] 
