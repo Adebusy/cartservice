@@ -13,6 +13,8 @@ RUN go mod download
 
 COPY . ./
 
-RUN go build -o /cartservice
+RUN CGO_ENABLED=0 GOOS=linux go build -o /cartservice
+
 EXPOSE 8080
+
 CMD [ "/cartservice" ] 
