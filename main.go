@@ -48,7 +48,9 @@ func main() {
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	svc := gin.Default()
-	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	// url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	url := ginSwagger.URL("https://jellyfish-app-emxxl.ondigitalocean.app/swagger/doc.json")
+
 	svc.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	svc.GET("/health", testSvc)
