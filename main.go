@@ -84,7 +84,7 @@ func main() {
 	svc.POST("api/admin/CreateStatus", testSvc)
 	svc.DELETE("api/admin/DeleteStatus", testSvc)
 	svc.GET("api/admin/GetAllStatuses", testSvc)
-	svc.Run(os.Getenv("LISTEN_ADDR" + "_" + devenv))
+	svc.Run(":8080")
 }
 
 // testSvc test service

@@ -2,7 +2,6 @@ package postgresql
 
 import (
 	"fmt"
-	"os"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/joho/godotenv"
@@ -20,12 +19,18 @@ func GetDB() *gorm.DB {
 		fmt.Println(ret)
 	}
 	// env := os.Getenv("ENVIRONMENT")
-	env := "live"
-	SERVER := os.Getenv("DATABASE_SERVER" + "_" + env)
-	USERID := os.Getenv("USERID" + "_" + env)
-	DATABASE := os.Getenv("DATABASE" + "_" + env)
-	PASSWORD := os.Getenv("PASSWORD" + "_" + env)
-	PORT := os.Getenv("PORT" + "_" + env)
+	// env := "live"
+	// SERVER := os.Getenv("DATABASE_SERVER" + "_" + env)
+	// USERID := os.Getenv("USERID" + "_" + env)
+	// DATABASE := os.Getenv("DATABASE" + "_" + env)
+	// PASSWORD := os.Getenv("PASSWORD" + "_" + env)
+	// PORT := os.Getenv("PORT" + "_" + env)
+	SERVER := "my-db-postgresql-nyc3-62498-do-user-17863435-0.m.db.ondigitalocean.com"
+	PASSWORD := "AVNS_4p8LzBbUn5iE6NeHLQP"
+	DATABASE := "cartbackeddb"
+	USERID := "cartusr"
+	PORT := "25060"
+
 	connectionString := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
