@@ -71,7 +71,7 @@ func CreateNewUser(ctx *gin.Context) {
 // @Summary		Get user by email address new cart user.
 // @Description	Get user by email address new cart user.
 // @Tags			user
-// @Param UserEmail path string true "User email address"
+// @Param EmailAddress path string true "User email address"
 // @Produce json
 // @Accept			*/*
 // @User			json

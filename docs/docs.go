@@ -323,7 +323,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "User email address",
-                        "name": "UserEmail",
+                        "name": "EmailAddress",
                         "in": "path",
                         "required": true
                     }
