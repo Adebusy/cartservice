@@ -132,7 +132,8 @@ func LogIn(ctx *gin.Context) {
 	userRespose := &inpuschema.UserResponse{}
 	UserName := ctx.Param("UserName")
 	Password := ctx.Param("Password")
-	if getUSer := usww.LoginUser(UserName, Password); getUSer.FirstName != "" {
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(Password), 8)
+	if getUSer := usww.LoginUser(UserName, string(hashedPassword)); getUSer.FirstName != "" {
 		userRespose.TitleId = getUSer.TitleId
 		userRespose.UserName = getUSer.UserName
 		userRespose.NickName = getUSer.NickName
@@ -142,7 +143,7 @@ func LogIn(ctx *gin.Context) {
 		userRespose.MobileNumber = getUSer.MobileNumber
 		userRespose.Status = getUSer.Status
 		userRespose.CreatedAt = getUSer.CreatedAt
-		logrus.Info(fmt.Sprintf("LogIn failed for user %v", UserName))
+		logrus.Info(fmt.Sprintf("LogIn for user %v", UserName))
 		ctx.JSON(http.StatusOK, userRespose)
 		return
 	}
