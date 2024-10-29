@@ -43,7 +43,7 @@ func main() {
 	//docs.SwaggerInfo.Host = "localhost" + "8080"
 	docs.SwaggerInfo.Host = "jellyfish-app-emxxl.ondigitalocean.app"
 	docs.SwaggerInfo.BasePath = "/"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	docs.SwaggerInfo.Schemes = []string{"https"}
 
 	svc := gin.Default()
 	//url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
