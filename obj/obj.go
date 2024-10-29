@@ -39,7 +39,6 @@ type CartUserObj struct {
 	MemberEmail     string `gorm:"column:MemberEmail"`
 	CartId          int    `gorm:"column:CartId"`
 	RingStatus      int    `gorm:"column:RingStatus"`
-	//DateAdded       time.Time `gorm:"column:DateAdded"`
 }
 
 type ResponseMessage struct {
@@ -57,4 +56,9 @@ type CloseCartObj struct {
 	CartId          int    `gorm:"column:CartId"`
 	RingMasterEmail string `gorm:"column:RingMasterEmail"`
 	Reason          string `gorm:"column:Reason"`
+}
+
+type ConfigStruct struct {
+	CreateTable          bool
+	IsDropExistingTables bool
 }
