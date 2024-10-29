@@ -171,7 +171,7 @@ definitions:
       userName:
         type: string
     type: object
-host: https://jellyfish-app-emxxl.ondigitalocean.app
+host: localhost:8080
 info:
   contact:
     email: alao.adebusy@gmail.com
