@@ -146,7 +146,7 @@ func LogIn(ctx *gin.Context) {
 			userRespose.MobileNumber = getUSer.MobileNumber
 			userRespose.Status = getUSer.Status
 			userRespose.CreatedAt = getUSer.CreatedAt
-			logrus.Info(fmt.Sprintf("LogIn for user %v", UserName))
+			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
 			ctx.JSON(http.StatusOK, userRespose)
 			return
 		} else {
