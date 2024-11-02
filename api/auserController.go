@@ -7,6 +7,7 @@ import (
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	inpuschema "github.com/Adebusy/cartbackendsvc/obj"
 	psg "github.com/Adebusy/cartbackendsvc/postgresql"
+	"github.com/Adebusy/cartbackendsvc/utilities"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/sirupsen/logrus"
@@ -132,23 +133,32 @@ func LogIn(ctx *gin.Context) {
 	userRespose := &inpuschema.UserResponse{}
 	UserName := ctx.Param("UserName")
 	Password := ctx.Param("Password")
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(Password), 8)
-	if getUSer := usww.LoginUser(UserName, string(hashedPassword)); getUSer.FirstName != "" {
-		userRespose.TitleId = getUSer.TitleId
-		userRespose.UserName = getUSer.UserName
-		userRespose.NickName = getUSer.NickName
-		userRespose.FirstName = getUSer.FirstName
-		userRespose.LastName = getUSer.LastName
-		userRespose.Email = getUSer.EmailAddress
-		userRespose.MobileNumber = getUSer.MobileNumber
-		userRespose.Status = getUSer.Status
-		userRespose.CreatedAt = getUSer.CreatedAt
-		logrus.Info(fmt.Sprintf("LogIn for user %v", UserName))
-		ctx.JSON(http.StatusOK, userRespose)
+	password, _ := utilities.HashPassword(Password)
+
+	if getUSer := usww.GetUserByEmailUsername(UserName); getUSer.FirstName != "" {
+		if utilities.CheckPasswordHash(Password, password) {
+			userRespose.TitleId = getUSer.TitleId
+			userRespose.UserName = getUSer.UserName
+			userRespose.NickName = getUSer.NickName
+			userRespose.FirstName = getUSer.FirstName
+			userRespose.LastName = getUSer.LastName
+			userRespose.Email = getUSer.EmailAddress
+			userRespose.MobileNumber = getUSer.MobileNumber
+			userRespose.Status = getUSer.Status
+			userRespose.CreatedAt = getUSer.CreatedAt
+			logrus.Info(fmt.Sprintf("LogIn for user %v", UserName))
+			ctx.JSON(http.StatusOK, userRespose)
+			return
+		} else {
+			logAction := fmt.Sprintf("Incorrect password %s", UserName)
+			logrus.Info(logAction)
+			ctx.JSON(http.StatusBadRequest, logAction)
+			return
+		}
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
 		return
 	}
-
-	logAction := fmt.Sprintf("LogIn failed for user %v", UserName)
-	logrus.Info(logAction)
-	ctx.JSON(http.StatusBadRequest, userRespose)
 }

@@ -44,6 +44,7 @@ func ConneectDeal(db *gorm.DB) Iuser {
 type Iuser interface {
 	CreateUser(usr *User) string
 	GetUserByEmailAddress(EmailAddress string) User
+	GetUserByEmailUsername(EmailAddress string) User
 	GetUserByMobileNumber(MobileNumber string) User
 	LoginUser(UserName, Password string) User
 	GetUserByUserId(UserId int) User
@@ -72,6 +73,12 @@ func (cn DbConnect) GetUserByEmailAddress(EmailAddress string) User {
 func (cn DbConnect) GetUserByMobileNumber(MobileNumber string) User {
 	res := User{}
 	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt").Where("\"MobileNumber\"=?", MobileNumber).First(&res)
+	return res
+}
+
+func (cn DbConnect) GetUserByEmailUsername(username string) User {
+	res := User{}
+	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt", "Password").Where("\"UserName\"=?", username).First(&res)
 	return res
 }
 
