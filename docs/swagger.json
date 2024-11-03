@@ -51,6 +51,29 @@
                 }
             }
         },
+        "/api/admin/GetAllStatus": {
+            "get": {
+                "description": "Get all Status.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Get all Status.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dataaccess.TblStatus"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/admin/GetTitles": {
             "get": {
                 "description": "Get all Title.",
@@ -471,6 +494,20 @@
                 },
                 "UserId": {
                     "type": "integer"
+                }
+            }
+        },
+        "dataaccess.TblStatus": {
+            "type": "object",
+            "properties": {
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer"
+                },
+                "StatusName": {
+                    "type": "string"
                 }
             }
         },

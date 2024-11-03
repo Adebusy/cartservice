@@ -66,7 +66,7 @@ func GetTitles(ctx *gin.Context) {
 // @Tags			admin
 // @Accept			*/*
 // @User			json
-// @Success		200	{object}  []TblStatus
+// @Success		200	{object}  []dbSchema.TblStatus
 // @Router			/api/admin/GetAllStatus [get]
 func GetAllStatus(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, usww.GetAllStatus())
