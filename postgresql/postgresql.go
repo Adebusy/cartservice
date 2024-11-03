@@ -53,6 +53,7 @@ func GetDB() *gorm.DB {
 	}
 
 	if dbStatus.CreateTable {
+		DbGorm.AutoMigrate(&dbSchema.TblStatus{})
 		DbGorm.AutoMigrate(&dbSchema.TblCart{})
 		DbGorm.AutoMigrate(&dbSchema.TblTitle{})
 		DbGorm.AutoMigrate(&dbSchema.TblCartItem{})

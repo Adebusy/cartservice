@@ -58,6 +58,8 @@ type Iuser interface {
 	CreateCartMemberIn(crt TblCartMember) int
 	RemoveUserFromCart(CartId int, masterEmail string, UserEmail string) error
 	CloseCart(cartId int) int
+
+	GetAllStatus() []TblStatus
 }
 
 func (cn DbConnect) CreateUser(usr *User) string {

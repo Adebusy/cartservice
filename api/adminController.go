@@ -59,3 +59,15 @@ func CreateTitle(ctx *gin.Context) {
 func GetTitles(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, tit.GetTitles())
 }
+
+// GetAllStatus godoc
+// @Summary		Get all Status.
+// @Description	Get all Status.
+// @Tags			admin
+// @Accept			*/*
+// @User			json
+// @Success		200	{object}  []TblStatus
+// @Router			/api/admin/GetAllStatus [get]
+func GetAllStatus(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, usww.GetAllStatus())
+}
