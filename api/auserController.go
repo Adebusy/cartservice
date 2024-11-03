@@ -15,8 +15,8 @@ import (
 )
 
 var (
-	usww       = dbSchema.ConneectDeal(psg.GetDB())
-	crt        = dbSchema.ConnectCart(psg.GetDB())
+	usww = dbSchema.ConneectDeal(psg.GetDB())
+	//crt        = dbSchema.ConnectCart(psg.GetDB())
 	crtItem    = dbSchema.ConnectCartItem(psg.GetDB())
 	prd        = dbSchema.ConnectProduct(psg.GetDB())
 	tit        = dbSchema.ConTitle(psg.GetDB())

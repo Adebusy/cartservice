@@ -38,14 +38,14 @@ func AddItemToCart(ctx *gin.Context) {
 		return
 	}
 
-	// check CartTypeId
-	if docheckCartId := crt.GetCartByCartId(cartItemObj.CartId); docheckCartId.CartName == "" {
+	// check CartTypeId ( crt.GetCartByCartId)
+	if docheckCartId := usww.GetCartByCartId(cartItemObj.CartId); docheckCartId.CartName == "" {
 		ctx.JSON(http.StatusBadRequest, "CartId does not exist.")
 		return
 	}
 
-	//check user has been added to cart team cartUser
-	if docheckcartdetail := crt.GetCartByCartIdAndMemberId(cartItemObj.CartId, cartItemObj.UserId); docheckcartdetail.CartName == "" {
+	//check user has been added to cart team cartUser (crt.GetCartByCartIdAndMemberId)
+	if docheckcartdetail := usww.GetCartByCartIdAndMemberId(cartItemObj.CartId, cartItemObj.UserId); docheckcartdetail.CartName == "" {
 		ctx.JSON(http.StatusBadRequest, "this user has not been added to this cart group.")
 		return
 	}
@@ -104,8 +104,8 @@ func RemoveItemFromCart(ctx *gin.Context) {
 		return
 	}
 
-	//do check if user can delete Item from cart
-	if docheckRemovalPower := crt.GetCartDetailsByCartIdandMastersId(RemoveCartItemObj.CartId, doCheckCreatedById.EmailAddress); docheckRemovalPower.RingMasterEmail == "" {
+	//do check if user can delete Item from cart (crt.GetCartDetailsByCartIdandMastersId)
+	if docheckRemovalPower := usww.GetCartDetailsByCartIdandMastersId(RemoveCartItemObj.CartId, doCheckCreatedById.EmailAddress); docheckRemovalPower.RingMasterEmail == "" {
 		ctx.JSON(http.StatusBadRequest, "This user does not have the permission required to execute this action.")
 		return
 	}

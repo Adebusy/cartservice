@@ -47,7 +47,7 @@ func CreateCart(ctx *gin.Context) {
 	}
 
 	// check CartTypeId
-	if docheckCartId := crt.GetCartTypeByCartId(carObj.CartTypeId); docheckCartId.CartTypeName == "" {
+	if docheckCartId := usww.GetCartTypeByCartId(carObj.CartTypeId); docheckCartId.CartTypeName == "" {
 		ctx.JSON(http.StatusBadRequest, "CartTypeId does not exist.")
 		return
 	}
@@ -64,7 +64,7 @@ func CreateCart(ctx *gin.Context) {
 		LastUpdatedBy: carObj.UserId,
 	}
 
-	if doCreate := crt.CreateCart(crts); doCreate != 0 {
+	if doCreate := usww.CreateCart(crts); doCreate != 0 {
 		crts := dbSchema.TblCartMember{
 			RingMasterEmail: doCheckUser.EmailAddress,
 			MemberEmail:     doCheckUser.EmailAddress,
@@ -73,7 +73,7 @@ func CreateCart(ctx *gin.Context) {
 			DateAdded:       time.Now(),
 		}
 
-		if CreateCartMember := crt.CreateCartMember(crts); CreateCartMember != 0 {
+		if CreateCartMember := usww.CreateCartMember(crts); CreateCartMember != 0 {
 			logrus.Info("Added member to cart")
 		}
 		ctx.JSON(http.StatusOK, "Cart created successfully!!")
@@ -120,7 +120,7 @@ func CreateCartMember(ctx *gin.Context) {
 	}
 
 	//check if initiator is the cart master
-	if GetCartDetailsByCartId := crt.GetCartDetailsByCartIdandMastersId(carObj.CartId, carObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
+	if GetCartDetailsByCartId := usww.GetCartDetailsByCartIdandMastersId(carObj.CartId, carObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
 		ctx.JSON(http.StatusBadRequest, "This user does not have the permission required to execute this action.")
 		return
 	}
@@ -133,7 +133,7 @@ func CreateCartMember(ctx *gin.Context) {
 		DateAdded:       time.Now(),
 	}
 
-	if doCreate := crt.CreateCartMember(crts); doCreate != 0 {
+	if doCreate := usww.CreateCartMember(crts); doCreate != 0 {
 		ctx.JSON(http.StatusOK, "Cart created successfully!!")
 		return
 	} else {
@@ -187,7 +187,7 @@ func RemoveUserFromCart(ctx *gin.Context) {
 	}
 
 	//check if initiator is the cart master
-	if GetCartDetailsByCartId := crt.GetCartDetailsByCartIdandMastersId(requestObj.CartId, requestObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
+	if GetCartDetailsByCartId := usww.GetCartDetailsByCartIdandMastersId(requestObj.CartId, requestObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
 		resp.ResponseCode = "01"
 		resp.ResponseMessage = "This user does not have the permission required to execute this action."
 		ctx.JSON(http.StatusBadRequest, resp)
@@ -195,7 +195,7 @@ func RemoveUserFromCart(ctx *gin.Context) {
 	}
 
 	//delete user from cart
-	if doCreate := crt.RemoveUserFromCart(requestObj.CartId, requestObj.RingMasterEmail, requestObj.MemberEmail); doCreate == nil {
+	if doCreate := usww.RemoveUserFromCart(requestObj.CartId, requestObj.RingMasterEmail, requestObj.MemberEmail); doCreate == nil {
 		resp.ResponseCode = "00"
 		resp.ResponseMessage = "User removed from cart successfully!!"
 		ctx.JSON(http.StatusOK, resp)
@@ -238,13 +238,13 @@ func CloseCart(ctx *gin.Context) {
 	}
 
 	//check if initiator is the cart master
-	if GetCartDetailsByCartId := crt.GetCartDetailsByCartIdandMastersId(carObj.CartId, carObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
+	if GetCartDetailsByCartId := usww.GetCartDetailsByCartIdandMastersId(carObj.CartId, carObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
 		ctx.JSON(http.StatusBadRequest, "This user does not have the permission required to execute this action.")
 		return
 	}
 
 	// update cart
-	if doCreate := crt.CloseCart(carObj.CartId); doCreate != 0 {
+	if doCreate := usww.CloseCart(carObj.CartId); doCreate != 0 {
 		ctx.JSON(http.StatusOK, "Cart closed successfully!!")
 		return
 	} else {

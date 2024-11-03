@@ -50,9 +50,9 @@ type CartUserIn struct {
 	DateAdded       time.Time `gorm:"column:DateAdded"`
 }
 
-func ConnectCart(db *gorm.DB) ICart {
-	return &DbConnect{db}
-}
+// func ConnectCart(db *gorm.DB) ICart {
+// 	return &DbConnect{db}
+// }
 
 type CartType struct {
 	Id           int       `gorm:"column:Id"`
@@ -67,17 +67,17 @@ type TblCartType struct {
 	DateAdded    time.Time `gorm:"column:DateAdded"`
 }
 
-type ICart interface {
-	CreateCart(crt TblCart) int
-	GetCartByCartId(CartId int) TblCart
-	GetCartTypeByCartId(CartTypeId int) CartType
-	CreateCartMember(cusr TblCartMember) int
-	GetCartByCartIdAndMemberId(CartId, cartMemberId int) TblCart
-	GetCartDetailsByCartIdandMastersId(CartId int, masterEmail string) TblCartMember
-	CreateCartMemberIn(crt TblCartMember) int
-	RemoveUserFromCart(CartId int, masterEmail string, UserEmail string) error
-	CloseCart(cartId int) int
-}
+// type ICart interface {
+// 	// CreateCart(crt TblCart) int
+// 	// GetCartByCartId(CartId int) TblCart
+// 	// GetCartTypeByCartId(CartTypeId int) CartType
+// 	// CreateCartMember(cusr TblCartMember) int
+// 	// GetCartByCartIdAndMemberId(CartId, cartMemberId int) TblCart
+// 	// GetCartDetailsByCartIdandMastersId(CartId int, masterEmail string) TblCartMember
+// 	// CreateCartMemberIn(crt TblCartMember) int
+// 	// RemoveUserFromCart(CartId int, masterEmail string, UserEmail string) error
+// 	// CloseCart(cartId int) int
+// }
 
 func (cn DbConnect) CreateCart(crt TblCart) int {
 

@@ -48,6 +48,16 @@ type Iuser interface {
 	GetUserByMobileNumber(MobileNumber string) User
 	LoginUser(UserName, Password string) User
 	GetUserByUserId(UserId int) User
+
+	CreateCart(crt TblCart) int
+	GetCartByCartId(CartId int) TblCart
+	GetCartTypeByCartId(CartTypeId int) CartType
+	CreateCartMember(cusr TblCartMember) int
+	GetCartByCartIdAndMemberId(CartId, cartMemberId int) TblCart
+	GetCartDetailsByCartIdandMastersId(CartId int, masterEmail string) TblCartMember
+	CreateCartMemberIn(crt TblCartMember) int
+	RemoveUserFromCart(CartId int, masterEmail string, UserEmail string) error
+	CloseCart(cartId int) int
 }
 
 func (cn DbConnect) CreateUser(usr *User) string {
