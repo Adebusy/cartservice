@@ -67,9 +67,11 @@ func main() {
 	svc.PUT("api/cart/CloseCart", api.CloseCart)                    //done
 	svc.POST("api/cart/RemoveUserFromCart", api.RemoveUserFromCart) //done
 
-	svc.POST("api/admin/CreateTitle", api.CreateTitle)  //done
-	svc.GET("api/admin/GetTitles", api.GetTitles)       //done
-	svc.GET("api/admin/GetAllStatus", api.GetAllStatus) //done
+	svc.POST("api/admin/CreateTitle", api.CreateTitle)       //done
+	svc.GET("api/admin/GetTitles", api.GetTitles)            //done
+	svc.GET("api/admin/GetAllStatus", api.GetAllStatus)      //done
+	svc.GET("/api/admin/GetToken/:clientname", api.GetToken) //done
+	svc.POST("api/admin/RegisterNewClient", api.RegisterNewClient)
 
 	svc.POST("api/group/CreateGroupType", testSvc)
 	svc.POST("api/group/DeleteGroupType", testSvc)

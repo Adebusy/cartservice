@@ -100,6 +100,57 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/admin/GetToken/{clientname}": {
+            "get": {
+                "description": "Get Token for client.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Get Token for client.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/obj.TokenResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/RegisterNewClient": {
+            "post": {
+                "description": "Register New Client.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Register New Client.",
+                "parameters": [
+                    {
+                        "description": "Create new client",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.ClientRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.ClientResp"
+                        }
+                    }
+                }
+            }
+        },
         "/api/cart/AddItemToCart": {
             "post": {
                 "description": "Add item to an existing cart.",
@@ -486,6 +537,31 @@ const docTemplate = `{
                 }
             }
         },
+        "dataaccess.ClientRequest": {
+            "type": "object",
+            "properties": {
+                "Description": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dataaccess.ClientResp": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "respToken": {
+                    "type": "string"
+                }
+            }
+        },
         "dataaccess.RemoveCartItemObj": {
             "type": "object",
             "properties": {
@@ -645,6 +721,14 @@ const docTemplate = `{
                 }
             }
         },
+        "obj.TokenResp": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "obj.UserObj": {
             "type": "object",
             "required": [
@@ -732,7 +816,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "https://jellyfish-app-emxxl.ondigitalocean.app",
 	BasePath:         "/",
 	Schemes:          []string{"http"},
 	Title:            "Cart Backend service",

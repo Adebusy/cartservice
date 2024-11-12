@@ -62,3 +62,7 @@ type ConfigStruct struct {
 	CreateTable          bool
 	IsDropExistingTables bool
 }
+
+type TokenResp struct {
+	Token string
+}

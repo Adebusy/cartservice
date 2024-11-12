@@ -20,6 +20,22 @@ definitions:
       UserId:
         type: integer
     type: object
+  dataaccess.ClientRequest:
+    properties:
+      Description:
+        type: string
+      Name:
+        type: string
+    type: object
+  dataaccess.ClientResp:
+    properties:
+      Id:
+        type: integer
+      Name:
+        type: string
+      respToken:
+        type: string
+    type: object
   dataaccess.RemoveCartItemObj:
     properties:
       CartId:
@@ -123,6 +139,11 @@ definitions:
       responseMessage:
         type: string
     type: object
+  obj.TokenResp:
+    properties:
+      token:
+        type: string
+    type: object
   obj.UserObj:
     properties:
       FirstName:
@@ -180,7 +201,7 @@ definitions:
       userName:
         type: string
     type: object
-host: localhost:8080
+host: https://jellyfish-app-emxxl.ondigitalocean.app
 info:
   contact:
     email: alao.adebusy@gmail.com
@@ -241,6 +262,39 @@ paths:
               $ref: '#/definitions/dataaccess.TitleResp'
             type: array
       summary: Get all Titles.
+      tags:
+      - admin
+  /api/admin/GetToken/{clientname}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Token for client.
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.TokenResp'
+      summary: Get Token for client.
+      tags:
+      - admin
+  /api/admin/RegisterNewClient:
+    post:
+      consumes:
+      - '*/*'
+      description: Register New Client.
+      parameters:
+      - description: Create new client
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dataaccess.ClientRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.ClientResp'
+      summary: Register New Client.
       tags:
       - admin
   /api/cart/AddItemToCart:

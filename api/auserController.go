@@ -20,6 +20,7 @@ var (
 	crtItem    = dbSchema.ConnectCartItem(psg.GetDB())
 	prd        = dbSchema.ConnectProduct(psg.GetDB())
 	tit        = dbSchema.ConTitle(psg.GetDB())
+	client     = dbSchema.ConnectClient(psg.GetDB())
 	validateMe = validator.New()
 )
 

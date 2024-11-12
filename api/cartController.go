@@ -20,7 +20,9 @@ import (
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCart [post]
 func CreateCart(ctx *gin.Context) {
-
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CartObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
@@ -94,7 +96,9 @@ func CreateCart(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCartMember [post]
 func CreateCartMember(ctx *gin.Context) {
-
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CartUserObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
@@ -152,7 +156,9 @@ func CreateCartMember(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/RemoveUserFromCart [post]
 func RemoveUserFromCart(ctx *gin.Context) {
-
+	if !ValidateClient(ctx) {
+		return
+	}
 	resp := inputschema.ResponseMessage{}
 	requestObj := &inputschema.RemoveUserFromCartObj{}
 	if doConvert := ctx.ShouldBindJSON(requestObj); doConvert != nil {
@@ -218,7 +224,9 @@ func RemoveUserFromCart(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CloseCart [put]
 func CloseCart(ctx *gin.Context) {
-
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CloseCartObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)

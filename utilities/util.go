@@ -1,9 +1,12 @@
 package utilities
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -27,3 +30,62 @@ func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }
+
+var secretKey = []byte("secret-key")
+
+func CreateToken(username string) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256,
+		jwt.MapClaims{
+			"username": username,
+			"exp":      time.Now().Add(time.Hour * 24).Unix(),
+		})
+
+	tokenString, err := token.SignedString(secretKey)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
+}
+
+func VerifyToken(tokenString string) error {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return secretKey, nil
+	})
+
+	if err != nil {
+		return err
+	}
+
+	if !token.Valid {
+		return fmt.Errorf("invalid token")
+	}
+
+	return nil
+}
+
+// func ValidateClient(ctx *gin.Context) bool {
+// 	reqBearer := ctx.GetHeader("Authorization")
+// 	if reqBearer == "" {
+// 		resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
+// 		ctx.JSON(http.StatusBadRequest, resp)
+// 		return false
+// 	}
+
+// 	clientName := ctx.GetHeader("clientName")
+// 	if clientName == "" {
+// 		resp := fmt.Sprintf("Client name is required in the header!! %s", clientName)
+// 		ctx.JSON(http.StatusBadRequest, resp)
+// 		return false
+// 	}
+// 	//check client
+
+// 	docheck := dataaccess.GetClientByName(clientName)
+
+// 	reqBearer = reqBearer[len("Bearer "):]
+// 	if doVerify := VerifyToken(reqBearer); doVerify != nil {
+// 		ctx.JSON(http.StatusBadRequest, "invalid token")
+// 		return false
+// 	}
+// 	return true
+// }

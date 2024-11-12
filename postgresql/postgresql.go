@@ -60,8 +60,10 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblCartMember{})
 		DbGorm.AutoMigrate(&dbSchema.TblProduct{})
 		DbGorm.AutoMigrate(&dbSchema.TblUser{})
-		DbGorm.AutoMigrate(&dbSchema.TblCartType{})
+		DbGorm.AutoMigrate(&dbSchema.TblClient{})
+		// DbGorm.AutoMigrate(&dbSchema.TblCartType{})
 	}
+	DbGorm.AutoMigrate(&dbSchema.TblClient{})
 	dbStatus.IsDropExistingTables = false
 	dbStatus.CreateTable = false
 	domarchal, _ := json.Marshal(dbStatus)
