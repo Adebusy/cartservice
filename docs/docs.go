@@ -86,6 +86,11 @@ const docTemplate = `{
         },
         "/api/admin/GetTitles": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Get all Title.",
                 "consumes": [
                     "*/*"

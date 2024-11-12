@@ -277,6 +277,8 @@ paths:
             items:
               $ref: '#/definitions/dataaccess.TitleResp'
             type: array
+      security:
+      - BearerAuth: []
       summary: Get all Titles.
       tags:
       - admin
