@@ -39,6 +39,13 @@
                         "schema": {
                             "$ref": "#/definitions/api.TitleObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -84,6 +91,22 @@
                     "admin"
                 ],
                 "summary": "Get all Titles.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -107,6 +130,15 @@
                     "admin"
                 ],
                 "summary": "Get Token for client.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Registered client name",
+                        "name": "clientname",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

@@ -40,7 +40,7 @@ func main() {
 	docs.SwaggerInfo.Title = "Cart Backend service API"
 	docs.SwaggerInfo.Description = "This service is meant to manage Cart request"
 	docs.SwaggerInfo.Version = "1.0"
-	//docs.SwaggerInfo.Host = "localhost" + "8080"
+	//docs.SwaggerInfo.Host = "localhost" + ":8080"
 	docs.SwaggerInfo.Host = "jellyfish-app-emxxl.ondigitalocean.app"
 	docs.SwaggerInfo.BasePath = "/"
 	docs.SwaggerInfo.Schemes = []string{"https"}

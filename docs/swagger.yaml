@@ -201,7 +201,7 @@ definitions:
       userName:
         type: string
     type: object
-host: https://jellyfish-app-emxxl.ondigitalocean.app
+host: localhost:8080
 info:
   contact:
     email: alao.adebusy@gmail.com
@@ -226,6 +226,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/api.TitleObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -254,6 +259,17 @@ paths:
       consumes:
       - '*/*'
       description: Get all Title.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -269,6 +285,12 @@ paths:
       consumes:
       - '*/*'
       description: Get Token for client.
+      parameters:
+      - description: Registered client name
+        in: path
+        name: clientname
+        required: true
+        type: string
       responses:
         "200":
           description: OK

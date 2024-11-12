@@ -24,6 +24,7 @@ type TitleObj struct {
 // @Accept			*/*
 // @User			json
 // @Param user body TitleObj true "Create new title"
+// @Param Authorization header string true "Authorization token"
 // @Success		200	{object}	string
 // @Router			/api/admin/CreateTitle [post]
 func CreateTitle(ctx *gin.Context) {
@@ -74,6 +75,8 @@ func CreateTitle(ctx *gin.Context) {
 // @Tags			admin
 // @Accept			*/*
 // @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
 // @Success		200	{object}  []dbSchema.TitleResp
 // @Router			/api/admin/GetTitles [get]
 func GetTitles(ctx *gin.Context) {
@@ -101,6 +104,7 @@ func GetAllStatus(ctx *gin.Context) {
 // GetToken godoc
 // @Summary		Get Token for client.
 // @Description	Get Token for client.
+// @Param clientname path string true "Registered client name"
 // @Tags			admin
 // @Accept			*/*
 // @User			json
