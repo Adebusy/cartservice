@@ -77,6 +77,7 @@ func CreateTitle(ctx *gin.Context) {
 // @User			json
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
+// @securityDefinitions.apikey BearerAuth
 // @Success		200	{object}  []dbSchema.TitleResp
 // @Router			/api/admin/GetTitles [get]
 func GetTitles(ctx *gin.Context) {
