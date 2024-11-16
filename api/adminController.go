@@ -25,6 +25,9 @@ type TitleObj struct {
 // @User			json
 // @Param user body TitleObj true "Create new title"
 // @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	string
 // @Router			/api/admin/CreateTitle [post]
 func CreateTitle(ctx *gin.Context) {
