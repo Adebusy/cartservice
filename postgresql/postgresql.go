@@ -23,11 +23,11 @@ func GetDB() *gorm.DB {
 		fmt.Println(ret)
 	}
 	env := "live"
-	SERVER := os.Getenv("DATABASE_SERVER" + "_" + env)
-	USERID := os.Getenv("USERID" + "_" + env)
-	DATABASE := os.Getenv("DATABASE" + "_" + env)
-	PASSWORD := os.Getenv("PASSWORD" + "_" + env)
-	PORT := os.Getenv("PORT" + "_" + env)
+	SERVER := os.Getenv("DATABASE_SERVER")
+	USERID := os.Getenv("USERID")
+	DATABASE := os.Getenv("DATABASE")
+	PASSWORD := os.Getenv("PASSWORD")
+	PORT := os.Getenv("DB_PORT")
 
 	var dbStatus obj.ConfigStruct
 	var connectionString string
