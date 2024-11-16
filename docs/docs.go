@@ -25,6 +25,11 @@ const docTemplate = `{
     "paths": {
         "/api/admin/CreateTitle": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new Title.",
                 "consumes": [
                     "*/*"
@@ -47,6 +52,13 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Authorization token",
                         "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
                         "in": "header",
                         "required": true
                     }
@@ -190,6 +202,11 @@ const docTemplate = `{
         },
         "/api/cart/AddItemToCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Add item to an existing cart.",
                 "consumes": [
                     "*/*"
@@ -207,6 +224,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dataaccess.CartItemObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -227,6 +258,11 @@ const docTemplate = `{
         },
         "/api/cart/CloseCart": {
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Close Cart.",
                 "consumes": [
                     "*/*"
@@ -244,6 +280,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.CloseCartObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -258,6 +308,11 @@ const docTemplate = `{
         },
         "/api/cart/CreateCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new cart user.",
                 "consumes": [
                     "*/*"
@@ -275,6 +330,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.CartObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -289,6 +358,11 @@ const docTemplate = `{
         },
         "/api/cart/CreateCartMember": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new Cart Member.",
                 "consumes": [
                     "*/*"
@@ -306,6 +380,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.CartUserObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -320,6 +408,11 @@ const docTemplate = `{
         },
         "/api/cart/RemoveItemFromCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "This action can only be performed by the cart master.",
                 "consumes": [
                     "*/*"
@@ -337,6 +430,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dataaccess.RemoveCartItemObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -357,6 +464,11 @@ const docTemplate = `{
         },
         "/api/cart/RemoveUserFromCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Remove user from cart.",
                 "consumes": [
                     "*/*"
@@ -374,6 +486,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.RemoveUserFromCartObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -388,6 +514,11 @@ const docTemplate = `{
         },
         "/api/user/CreateNewUser": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new user cart user.",
                 "consumes": [
                     "*/*"
@@ -405,6 +536,20 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.UserObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -419,6 +564,11 @@ const docTemplate = `{
         },
         "/api/user/GetUserByEmailAddress/{EmailAddress}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Get user by email address new cart user.",
                 "consumes": [
                     "*/*"
@@ -437,6 +587,20 @@ const docTemplate = `{
                         "name": "EmailAddress",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -451,6 +615,11 @@ const docTemplate = `{
         },
         "/api/user/GetUserByMobile/{MobileNumber}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "existing user destails by mobile number.",
                 "consumes": [
                     "*/*"
@@ -469,6 +638,20 @@ const docTemplate = `{
                         "name": "MobileNumber",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -483,6 +666,11 @@ const docTemplate = `{
         },
         "/api/user/LogIn/{UserName}/{Password}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Log user In with username and password.",
                 "consumes": [
                     "*/*"
@@ -507,6 +695,20 @@ const docTemplate = `{
                         "description": "Password",
                         "name": "Password",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -853,7 +1055,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "jellyfish-app-emxxl.ondigitalocean.app",
 	BasePath:         "/",
 	Schemes:          []string{"http"},
 	Title:            "Cart Backend service",

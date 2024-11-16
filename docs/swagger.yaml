@@ -201,7 +201,7 @@ definitions:
       userName:
         type: string
     type: object
-host: localhost:8080
+host: jellyfish-app-emxxl.ondigitalocean.app
 info:
   contact:
     email: alao.adebusy@gmail.com
@@ -231,11 +231,18 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Create new Title.
       tags:
       - admin
@@ -333,6 +340,16 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dataaccess.CartItemObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: Item added to cart successfully!!
@@ -342,6 +359,8 @@ paths:
           description: Unable to add item to cart at the monent!!
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Add item to an existing cart.
       tags:
       - cart
@@ -357,11 +376,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CloseCartObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Close  Cart.
       tags:
       - cart
@@ -377,11 +408,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CartObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Create new  cart user.
       tags:
       - cart
@@ -397,11 +440,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CartUserObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Create new  Cart Member.
       tags:
       - cart
@@ -417,6 +472,16 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dataaccess.RemoveCartItemObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: Item removed from cart successfully!!
@@ -426,6 +491,8 @@ paths:
           description: Unable to remove item to cart at the monent!!
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Remove item  from existing cart.
       tags:
       - cart
@@ -441,11 +508,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.RemoveUserFromCartObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Remove user from cart.
       tags:
       - cart
@@ -461,11 +540,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.UserObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/dataaccess.User'
+      security:
+      - BearerAuth: []
       summary: Create new user cart user.
       tags:
       - user
@@ -480,6 +571,16 @@ paths:
         name: EmailAddress
         required: true
         type: string
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -487,6 +588,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/obj.UserResponse'
+      security:
+      - BearerAuth: []
       summary: Get user by email address new cart user.
       tags:
       - user
@@ -501,6 +604,16 @@ paths:
         name: MobileNumber
         required: true
         type: string
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -508,6 +621,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/obj.UserResponse'
+      security:
+      - BearerAuth: []
       summary: existing user destails by mobile number.
       tags:
       - user
@@ -527,6 +642,16 @@ paths:
         name: Password
         required: true
         type: string
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -534,6 +659,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/obj.UserResponse'
+      security:
+      - BearerAuth: []
       summary: Log user In with username and password.
       tags:
       - user

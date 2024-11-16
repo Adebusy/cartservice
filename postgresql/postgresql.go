@@ -22,7 +22,7 @@ func GetDB() *gorm.DB {
 		ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
 		fmt.Println(ret)
 	}
-	env := "live"
+	env := "local"
 	SERVER := os.Getenv("DATABASE_SERVER" + "_" + env)
 	USERID := os.Getenv("USERID" + "_" + env)
 	DATABASE := os.Getenv("DATABASE" + "_" + env)
@@ -62,8 +62,9 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblUser{})
 		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 		// DbGorm.AutoMigrate(&dbSchema.TblCartType{})
+		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 	}
-	DbGorm.AutoMigrate(&dbSchema.TblClient{})
+
 	dbStatus.IsDropExistingTables = false
 	dbStatus.CreateTable = false
 	domarchal, _ := json.Marshal(dbStatus)

@@ -20,8 +20,11 @@ import (
 )
 
 func OptionMessage(c *gin.Context) {
+	//c.Header("Access-Control-Allow-Origin", "http://localhost:8080")
 	c.Header("Access-Control-Allow-Origin", "https://jellyfish-app-emxxl.ondigitalocean.app")
 	c.Header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT")
+	// @host			https://jellyfish-app-emxxl.ondigitalocean.app
+	// @host			localhost:8080
 }
 
 // @title			Cart Backend service
@@ -32,7 +35,7 @@ func OptionMessage(c *gin.Context) {
 // @contact.email	alao.adebusy@gmail.com
 // @license.name	Cart Manager Concept
 // @license.url	https://github.com/MartinHeinz/go-project-blueprint/blob/master/LICENSE
-// @host			localhost:8080
+// @host			https://jellyfish-app-emxxl.ondigitalocean.app
 // @BasePath		/
 // @schemes		http
 func main() {
