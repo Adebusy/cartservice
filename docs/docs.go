@@ -86,6 +86,11 @@ const docTemplate = `{
         },
         "/api/admin/GetTitles": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Get all Title.",
                 "consumes": [
                     "*/*"
@@ -94,6 +99,22 @@ const docTemplate = `{
                     "admin"
                 ],
                 "summary": "Get all Titles.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -117,6 +138,15 @@ const docTemplate = `{
                     "admin"
                 ],
                 "summary": "Get Token for client.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Registered client name",
+                        "name": "clientname",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -823,7 +853,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "https://jellyfish-app-emxxl.ondigitalocean.app",
+	Host:             "localhost:8080",
 	BasePath:         "/",
 	Schemes:          []string{"http"},
 	Title:            "Cart Backend service",
