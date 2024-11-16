@@ -22,7 +22,7 @@ func GetDB() *gorm.DB {
 		ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
 		fmt.Println(ret)
 	}
-	env := "live"
+	env := "local"
 	SERVER := os.Getenv("DATABASE_SERVER" + "_" + env)
 	USERID := os.Getenv("USERID" + "_" + env)
 	DATABASE := os.Getenv("DATABASE" + "_" + env)
