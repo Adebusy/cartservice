@@ -37,6 +37,8 @@ type ClientResp struct {
 
 func (cn DbConnect) GetClientByName(clientName string) TblClient {
 	res := TblClient{}
+	fmt.Println("dasdsas")
+	fmt.Printf("name is clientName %s", clientName)
 	cn.DbGorm.Table("TblClient").Select("Id", "Name", "Status", "Description", "DateAdded").Where("\"Name\"=? and \"Status\"=1", clientName).First(&res)
 	fmt.Printf("name is %s", res.Name)
 	return res
