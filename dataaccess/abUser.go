@@ -14,6 +14,9 @@ type User struct {
 	LastName     string `gorm:"column:LastName"`
 	EmailAddress string `gorm:"column:EmailAddress"`
 	MobileNumber string `gorm:"column:MobileNumber"`
+	Gender       string `gorm:"column:Gender"`
+	Location     string `gorm:"column:Location"`
+	AgeRange     string `gorm:"column:AgeRange"`
 	Password     string `gorm:"column:Password"`
 	Status       string `gorm:"column:Status"`
 	CreatedAt    string `gorm:"column:CreatedAt"`
@@ -28,6 +31,9 @@ type TblUser struct {
 	LastName     string    `gorm:"column:LastName"`
 	EmailAddress string    `gorm:"column:EmailAddress"`
 	MobileNumber string    `gorm:"column:MobileNumber"`
+	Gender       string    `gorm:"column:Gender"`
+	Location     string    `gorm:"column:Location"`
+	AgeRange     string    `gorm:"column:AgeRange"`
 	Password     string    `gorm:"column:Password"`
 	Status       int       `gorm:"column:Status"`
 	CreatedAt    time.Time `gorm:"column:CreatedAt"`
@@ -72,30 +78,30 @@ func (cn DbConnect) CreateUser(usr *User) string {
 
 func (cn DbConnect) GetUserByUserId(UserId int) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt").Where("\"Id\"=?", UserId).First(&res)
+	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"Id\"=?", UserId).First(&res)
 	return res
 }
 
 func (cn DbConnect) GetUserByEmailAddress(EmailAddress string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
+	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
 	return res
 }
 
 func (cn DbConnect) GetUserByMobileNumber(MobileNumber string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt").Where("\"MobileNumber\"=?", MobileNumber).First(&res)
+	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"MobileNumber\"=?", MobileNumber).First(&res)
 	return res
 }
 
 func (cn DbConnect) GetUserByEmailUsername(username string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt", "Password").Where("\"UserName\"=?", username).First(&res)
+	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt", "Password").Where("\"UserName\"=?", username).First(&res)
 	return res
 }
 
 func (cn DbConnect) LoginUser(UserName, Password string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("Id", "TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Status", "CreatedAt", "Password").Where("\"UserName\"=? and \"Password\"=?", UserName, Password).First(&res)
+	cn.DbGorm.Table("TblUser").Select("Id", "TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt", "Password").Where("\"UserName\"=? and \"Password\"=?", UserName, Password).First(&res)
 	return res
 }

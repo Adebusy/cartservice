@@ -67,13 +67,19 @@ definitions:
     type: object
   dataaccess.User:
     properties:
+      ageRange:
+        type: string
       createdAt:
         type: string
       emailAddress:
         type: string
       firstName:
         type: string
+      gender:
+        type: string
       lastName:
+        type: string
+      location:
         type: string
       mobileNumber:
         type: string
@@ -146,9 +152,15 @@ definitions:
     type: object
   obj.UserObj:
     properties:
+      AgeRange:
+        type: string
       FirstName:
         type: string
+      Gender:
+        type: string
       LastName:
+        type: string
+      Location:
         type: string
       MobileNumber:
         minLength: 8
@@ -180,15 +192,21 @@ definitions:
     type: object
   obj.UserResponse:
     properties:
+      ageRange:
+        type: string
       createdAt:
         type: string
       email:
         type: string
       firstName:
         type: string
+      gender:
+        type: string
       id:
         type: integer
       lastName:
+        type: string
+      location:
         type: string
       mobileNumber:
         type: string

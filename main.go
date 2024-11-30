@@ -17,6 +17,8 @@ import (
 	"github.com/sirupsen/logrus"
 
 	_ "github.com/gofiber/swagger"
+
+	"github.com/gin-contrib/cors"
 )
 
 func OptionMessage(c *gin.Context) {
@@ -49,6 +51,13 @@ func main() {
 	docs.SwaggerInfo.Schemes = []string{"https"}
 
 	svc := gin.Default()
+	svc.Use(cors.Default())
+	svc.Use(cors.New(cors.Config{
+		AllowOrigins:  []string{"https://jellyfish-app-emxxl.ondigitalocean.app"}, // List of allowed origins
+		AllowMethods:  []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:  []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders: []string{"Content-Length"},
+	}))
 	//url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
 	url := ginSwagger.URL("https://jellyfish-app-emxxl.ondigitalocean.app/swagger/doc.json")
 

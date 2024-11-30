@@ -6,6 +6,9 @@ type UserObj struct {
 	NickName     string `json:"NickName"`
 	FirstName    string `json:"FirstName" validate:"required"`
 	LastName     string `json:"LastName" validate:"required"`
+	Gender       string `json:"Gender"`
+	Location     string `json:"Location"`
+	AgeRange     string `json:"AgeRange"`
 	Email        string `json:"email" validate:"required,email"`
 	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
 	Status       string `json:"Status" validate:"required,min=1"`
@@ -20,6 +23,9 @@ type UserResponse struct {
 	FirstName    string
 	LastName     string
 	Email        string
+	Gender       string
+	Location     string
+	AgeRange     string
 	MobileNumber string
 	Status       string
 	CreatedAt    string

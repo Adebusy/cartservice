@@ -129,6 +129,9 @@ func GetUserByMobile(ctx *gin.Context) {
 		userRespose.LastName = getUSer.LastName
 		userRespose.Email = getUSer.EmailAddress
 		userRespose.MobileNumber = getUSer.MobileNumber
+		userRespose.Gender = getUSer.Gender
+		userRespose.Location = getUSer.Location
+		userRespose.AgeRange = getUSer.AgeRange
 		userRespose.Status = getUSer.Status
 		userRespose.CreatedAt = getUSer.CreatedAt
 		ctx.JSON(http.StatusOK, userRespose)
@@ -174,6 +177,8 @@ func LogIn(ctx *gin.Context) {
 			userRespose.Email = getUSer.EmailAddress
 			userRespose.MobileNumber = getUSer.MobileNumber
 			userRespose.Status = getUSer.Status
+			userRespose.Gender = getUSer.Gender
+			userRespose.Location = getUSer.Location
 			userRespose.CreatedAt = getUSer.CreatedAt
 			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
 			ctx.JSON(http.StatusOK, userRespose)

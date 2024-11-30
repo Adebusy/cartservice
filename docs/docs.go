@@ -849,6 +849,9 @@ const docTemplate = `{
         "dataaccess.User": {
             "type": "object",
             "properties": {
+                "ageRange": {
+                    "type": "string"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -858,7 +861,13 @@ const docTemplate = `{
                 "firstName": {
                     "type": "string"
                 },
+                "gender": {
+                    "type": "string"
+                },
                 "lastName": {
+                    "type": "string"
+                },
+                "location": {
                     "type": "string"
                 },
                 "mobileNumber": {
@@ -981,10 +990,19 @@ const docTemplate = `{
                 "email"
             ],
             "properties": {
+                "AgeRange": {
+                    "type": "string"
+                },
                 "FirstName": {
                     "type": "string"
                 },
+                "Gender": {
+                    "type": "string"
+                },
                 "LastName": {
+                    "type": "string"
+                },
+                "Location": {
                     "type": "string"
                 },
                 "MobileNumber": {
@@ -1017,6 +1035,9 @@ const docTemplate = `{
         "obj.UserResponse": {
             "type": "object",
             "properties": {
+                "ageRange": {
+                    "type": "string"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -1026,10 +1047,16 @@ const docTemplate = `{
                 "firstName": {
                     "type": "string"
                 },
+                "gender": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
                 "lastName": {
+                    "type": "string"
+                },
+                "location": {
                     "type": "string"
                 },
                 "mobileNumber": {
