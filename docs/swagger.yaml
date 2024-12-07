@@ -129,6 +129,17 @@ definitions:
       ringMasterEmail:
         type: string
     type: object
+  obj.EmailObj:
+    properties:
+      copy:
+        type: string
+      mailBody:
+        type: string
+      subject:
+        type: string
+      toEmail:
+        type: string
+    type: object
   obj.RemoveUserFromCartObj:
     properties:
       cartId:
@@ -680,6 +691,30 @@ paths:
       security:
       - BearerAuth: []
       summary: Log user In with username and password.
+      tags:
+      - user
+  /api/user/SendEmail:
+    post:
+      consumes:
+      - '*/*'
+      description: Send Email.
+      parameters:
+      - description: Send Email
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.EmailObj'
+      responses:
+        "200":
+          description: Email sent successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to send email at the monent!!
+          schema:
+            type: string
+      summary: Send Email.
       tags:
       - user
   /testSvc:

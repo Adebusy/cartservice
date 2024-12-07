@@ -722,6 +722,43 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/user/SendEmail": {
+            "post": {
+                "description": "Send Email.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Send Email.",
+                "parameters": [
+                    {
+                        "description": "Send Email",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/obj.EmailObj"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email sent successfully!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to send email at the monent!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/testSvc": {
             "get": {
                 "description": "get the status of server.",
@@ -940,6 +977,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "ringMasterEmail": {
+                    "type": "string"
+                }
+            }
+        },
+        "obj.EmailObj": {
+            "type": "object",
+            "properties": {
+                "copy": {
+                    "type": "string"
+                },
+                "mailBody": {
+                    "type": "string"
+                },
+                "subject": {
+                    "type": "string"
+                },
+                "toEmail": {
                     "type": "string"
                 }
             }

@@ -2,7 +2,9 @@ package api
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"net/smtp"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	inpuschema "github.com/Adebusy/cartbackendsvc/obj"
@@ -195,4 +197,54 @@ func LogIn(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, logAction)
 		return
 	}
+}
+
+// SendEmail godoc
+// @Summary		Send Email.
+// @Description	Send Email.
+// @Tags			user
+// @Accept			*/*
+// @User			json
+// @Param user body inpuschema.EmailObj true "Send Email"
+// @Success		200	{string}	string "Email sent successfully!!"
+// @Failure		400		{string} string	"Unable to send email at the monent!!"
+// @Router			/api/user/SendEmail [post]
+func SendEmail(ctx *gin.Context) {
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	reqIn := &inpuschema.EmailObj{}
+	if err := ctx.ShouldBindJSON(reqIn); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println(err.Error())
+		return
+	}
+
+	smtpHost := utilities.GoDotEnvVariable("SMTP_HOST")
+	smtpPort := utilities.GoDotEnvVariable("SMTP_PORT")
+	username := utilities.GoDotEnvVariable("SMTP_USERNAME")
+	password := utilities.GoDotEnvVariable("SMTP_PASSWORD")
+	sender := utilities.GoDotEnvVariable("SMTP_SEND")
+	recipient := reqIn.ToEmail
+
+	from := "From: " + sender + "\n"
+	to := "To: " + recipient + "\n"
+	subject := "Subject: Digital cart application\n"
+	body := reqIn.MailBody
+	message := []byte(from + to + subject + "\n" + body)
+	auth := smtp.PlainAuth("", username, password, smtpHost)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, sender, []string{recipient}, message)
+	if err != nil {
+		log.Fatalf("Failed to send email: %v", err)
+		resp := fmt.Sprintf("Error sending email: %v", err)
+		ctx.JSON(http.StatusBadRequest, resp)
+		return
+	}
+	logAction := fmt.Sprintf("SendEmail to %v", recipient)
+	logrus.Info(logAction)
+	ctx.JSON(http.StatusOK, "Email sent successfully!!!")
 }

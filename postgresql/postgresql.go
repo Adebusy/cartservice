@@ -31,7 +31,7 @@ func GetDB() *gorm.DB {
 
 	var dbStatus obj.ConfigStruct
 	var connectionString string
-	if env == "live" {
+	if env == "local" {
 		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=require", USERID, PASSWORD, SERVER, PORT, DATABASE)
 	} else {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
