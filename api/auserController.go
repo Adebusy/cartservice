@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"net/smtp"
+	"os"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	inpuschema "github.com/Adebusy/cartbackendsvc/obj"
@@ -224,11 +225,11 @@ func SendEmail(ctx *gin.Context) {
 		return
 	}
 
-	smtpHost := utilities.GoDotEnvVariable("SMTP_HOST")
-	smtpPort := utilities.GoDotEnvVariable("SMTP_PORT")
-	username := utilities.GoDotEnvVariable("SMTP_USERNAME")
-	password := utilities.GoDotEnvVariable("SMTP_PASSWORD")
-	sender := utilities.GoDotEnvVariable("SMTP_SENDER")
+	smtpHost := os.Getenv("SMTP_HOST")
+	smtpPort := os.Getenv("SMTP_PORT")
+	username := os.Getenv("SMTP_USERNAME")
+	password := os.Getenv("SMTP_PASSWORD")
+	sender := os.Getenv("SMTP_SENDER")
 	recipient := reqIn.ToEmail
 
 	from := "From: " + sender + "\n"
