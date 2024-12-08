@@ -984,9 +984,6 @@ const docTemplate = `{
         "obj.EmailObj": {
             "type": "object",
             "properties": {
-                "copy": {
-                    "type": "string"
-                },
                 "mailBody": {
                     "type": "string"
                 },

@@ -131,8 +131,6 @@ definitions:
     type: object
   obj.EmailObj:
     properties:
-      copy:
-        type: string
       mailBody:
         type: string
       subject:
