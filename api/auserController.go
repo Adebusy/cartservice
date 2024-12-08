@@ -228,12 +228,12 @@ func SendEmail(ctx *gin.Context) {
 	smtpPort := utilities.GoDotEnvVariable("SMTP_PORT")
 	username := utilities.GoDotEnvVariable("SMTP_USERNAME")
 	password := utilities.GoDotEnvVariable("SMTP_PASSWORD")
-	sender := utilities.GoDotEnvVariable("SMTP_SEND")
+	sender := utilities.GoDotEnvVariable("SMTP_SENDER")
 	recipient := reqIn.ToEmail
 
 	from := "From: " + sender + "\n"
 	to := "To: " + recipient + "\n"
-	subject := "Subject: Digital cart application\n"
+	subject := "Subject: Digital cart update\n"
 	body := reqIn.MailBody
 	message := []byte(from + to + subject + "\n" + body)
 	auth := smtp.PlainAuth("", username, password, smtpHost)

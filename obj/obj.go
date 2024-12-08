@@ -44,7 +44,6 @@ type EmailObj struct {
 	ToEmail  string `gorm:"column:ToEmail"`
 	Subject  string `gorm:"column:Subject"`
 	MailBody string `gorm:"column:MailBody"`
-	Copy     string `gorm:"column:Copy"`
 }
 
 type CartUserObj struct {

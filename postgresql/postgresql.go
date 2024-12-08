@@ -22,7 +22,7 @@ func GetDB() *gorm.DB {
 		ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
 		fmt.Println(ret)
 	}
-	env := "live"
+	env := "local"
 	SERVER := os.Getenv("DATABASE_SERVER")
 	USERID := os.Getenv("USERID")
 	DATABASE := os.Getenv("DATABASE")
@@ -31,7 +31,7 @@ func GetDB() *gorm.DB {
 
 	var dbStatus obj.ConfigStruct
 	var connectionString string
-	if env == "local" {
+	if env == "live" {
 		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=require", USERID, PASSWORD, SERVER, PORT, DATABASE)
 	} else {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
