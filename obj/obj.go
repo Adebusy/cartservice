@@ -1,16 +1,16 @@
 package obj
 
 type UserObj struct {
-	TitleId      string `json:"TitleId" validate:"required"`
+	TitleId      string `json:"TitleId"`
 	UserName     string `json:"UserName" validate:"required,min=8"`
 	NickName     string `json:"NickName"`
-	FirstName    string `json:"FirstName" validate:"required"`
-	LastName     string `json:"LastName" validate:"required"`
+	FirstName    string `json:"FirstName"`
+	LastName     string `json:"LastName"`
 	Gender       string `json:"Gender"`
 	Location     string `json:"Location"`
 	AgeRange     string `json:"AgeRange"`
 	Email        string `json:"email" validate:"required,email"`
-	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
+	MobileNumber string `json:"MobileNumber"`
 	Status       string `json:"Status" validate:"required,min=1"`
 	Password     string `json:"Password" validate:"required,min=8"`
 }
