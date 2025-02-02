@@ -162,9 +162,9 @@ func GetUserByMobile(ctx *gin.Context) {
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/LogIn/{UserName}/{Password} [get]
 func LogIn(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	userRespose := &inpuschema.UserResponse{}
 	UserName := ctx.Param("UserName")
 	Password := ctx.Param("Password")
