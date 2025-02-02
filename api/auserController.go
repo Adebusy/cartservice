@@ -41,9 +41,9 @@ var (
 // @Success		200	{object}	dbSchema.User
 // @Router			/api/user/CreateNewUser [post]
 func CreateNewUser(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	usww := dbSchema.ConneectDeal(psg.GetDB())
 	reqIn := &inpuschema.UserObj{}
 	if err := ctx.ShouldBindJSON(reqIn); err != nil {
