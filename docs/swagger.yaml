@@ -172,7 +172,6 @@ definitions:
       Location:
         type: string
       MobileNumber:
-        minLength: 8
         type: string
       NickName:
         type: string
@@ -190,12 +189,8 @@ definitions:
       email:
         type: string
     required:
-    - FirstName
-    - LastName
-    - MobileNumber
     - Password
     - Status
-    - TitleId
     - UserName
     - email
     type: object

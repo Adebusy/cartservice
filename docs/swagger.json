@@ -1028,12 +1028,8 @@
         "obj.UserObj": {
             "type": "object",
             "required": [
-                "FirstName",
-                "LastName",
-                "MobileNumber",
                 "Password",
                 "Status",
-                "TitleId",
                 "UserName",
                 "email"
             ],
@@ -1054,8 +1050,7 @@
                     "type": "string"
                 },
                 "MobileNumber": {
-                    "type": "string",
-                    "minLength": 8
+                    "type": "string"
                 },
                 "NickName": {
                     "type": "string"

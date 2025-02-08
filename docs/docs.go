@@ -1031,12 +1031,8 @@ const docTemplate = `{
         "obj.UserObj": {
             "type": "object",
             "required": [
-                "FirstName",
-                "LastName",
-                "MobileNumber",
                 "Password",
                 "Status",
-                "TitleId",
                 "UserName",
                 "email"
             ],
@@ -1057,8 +1053,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "MobileNumber": {
-                    "type": "string",
-                    "minLength": 8
+                    "type": "string"
                 },
                 "NickName": {
                     "type": "string"
