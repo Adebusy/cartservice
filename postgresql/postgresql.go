@@ -39,6 +39,7 @@ func GetDB() *gorm.DB {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
 
+	fmt.Println("asdsdsa")
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
 	}})
@@ -46,6 +47,7 @@ func GetDB() *gorm.DB {
 		panic("failed to connect database")
 	}
 
+	fmt.Println("connect 1")
 	read, err := os.ReadFile("config.json")
 	if err != nil {
 		logrus.Error(err)
@@ -53,6 +55,7 @@ func GetDB() *gorm.DB {
 	if err := json.Unmarshal(read, &dbStatus); err != nil {
 		logrus.Error(err)
 	}
+
 	fmt.Sprintln(strconv.FormatBool(dbStatus.CreateTable))
 
 	respos := fmt.Sprintf("print create table %s \n", strconv.FormatBool(dbStatus.CreateTable))
