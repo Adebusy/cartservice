@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 
-	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/obj"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
@@ -55,22 +54,22 @@ func GetDB() *gorm.DB {
 	}
 	fmt.Sprintln(strconv.FormatBool(dbStatus.CreateTable))
 
-	respos := fmt.Sprintf("print create teable %s", strconv.FormatBool(dbStatus.CreateTable))
+	respos := fmt.Sprintf("print create table %s \n", strconv.FormatBool(dbStatus.CreateTable))
 
-	fmt.Print("asdsdsa")
+	fmt.Print("asdsdsa\n")
 	fmt.Print(respos)
 	if dbStatus.CreateTable {
-		fmt.Println("create table")
-		DbGorm.AutoMigrate(&dbSchema.TblStatus{})
-		DbGorm.AutoMigrate(&dbSchema.TblCart{})
-		DbGorm.AutoMigrate(&dbSchema.TblTitle{})
-		DbGorm.AutoMigrate(&dbSchema.TblCartItem{})
-		DbGorm.AutoMigrate(&dbSchema.TblCartMember{})
-		DbGorm.AutoMigrate(&dbSchema.TblProduct{})
-		DbGorm.AutoMigrate(&dbSchema.TblUser{})
-		DbGorm.AutoMigrate(&dbSchema.TblClient{})
-		// DbGorm.AutoMigrate(&dbSchema.TblCartType{})
-		DbGorm.AutoMigrate(&dbSchema.TblClient{})
+		fmt.Println("create table\n")
+		// DbGorm.AutoMigrate(&dbSchema.TblStatus{})
+		// DbGorm.AutoMigrate(&dbSchema.TblCart{})
+		// DbGorm.AutoMigrate(&dbSchema.TblTitle{})
+		// DbGorm.AutoMigrate(&dbSchema.TblCartItem{})
+		// DbGorm.AutoMigrate(&dbSchema.TblCartMember{})
+		// DbGorm.AutoMigrate(&dbSchema.TblProduct{})
+		// DbGorm.AutoMigrate(&dbSchema.TblUser{})
+		// DbGorm.AutoMigrate(&dbSchema.TblClient{})
+		// // DbGorm.AutoMigrate(&dbSchema.TblCartType{})
+		// DbGorm.AutoMigrate(&dbSchema.TblClient{})
 	}
 
 	dbStatus.IsDropExistingTables = false
