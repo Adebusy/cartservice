@@ -31,13 +31,13 @@ func GetDB() *gorm.DB {
 	var dbStatus obj.ConfigStruct
 	var connectionString string
 	if env == "live" {
-		fmt.Println("connected")
+		fmt.Println("connected live")
 		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=require", USERID, PASSWORD, SERVER, PORT, DATABASE)
 	} else {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
 
-	fmt.Sprintf("connect %s", connectionString)
+	fmt.Printf("connect %s", connectionString)
 
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
