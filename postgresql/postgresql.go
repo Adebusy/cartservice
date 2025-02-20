@@ -55,8 +55,10 @@ func GetDB() *gorm.DB {
 	}
 	fmt.Sprintln(strconv.FormatBool(dbStatus.CreateTable))
 
-	fmt.Sprintf("print create teable %s", strconv.FormatBool(dbStatus.CreateTable))
+	respos := fmt.Sprintf("print create teable %s", strconv.FormatBool(dbStatus.CreateTable))
 
+	fmt.Print("asdsdsa")
+	fmt.Print(respos)
 	if dbStatus.CreateTable {
 		fmt.Println("create table")
 		DbGorm.AutoMigrate(&dbSchema.TblStatus{})
