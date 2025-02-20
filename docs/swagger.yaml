@@ -223,7 +223,7 @@ definitions:
       userName:
         type: string
     type: object
-host: https://jellyfish-app-emxxl.ondigitalocean.app
+host: https://jellyfish-app-gz2qc.ondigitalocean.app
 info:
   contact:
     email: alao.adebusy@gmail.com

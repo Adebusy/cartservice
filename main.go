@@ -23,9 +23,9 @@ import (
 
 func OptionMessage(c *gin.Context) {
 	//c.Header("Access-Control-Allow-Origin", "http://localhost:8080")
-	c.Header("Access-Control-Allow-Origin", "https://jellyfish-app-emxxl.ondigitalocean.app")
+	c.Header("Access-Control-Allow-Origin", "https://jellyfish-app-gz2qc.ondigitalocean.app")
 	c.Header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT")
-	// @host			https://jellyfish-app-emxxl.ondigitalocean.app
+	// @host			https://jellyfish-app-gz2qc.ondigitalocean.app
 	// @host			localhost:8080
 }
 
@@ -37,7 +37,7 @@ func OptionMessage(c *gin.Context) {
 // @contact.email	alao.adebusy@gmail.com
 // @license.name	Cart Manager Concept
 // @license.url	https://github.com/MartinHeinz/go-project-blueprint/blob/master/LICENSE
-// @host			https://jellyfish-app-emxxl.ondigitalocean.app
+// @host			https://jellyfish-app-gz2qc.ondigitalocean.app
 // @BasePath		/
 // @schemes		http
 func main() {
@@ -46,20 +46,20 @@ func main() {
 	docs.SwaggerInfo.Description = "This service is meant to manage Cart request"
 	docs.SwaggerInfo.Version = "1.0"
 	//docs.SwaggerInfo.Host = "localhost" + ":8080"
-	docs.SwaggerInfo.Host = "jellyfish-app-emxxl.ondigitalocean.app"
+	docs.SwaggerInfo.Host = "jellyfish-app-gz2qc.ondigitalocean.app"
 	docs.SwaggerInfo.BasePath = "/"
 	docs.SwaggerInfo.Schemes = []string{"https"}
 
 	svc := gin.Default()
 	svc.Use(cors.Default())
 	svc.Use(cors.New(cors.Config{
-		AllowOrigins:  []string{"https://jellyfish-app-emxxl.ondigitalocean.app"}, // List of allowed origins
+		AllowOrigins:  []string{"https://jellyfish-app-gz2qc.ondigitalocean.app"}, // List of allowed origins
 		AllowMethods:  []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders:  []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders: []string{"Content-Length"},
 	}))
 	//url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
-	url := ginSwagger.URL("https://jellyfish-app-emxxl.ondigitalocean.app/swagger/doc.json")
+	url := ginSwagger.URL("https://jellyfish-app-gz2qc.ondigitalocean.app/swagger/doc.json")
 
 	svc.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

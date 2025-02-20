@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"strconv"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/obj"
@@ -31,7 +30,7 @@ func GetDB() *gorm.DB {
 
 	var dbStatus obj.ConfigStruct
 	var connectionString string
-	fmt.Println("connected new")
+
 	if env == "live" {
 		fmt.Println("connected live")
 		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=require", USERID, PASSWORD, SERVER, "25060", DATABASE)
@@ -39,16 +38,15 @@ func GetDB() *gorm.DB {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
 
-	fmt.Println(connectionString)
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
 	}})
-	// if err != nil {
-	// 	fmt.Sprintln(err.Error())
-	// 	panic("failed to connect database")
-	// }
 
-	fmt.Println("connect 1")
+	if err != nil {
+		fmt.Sprintln(err.Error())
+		panic("failed to connect database")
+	}
+
 	read, err := os.ReadFile("config.json")
 	if err != nil {
 		logrus.Error(err)
@@ -56,37 +54,20 @@ func GetDB() *gorm.DB {
 	if err := json.Unmarshal(read, &dbStatus); err != nil {
 		logrus.Error(err)
 	}
+	DbGorm.AutoMigrate(&dbSchema.TblCartType{})
 
-	fmt.Sprintln(strconv.FormatBool(dbStatus.CreateTable))
-
-	respos := fmt.Sprintf("print create table %s \n", strconv.FormatBool(dbStatus.CreateTable))
-
-	fmt.Print("asdsdsa\n")
-	fmt.Print(respos)
-
-	DbGorm.AutoMigrate(&dbSchema.TblStatus{})
-	DbGorm.AutoMigrate(&dbSchema.TblCart{})
-	DbGorm.AutoMigrate(&dbSchema.TblTitle{})
-	DbGorm.AutoMigrate(&dbSchema.TblCartItem{})
-	DbGorm.AutoMigrate(&dbSchema.TblCartMember{})
-	DbGorm.AutoMigrate(&dbSchema.TblProduct{})
-	DbGorm.AutoMigrate(&dbSchema.TblUser{})
-	DbGorm.AutoMigrate(&dbSchema.TblClient{})
-	// DbGorm.AutoMigrate(&dbSchema.TblCartType{})
-	DbGorm.AutoMigrate(&dbSchema.TblClient{})
-
-	// if dbStatus.CreateTable {
-	// 	DbGorm.AutoMigrate(&dbSchema.TblStatus{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblCart{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblTitle{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblCartItem{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblCartMember{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblProduct{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblUser{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblClient{})
-	// 	// DbGorm.AutoMigrate(&dbSchema.TblCartType{})
-	// 	DbGorm.AutoMigrate(&dbSchema.TblClient{})
-	// }
+	if dbStatus.CreateTable {
+		DbGorm.AutoMigrate(&dbSchema.TblStatus{})
+		DbGorm.AutoMigrate(&dbSchema.TblCart{})
+		DbGorm.AutoMigrate(&dbSchema.TblTitle{})
+		DbGorm.AutoMigrate(&dbSchema.TblCartItem{})
+		DbGorm.AutoMigrate(&dbSchema.TblCartMember{})
+		DbGorm.AutoMigrate(&dbSchema.TblProduct{})
+		DbGorm.AutoMigrate(&dbSchema.TblUser{})
+		DbGorm.AutoMigrate(&dbSchema.TblClient{})
+		DbGorm.AutoMigrate(&dbSchema.TblCartType{})
+		DbGorm.AutoMigrate(&dbSchema.TblClient{})
+	}
 
 	dbStatus.IsDropExistingTables = false
 	dbStatus.CreateTable = false

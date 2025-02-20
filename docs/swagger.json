@@ -17,7 +17,7 @@
         },
         "version": "1.0"
     },
-    "host": "https://jellyfish-app-emxxl.ondigitalocean.app",
+    "host": "https://jellyfish-app-gz2qc.ondigitalocean.app",
     "basePath": "/",
     "paths": {
         "/api/admin/CreateTitle": {
