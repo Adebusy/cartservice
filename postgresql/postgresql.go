@@ -39,14 +39,14 @@ func GetDB() *gorm.DB {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
 
-	fmt.Println("asdsdsa")
+	fmt.Println("asdsdsa1")
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
 	}})
-	if err != nil {
-		fmt.Sprintln(err.Error())
-		panic("failed to connect database")
-	}
+	// if err != nil {
+	// 	fmt.Sprintln(err.Error())
+	// 	panic("failed to connect database")
+	// }
 
 	fmt.Println("connect 1")
 	read, err := os.ReadFile("config.json")
