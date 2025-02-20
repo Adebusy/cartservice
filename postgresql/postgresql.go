@@ -44,6 +44,7 @@ func GetDB() *gorm.DB {
 		SingularTable: true, NoLowerCase: true,
 	}})
 	if err != nil {
+		fmt.Sprintln(err.Error())
 		panic("failed to connect database")
 	}
 
