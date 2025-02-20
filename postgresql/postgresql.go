@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/obj"
@@ -30,6 +31,7 @@ func GetDB() *gorm.DB {
 
 	var dbStatus obj.ConfigStruct
 	var connectionString string
+	fmt.Println("connected new")
 	if env == "live" {
 		fmt.Println("connected live")
 		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=require", USERID, PASSWORD, SERVER, PORT, DATABASE)
@@ -37,7 +39,8 @@ func GetDB() *gorm.DB {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
 
-	fmt.Printf("connect %s", connectionString)
+	fmt.Println("connected new b2")
+	fmt.Println(connectionString)
 
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
@@ -53,6 +56,7 @@ func GetDB() *gorm.DB {
 	if err := json.Unmarshal(read, &dbStatus); err != nil {
 		logrus.Error(err)
 	}
+	fmt.Sprintln(strconv.FormatBool(dbStatus.CreateTable))
 
 	if dbStatus.CreateTable {
 		fmt.Println("create table")
