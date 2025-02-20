@@ -39,9 +39,6 @@ func GetDB() *gorm.DB {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
 
-	fmt.Println("connected new b2")
-	fmt.Println(connectionString)
-
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
 	}})
@@ -57,6 +54,8 @@ func GetDB() *gorm.DB {
 		logrus.Error(err)
 	}
 	fmt.Sprintln(strconv.FormatBool(dbStatus.CreateTable))
+
+	fmt.Sprintf("print create teable %s", strconv.FormatBool(dbStatus.CreateTable))
 
 	if dbStatus.CreateTable {
 		fmt.Println("create table")
