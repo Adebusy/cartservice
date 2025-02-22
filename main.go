@@ -89,7 +89,7 @@ func main() {
 	svc.POST("api/group/CreateGroupType", testSvc)
 	svc.POST("api/group/DeleteGroupType", testSvc)
 
-	svc.POST("api/admin/CreateRole", testSvc)
+	svc.POST("api/admin/CreateRole", testSvc) //test service
 	svc.POST("api/admin/DeleteRole", testSvc)
 	svc.GET("api/admin/GetAllRoles", testSvc)
 	svc.GET("api/admin/GetRoleByRoleId", testSvc)
