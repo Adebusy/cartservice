@@ -31,9 +31,9 @@ func CreateTitle(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// // @Security BearerAuth
 	// // @securityDefinitions.basic BearerAuth
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	// reqBearer := ctx.GetHeader("Authorization")
 	// if reqBearer == "" {
 	// 	resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
