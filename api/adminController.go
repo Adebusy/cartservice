@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -35,18 +34,18 @@ func CreateTitle(ctx *gin.Context) {
 	if !ValidateClient(ctx) {
 		return
 	}
-	reqBearer := ctx.GetHeader("Authorization")
-	if reqBearer == "" {
-		resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
-		ctx.JSON(http.StatusBadRequest, resp)
-		return
-	}
-	reqBearer = reqBearer[len("Bearer "):]
+	// reqBearer := ctx.GetHeader("Authorization")
+	// if reqBearer == "" {
+	// 	resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
+	// 	ctx.JSON(http.StatusBadRequest, resp)
+	// 	return
+	// }
+	// reqBearer = reqBearer[len("Bearer "):]
 
-	if doVerify := utilities.VerifyToken(reqBearer); doVerify != nil {
-		ctx.JSON(http.StatusBadRequest, "invalid token")
-		return
-	}
+	// if doVerify := utilities.VerifyToken(reqBearer); doVerify != nil {
+	// 	ctx.JSON(http.StatusBadRequest, "invalid token")
+	// 	return
+	// }
 
 	//validate request body
 	title := &TitleObj{}
@@ -119,10 +118,10 @@ func GetAllStatus(ctx *gin.Context) {
 func GetToken(ctx *gin.Context) {
 	obj := obj.TokenResp{}
 	username := ctx.Param("clientname")
-	if checkClient := client.GetClientByName(username); checkClient.Name == "" {
-		ctx.JSON(http.StatusBadRequest, "This client has not been onboarded, please register client and try again.")
-		return
-	}
+	// if checkClient := client.GetClientByName(username); checkClient.Name == "" {
+	// 	ctx.JSON(http.StatusBadRequest, "This client has not been onboarded, please register client and try again.")
+	// 	return
+	// }
 
 	if respToken, err := utilities.CreateToken(username); err != nil {
 		ctx.JSON(http.StatusBadRequest, "unable to get token at the moment.")
