@@ -34,11 +34,11 @@ var (
 // @Accept			*/*
 // @User			json
 // @Param user body inpuschema.UserObj true "Create new user"
-// @Param Authorization header string true "Authorization token"
-// @Param clientName header string true "registered client name"
 // @Success		200	{object}	dbSchema.User
 // @Router			/api/user/CreateNewUser [post]
 func CreateNewUser(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
@@ -84,14 +84,14 @@ func CreateNewUser(ctx *gin.Context) {
 // @Description	Get user by email address new cart user.
 // @Tags			user
 // @Param EmailAddress path string true "User email address"
-// @Param Authorization header string true "Authorization token"
-// @Param clientName header string true "registered client name"
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByEmailAddress/{EmailAddress} [get]
 func GetUserByEmailAddress(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
@@ -109,14 +109,14 @@ func GetUserByEmailAddress(ctx *gin.Context) {
 // @Description	existing user destails by mobile number.
 // @Tags			user
 // @Param MobileNumber path string true "User mobile number"
-// @Param Authorization header string true "Authorization token"
-// @Param clientName header string true "registered client name"
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByMobile/{MobileNumber} [get]
 func GetUserByMobile(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
@@ -152,14 +152,14 @@ func GetUserByMobile(ctx *gin.Context) {
 // @Tags			user
 // @Param UserName path string true "Username"
 // @Param Password path string true "Password"
-// @Param Authorization header string true "Authorization token"
-// @Param clientName header string true "registered client name"
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/LogIn/{UserName}/{Password} [get]
 func LogIn(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
