@@ -249,16 +249,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/api.TitleObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -287,17 +277,6 @@ paths:
       consumes:
       - '*/*'
       description: Get all Title.
-      parameters:
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -359,16 +338,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dataaccess.CartItemObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: Item added to cart successfully!!
@@ -393,16 +362,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CloseCartObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -423,16 +382,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CartObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -453,16 +402,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CartUserObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -483,16 +422,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dataaccess.RemoveCartItemObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: Item removed from cart successfully!!
@@ -517,16 +446,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.RemoveUserFromCartObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -547,16 +466,6 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.UserObj'
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
-        required: true
-        type: string
       responses:
         "200":
           description: OK
@@ -574,16 +483,6 @@ paths:
       - description: User email address
         in: path
         name: EmailAddress
-        required: true
-        type: string
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
         required: true
         type: string
       produces:
@@ -605,16 +504,6 @@ paths:
       - description: User mobile number
         in: path
         name: MobileNumber
-        required: true
-        type: string
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
         required: true
         type: string
       produces:
@@ -641,16 +530,6 @@ paths:
       - description: Password
         in: path
         name: Password
-        required: true
-        type: string
-      - description: Authorization token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: registered client name
-        in: header
-        name: clientName
         required: true
         type: string
       produces:

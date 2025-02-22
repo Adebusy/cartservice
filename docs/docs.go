@@ -42,20 +42,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/api.TitleObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -101,22 +87,6 @@ const docTemplate = `{
                     "admin"
                 ],
                 "summary": "Get all Titles.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -209,20 +179,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dataaccess.CartItemObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -260,20 +216,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.CloseCartObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -305,20 +247,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.CartObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -350,20 +278,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.CartUserObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -395,20 +309,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dataaccess.RemoveCartItemObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -446,20 +346,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.RemoveUserFromCartObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -491,20 +377,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/obj.UserObj"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -537,20 +409,6 @@ const docTemplate = `{
                         "name": "EmailAddress",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -582,20 +440,6 @@ const docTemplate = `{
                         "description": "User mobile number",
                         "name": "MobileNumber",
                         "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
                         "required": true
                     }
                 ],
@@ -635,20 +479,6 @@ const docTemplate = `{
                         "description": "Password",
                         "name": "Password",
                         "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "registered client name",
-                        "name": "clientName",
-                        "in": "header",
                         "required": true
                     }
                 ],
