@@ -26,11 +26,12 @@ type TitleObj struct {
 // @Param user body TitleObj true "Create new title"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	string
 // @Router			/api/admin/CreateTitle [post]
 func CreateTitle(ctx *gin.Context) {
+
+	// // @Security BearerAuth
+	// // @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -80,14 +81,14 @@ func CreateTitle(ctx *gin.Context) {
 // @User			json
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}  []dbSchema.TitleResp
 // @Router			/api/admin/GetTitles [get]
 func GetTitles(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	ctx.JSON(http.StatusOK, tit.GetTitles())
 }
 

@@ -25,11 +25,6 @@ const docTemplate = `{
     "paths": {
         "/api/admin/CreateTitle": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Create new Title.",
                 "consumes": [
                     "*/*"
@@ -98,11 +93,6 @@ const docTemplate = `{
         },
         "/api/admin/GetTitles": {
             "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Get all Title.",
                 "consumes": [
                     "*/*"
@@ -202,11 +192,6 @@ const docTemplate = `{
         },
         "/api/cart/AddItemToCart": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Add item to an existing cart.",
                 "consumes": [
                     "*/*"
@@ -258,11 +243,6 @@ const docTemplate = `{
         },
         "/api/cart/CloseCart": {
             "put": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Close Cart.",
                 "consumes": [
                     "*/*"
@@ -308,11 +288,6 @@ const docTemplate = `{
         },
         "/api/cart/CreateCart": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Create new cart user.",
                 "consumes": [
                     "*/*"
@@ -358,11 +333,6 @@ const docTemplate = `{
         },
         "/api/cart/CreateCartMember": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Create new Cart Member.",
                 "consumes": [
                     "*/*"
@@ -408,11 +378,6 @@ const docTemplate = `{
         },
         "/api/cart/RemoveItemFromCart": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "This action can only be performed by the cart master.",
                 "consumes": [
                     "*/*"
@@ -464,11 +429,6 @@ const docTemplate = `{
         },
         "/api/cart/RemoveUserFromCart": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Remove user from cart.",
                 "consumes": [
                     "*/*"
@@ -514,11 +474,6 @@ const docTemplate = `{
         },
         "/api/user/CreateNewUser": {
             "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Create new user cart user.",
                 "consumes": [
                     "*/*"
@@ -564,11 +519,6 @@ const docTemplate = `{
         },
         "/api/user/GetUserByEmailAddress/{EmailAddress}": {
             "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Get user by email address new cart user.",
                 "consumes": [
                     "*/*"
@@ -615,11 +565,6 @@ const docTemplate = `{
         },
         "/api/user/GetUserByMobile/{MobileNumber}": {
             "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "existing user destails by mobile number.",
                 "consumes": [
                     "*/*"
@@ -666,11 +611,6 @@ const docTemplate = `{
         },
         "/api/user/LogIn/{UserName}/{Password}": {
             "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
                 "description": "Log user In with username and password.",
                 "consumes": [
                     "*/*"

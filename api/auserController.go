@@ -36,11 +36,11 @@ var (
 // @Param user body inpuschema.UserObj true "Create new user"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	dbSchema.User
 // @Router			/api/user/CreateNewUser [post]
 func CreateNewUser(ctx *gin.Context) {
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
@@ -86,17 +86,17 @@ func CreateNewUser(ctx *gin.Context) {
 // @Param EmailAddress path string true "User email address"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByEmailAddress/{EmailAddress} [get]
 func GetUserByEmailAddress(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	requestEmail := ctx.Param("EmailAddress")
 	getUSer := usww.GetUserByEmailAddress(requestEmail)
 	logAction := fmt.Sprintf("GetUserByEmailAddress %v", requestEmail)
@@ -111,17 +111,17 @@ func GetUserByEmailAddress(ctx *gin.Context) {
 // @Param MobileNumber path string true "User mobile number"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByMobile/{MobileNumber} [get]
 func GetUserByMobile(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	userRespose := &inpuschema.UserResponse{}
 	requestMobile := ctx.Param("MobileNumber")
 	if getUSer := usww.GetUserByMobileNumber(requestMobile); getUSer.FirstName != "" {
@@ -154,14 +154,14 @@ func GetUserByMobile(ctx *gin.Context) {
 // @Param Password path string true "Password"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/LogIn/{UserName}/{Password} [get]
 func LogIn(ctx *gin.Context) {
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }

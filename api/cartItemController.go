@@ -18,15 +18,15 @@ import (
 // @Param user body dbSchema.CartItemObj true "Add item to cart"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Success		200	{string}	string "Item added to cart successfully!!"
 // @Failure		400		{string} string	"Unable to add item to cart at the monent!!"
 // @Router			/api/cart/AddItemToCart [post]
 func AddItemToCart(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	cartItemObj := &dbSchema.CartItemObj{}
 	if doConvert := ctx.ShouldBindJSON(cartItemObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
@@ -83,15 +83,15 @@ func AddItemToCart(ctx *gin.Context) {
 // @Param user body dbSchema.RemoveCartItemObj true "Remove item from cart"
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Security BearerAuth
-// @securityDefinitions.basic BearerAuth
 // @Success		200	{string}	string "Item removed from cart successfully!!"
 // @Failure		400		{string} string	"Unable to remove item to cart at the monent!!"
 // @Router			/api/cart/RemoveItemFromCart [post]
 func RemoveItemFromCart(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	RemoveCartItemObj := &dbSchema.RemoveCartItemObj{}
 	if doConvert := ctx.ShouldBindJSON(RemoveCartItemObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
