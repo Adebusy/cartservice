@@ -189,6 +189,7 @@ definitions:
       email:
         type: string
     required:
+    - MobileNumber
     - Password
     - Status
     - UserName

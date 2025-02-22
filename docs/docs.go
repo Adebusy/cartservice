@@ -971,6 +971,7 @@ const docTemplate = `{
         "obj.UserObj": {
             "type": "object",
             "required": [
+                "MobileNumber",
                 "Password",
                 "Status",
                 "UserName",
