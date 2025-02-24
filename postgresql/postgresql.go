@@ -70,13 +70,13 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 	}
 
-	sqlDB, err := DbGorm.DB()
-	if err != nil {
-		logrus.Fatal("Failed to get SQL DB:", err)
-	}
+	// sqlDB, err := DbGorm.DB()
+	// if err != nil {
+	// 	logrus.Fatal("Failed to get SQL DB:", err)
+	// }
 
 	// Defer closing the database connection
-	defer sqlDB.Close()
+	// defer sqlDB.Close()
 	dbStatus.IsDropExistingTables = false
 	dbStatus.CreateTable = false
 	domarchal, _ := json.Marshal(dbStatus)
