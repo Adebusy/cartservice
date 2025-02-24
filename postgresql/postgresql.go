@@ -39,7 +39,6 @@ func GetDB() *gorm.DB {
 	}
 
 	logrus.Info(connectionString)
-	fmt.Sprintln(connectionString)
 	DbGorm, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{NamingStrategy: schema.NamingStrategy{
 		SingularTable: true, NoLowerCase: true,
 	}})
@@ -71,6 +70,13 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 	}
 
+	sqlDB, err := DbGorm.DB()
+	if err != nil {
+		logrus.Fatal("Failed to get SQL DB:", err)
+	}
+
+	// Defer closing the database connection
+	defer sqlDB.Close()
 	dbStatus.IsDropExistingTables = false
 	dbStatus.CreateTable = false
 	domarchal, _ := json.Marshal(dbStatus)

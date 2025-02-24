@@ -10,7 +10,7 @@ type UserObj struct {
 	Location     string `json:"Location"`
 	AgeRange     string `json:"AgeRange"`
 	Email        string `json:"email" validate:"required,email"`
-	MobileNumber string `json:"MobileNumber" validate:"required,MobileNumber"`
+	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
 	Status       string `json:"Status" validate:"required,min=1"`
 	Password     string `json:"Password" validate:"required,min=8"`
 }
