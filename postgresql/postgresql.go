@@ -33,7 +33,7 @@ func GetDB() *gorm.DB {
 
 	if env == "live" {
 		fmt.Println("connected live")
-		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s/defaultdb?sslmode=require", USERID, PASSWORD, SERVER, "25060", DATABASE)
+		connectionString = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=require", USERID, PASSWORD, SERVER, "25060", DATABASE)
 	} else {
 		connectionString = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", SERVER, USERID, PASSWORD, DATABASE, PORT)
 	}
