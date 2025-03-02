@@ -66,5 +66,11 @@ func (cn ConnectTitle) DeleteTitleByTitleId(titleId int) error {
 func (cn ConnectTitle) GetTitles() []TblTitle {
 	req := []TblTitle{}
 	cn.DbGorm.Select("Id", "Name", "Status").Find(&req)
+	sqlDB, err := cn.DbGorm.DB()
+	if err != nil {
+		logrus.Fatal("Failed to get SQL DB:", err)
+	}
+	//Defer closing the database connection
+	defer sqlDB.Close()
 	return req
 }
