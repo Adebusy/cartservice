@@ -55,7 +55,9 @@ func GetDB() *gorm.DB {
 	if err := json.Unmarshal(read, &dbStatus); err != nil {
 		logrus.Error(err)
 	}
-	// DbGorm.AutoMigrate(&dbSchema.TblCartType{})
+	DbGorm.AutoMigrate(&dbSchema.TblGroupType{})
+	DbGorm.AutoMigrate(&dbSchema.TblGroupUser{})
+	DbGorm.AutoMigrate(&dbSchema.TblOrderItem{})
 
 	if dbStatus.CreateTable {
 		DbGorm.AutoMigrate(&dbSchema.TblStatus{})

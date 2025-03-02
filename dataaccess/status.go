@@ -8,6 +8,33 @@ type TblStatus struct {
 	CreatedAt  time.Time `json:"CreatedAt" validate:"omitempty"`
 }
 
+type TblGroupType struct {
+	Id            int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
+	GroupTypeName string    `json:"GroupTypeName"`
+	Status        bool      `json:"Status" validate:"omitempty"`
+	DateAdded     time.Time `json:"DateAdded"`
+}
+
+type TblGroupUser struct {
+	Id          int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
+	GroupName   string    `json:"GroupName"`
+	Description string    `json:"Description"`
+	UserId      int       `json:"UserId"`
+	RoleId      int       `json:"RoleId"`
+	Status      bool      `json:"Status" validate:"omitempty"`
+	GroupTypeId int       `json:"GroupTypeId"`
+	DateAdded   time.Time `json:"DateAdded"`
+}
+
+type TblOrderItem struct {
+	Id              int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
+	OrderId         int       `json:"OrderId"`
+	ProductId       int       `json:"ProductId"`
+	Quantity        int       `json:"Quantity"`
+	PriceAtPurchase int       `json:"PriceAtPurchase"`
+	DateAdded       time.Time `json:"DateAdded"`
+}
+
 type StatusResp struct {
 	Id         int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
 	StatusName string    `json:"StatusName" validate:"omitempty"`
