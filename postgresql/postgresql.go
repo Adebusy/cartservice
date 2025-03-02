@@ -55,11 +55,13 @@ func GetDB() *gorm.DB {
 	if err := json.Unmarshal(read, &dbStatus); err != nil {
 		logrus.Error(err)
 	}
-	DbGorm.AutoMigrate(&dbSchema.TblGroupType{})
-	DbGorm.AutoMigrate(&dbSchema.TblGroupUser{})
-	DbGorm.AutoMigrate(&dbSchema.TblOrderItem{})
+
+	DbGorm.AutoMigrate(&dbSchema.TblRole{})
 
 	if dbStatus.CreateTable {
+		DbGorm.AutoMigrate(&dbSchema.TblGroupType{})
+		DbGorm.AutoMigrate(&dbSchema.TblGroupUser{})
+		DbGorm.AutoMigrate(&dbSchema.TblOrderItem{})
 		DbGorm.AutoMigrate(&dbSchema.TblStatus{})
 		DbGorm.AutoMigrate(&dbSchema.TblCart{})
 		DbGorm.AutoMigrate(&dbSchema.TblTitle{})
@@ -69,8 +71,8 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblUser{})
 		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 		DbGorm.AutoMigrate(&dbSchema.TblCartType{})
-		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 	}
+
 	dbStatus.IsDropExistingTables = false
 	dbStatus.CreateTable = false
 	domarchal, _ := json.Marshal(dbStatus)

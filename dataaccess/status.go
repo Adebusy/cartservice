@@ -8,6 +8,13 @@ type TblStatus struct {
 	CreatedAt  time.Time `json:"CreatedAt" validate:"omitempty"`
 }
 
+type TblRole struct {
+	Id        int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
+	RoleName  string    `json:"RoleName" validate:"omitempty"`
+	Status    bool      `json:"Status" validate:"omitempty"`
+	CreatedAt time.Time `json:"CreatedAt" validate:"omitempty"`
+}
+
 type TblGroupType struct {
 	Id            int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
 	GroupTypeName string    `json:"GroupTypeName"`
