@@ -65,6 +65,7 @@ func main() {
 
 	svc.GET("/health", testSvc)
 	svc.POST("/api/user/CreateNewUser", api.CreateNewUser)                             //done
+	svc.POST("/api/user/SignUp", api.SignUp)                                           //done
 	svc.GET("api/user/GetUserByEmailAddress/:EmailAddress", api.GetUserByEmailAddress) //done
 	svc.GET("api/user/LogIn/:UserName/:Password", api.LogIn)                           //done
 	svc.GET("api/user/GetUserByMobile/:MobileNumber", api.GetUserByMobile)             //done

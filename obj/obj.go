@@ -15,6 +15,17 @@ type UserObj struct {
 	Password     string `json:"Password" validate:"required,min=8"`
 }
 
+type SignUpUser struct {
+	UserName     string `json:"UserName" validate:"required,min=8"`
+	NickName     string `json:"NickName"`
+	FirstName    string `json:"FirstName"`
+	LastName     string `json:"LastName"`
+	Email        string `json:"email" validate:"required,email"`
+	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
+	Status       int    `json:"Status" validate:"required,min=1"`
+	Password     string `json:"Password" validate:"required,min=8"`
+}
+
 type UserResponse struct {
 	Id           uint
 	TitleId      string

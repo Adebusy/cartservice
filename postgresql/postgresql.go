@@ -56,9 +56,8 @@ func GetDB() *gorm.DB {
 		logrus.Error(err)
 	}
 
-	DbGorm.AutoMigrate(&dbSchema.TblRole{})
-
 	if dbStatus.CreateTable {
+		DbGorm.AutoMigrate(&dbSchema.TblRole{})
 		DbGorm.AutoMigrate(&dbSchema.TblGroupType{})
 		DbGorm.AutoMigrate(&dbSchema.TblGroupUser{})
 		DbGorm.AutoMigrate(&dbSchema.TblOrderItem{})

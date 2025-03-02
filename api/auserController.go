@@ -27,6 +27,51 @@ var (
 	validateMe = validator.New()
 )
 
+// SignUp godoc
+// @Summary		SignUp new user cart user.
+// @Description	SignUp new user cart user.
+// @Tags			user
+// @Accept			*/*
+// @User			json
+// @Param user body inpuschema.SignUpUser true "SignUp new user"
+// @Success		200	{object}	dbSchema.User
+// @Router			/api/user/SignUp [post]
+func SignUp(ctx *gin.Context) {
+	usww := dbSchema.ConneectDeal(psg.GetDB())
+	reqIn := &inpuschema.SignUpUser{}
+	if err := ctx.ShouldBindJSON(reqIn); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println(err.Error())
+		return
+	}
+
+	//validate request
+	if validateObj := validateMe.Struct(reqIn); validateObj != nil {
+		ctx.JSON(http.StatusBadRequest, validateObj.Error())
+		return
+	}
+
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(reqIn.Password), 8)
+	req := &dbSchema.User{FirstName: reqIn.FirstName, UserName: reqIn.UserName, NickName: reqIn.NickName,
+		LastName: reqIn.LastName, EmailAddress: reqIn.Email,
+		MobileNumber: reqIn.MobileNumber, Status: "1", Password: string(hashedPassword),
+		CreatedAt: "2024-09-15"}
+
+	if CheckEmailExist := usww.GetUserByEmailAddress(req.EmailAddress); CheckEmailExist.UserName != "" {
+		ctx.JSON(http.StatusBadRequest, "User with email address "+req.EmailAddress+" already exist!!")
+		return
+	}
+
+	if CheckMobile := usww.GetUserByMobileNumber(req.MobileNumber); CheckMobile.UserName != "" {
+		ctx.JSON(http.StatusBadRequest, "User with mobile number "+req.MobileNumber+" already exist!!")
+		return
+	}
+
+	doCreate := usww.CreateUser(req)
+	logrus.Info(doCreate)
+	ctx.JSON(http.StatusOK, doCreate)
+}
+
 // CreateNewUser godoc
 // @Summary		Create new user cart user.
 // @Description	Create new user cart user.

@@ -529,6 +529,37 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/user/SignUp": {
+            "post": {
+                "description": "SignUp new user cart user.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "SignUp new user cart user.",
+                "parameters": [
+                    {
+                        "description": "SignUp new user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/obj.SignUpUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.User"
+                        }
+                    }
+                }
+            }
+        },
         "/testSvc": {
             "get": {
                 "description": "get the status of server.",
@@ -790,6 +821,46 @@ const docTemplate = `{
                 }
             }
         },
+        "obj.SignUpUser": {
+            "type": "object",
+            "required": [
+                "MobileNumber",
+                "Password",
+                "Status",
+                "UserName",
+                "email"
+            ],
+            "properties": {
+                "FirstName": {
+                    "type": "string"
+                },
+                "LastName": {
+                    "type": "string"
+                },
+                "MobileNumber": {
+                    "type": "string",
+                    "minLength": 8
+                },
+                "NickName": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string",
+                    "minLength": 8
+                },
+                "Status": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "UserName": {
+                    "type": "string",
+                    "minLength": 8
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
         "obj.TokenResp": {
             "type": "object",
             "properties": {
@@ -824,7 +895,8 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "MobileNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 8
                 },
                 "NickName": {
                     "type": "string"

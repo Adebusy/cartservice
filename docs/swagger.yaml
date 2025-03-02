@@ -154,6 +154,35 @@ definitions:
       responseMessage:
         type: string
     type: object
+  obj.SignUpUser:
+    properties:
+      FirstName:
+        type: string
+      LastName:
+        type: string
+      MobileNumber:
+        minLength: 8
+        type: string
+      NickName:
+        type: string
+      Password:
+        minLength: 8
+        type: string
+      Status:
+        minimum: 1
+        type: integer
+      UserName:
+        minLength: 8
+        type: string
+      email:
+        type: string
+    required:
+    - MobileNumber
+    - Password
+    - Status
+    - UserName
+    - email
+    type: object
   obj.TokenResp:
     properties:
       token:
@@ -172,6 +201,7 @@ definitions:
       Location:
         type: string
       MobileNumber:
+        minLength: 8
         type: string
       NickName:
         type: string
@@ -564,6 +594,26 @@ paths:
           schema:
             type: string
       summary: Send Email.
+      tags:
+      - user
+  /api/user/SignUp:
+    post:
+      consumes:
+      - '*/*'
+      description: SignUp new user cart user.
+      parameters:
+      - description: SignUp new user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.SignUpUser'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.User'
+      summary: SignUp new user cart user.
       tags:
       - user
   /testSvc:
