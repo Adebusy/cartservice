@@ -22,6 +22,11 @@
     "paths": {
         "/api/admin/CreateTitle": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new Title.",
                 "consumes": [
                     "*/*"
@@ -39,6 +44,20 @@
                         "schema": {
                             "$ref": "#/definitions/api.TitleObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -76,6 +95,11 @@
         },
         "/api/admin/GetTitles": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Get all Title.",
                 "consumes": [
                     "*/*"
@@ -84,6 +108,22 @@
                     "admin"
                 ],
                 "summary": "Get all Titles.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -159,6 +199,11 @@
         },
         "/api/cart/AddItemToCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Add item to an existing cart.",
                 "consumes": [
                     "*/*"
@@ -176,6 +221,20 @@
                         "schema": {
                             "$ref": "#/definitions/dataaccess.CartItemObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -196,6 +255,11 @@
         },
         "/api/cart/CloseCart": {
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Close Cart.",
                 "consumes": [
                     "*/*"
@@ -213,6 +277,20 @@
                         "schema": {
                             "$ref": "#/definitions/obj.CloseCartObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -227,6 +305,11 @@
         },
         "/api/cart/CreateCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new cart user.",
                 "consumes": [
                     "*/*"
@@ -244,6 +327,20 @@
                         "schema": {
                             "$ref": "#/definitions/obj.CartObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -258,6 +355,11 @@
         },
         "/api/cart/CreateCartMember": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Create new Cart Member.",
                 "consumes": [
                     "*/*"
@@ -275,6 +377,20 @@
                         "schema": {
                             "$ref": "#/definitions/obj.CartUserObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -289,6 +405,11 @@
         },
         "/api/cart/RemoveItemFromCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "This action can only be performed by the cart master.",
                 "consumes": [
                     "*/*"
@@ -306,6 +427,20 @@
                         "schema": {
                             "$ref": "#/definitions/dataaccess.RemoveCartItemObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -326,6 +461,11 @@
         },
         "/api/cart/RemoveUserFromCart": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Remove user from cart.",
                 "consumes": [
                     "*/*"
@@ -343,6 +483,20 @@
                         "schema": {
                             "$ref": "#/definitions/obj.RemoveUserFromCartObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -357,6 +511,11 @@
         },
         "/api/user/CompleteSignUp": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "CompleteSignUp user signup.",
                 "consumes": [
                     "*/*"
@@ -366,6 +525,20 @@
                 ],
                 "summary": "CompleteSignUp user signup.",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "description": "CompleteSignUp user signup",
                         "name": "user",
@@ -419,6 +592,11 @@
         },
         "/api/user/GetUserByEmailAddress/{EmailAddress}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Get user by email address new cart user.",
                 "consumes": [
                     "*/*"
@@ -437,6 +615,20 @@
                         "name": "EmailAddress",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -451,6 +643,11 @@
         },
         "/api/user/GetUserByMobile/{MobileNumber}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "existing user destails by mobile number.",
                 "consumes": [
                     "*/*"
@@ -468,6 +665,20 @@
                         "description": "User mobile number",
                         "name": "MobileNumber",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -522,6 +733,11 @@
         },
         "/api/user/SendEmail": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Send Email.",
                 "consumes": [
                     "*/*"
@@ -539,6 +755,20 @@
                         "schema": {
                             "$ref": "#/definitions/obj.EmailObj"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {

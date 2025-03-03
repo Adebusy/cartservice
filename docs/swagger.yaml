@@ -293,11 +293,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/api.TitleObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Create new Title.
       tags:
       - admin
@@ -321,6 +333,17 @@ paths:
       consumes:
       - '*/*'
       description: Get all Title.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -328,6 +351,8 @@ paths:
             items:
               $ref: '#/definitions/dataaccess.TitleResp'
             type: array
+      security:
+      - BearerAuth: []
       summary: Get all Titles.
       tags:
       - admin
@@ -382,6 +407,16 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dataaccess.CartItemObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: Item added to cart successfully!!
@@ -391,6 +426,8 @@ paths:
           description: Unable to add item to cart at the monent!!
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Add item to an existing cart.
       tags:
       - cart
@@ -406,11 +443,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CloseCartObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Close  Cart.
       tags:
       - cart
@@ -426,11 +475,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CartObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Create new  cart user.
       tags:
       - cart
@@ -446,11 +507,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.CartUserObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Create new  Cart Member.
       tags:
       - cart
@@ -466,6 +539,16 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dataaccess.RemoveCartItemObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: Item removed from cart successfully!!
@@ -475,6 +558,8 @@ paths:
           description: Unable to remove item to cart at the monent!!
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Remove item  from existing cart.
       tags:
       - cart
@@ -490,11 +575,23 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.RemoveUserFromCartObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: OK
           schema:
             $ref: '#/definitions/obj.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: Remove user from cart.
       tags:
       - cart
@@ -504,6 +601,16 @@ paths:
       - '*/*'
       description: CompleteSignUp user signup.
       parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       - description: CompleteSignUp user signup
         in: body
         name: user
@@ -515,6 +622,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/dataaccess.ResponseMessage'
+      security:
+      - BearerAuth: []
       summary: CompleteSignUp user signup.
       tags:
       - user
@@ -549,6 +658,16 @@ paths:
         name: EmailAddress
         required: true
         type: string
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -556,6 +675,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/obj.UserResponse'
+      security:
+      - BearerAuth: []
       summary: Get user by email address new cart user.
       tags:
       - user
@@ -570,6 +691,16 @@ paths:
         name: MobileNumber
         required: true
         type: string
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -577,6 +708,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/obj.UserResponse'
+      security:
+      - BearerAuth: []
       summary: existing user destails by mobile number.
       tags:
       - user
@@ -618,6 +751,16 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/obj.EmailObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       responses:
         "200":
           description: Email sent successfully!!
@@ -627,6 +770,8 @@ paths:
           description: Unable to send email at the monent!!
           schema:
             type: string
+      security:
+      - BearerAuth: []
       summary: Send Email.
       tags:
       - user

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -23,29 +24,32 @@ type TitleObj struct {
 // @Accept			*/*
 // @User			json
 // @Param user body TitleObj true "Create new title"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	string
 // @Router			/api/admin/CreateTitle [post]
 func CreateTitle(ctx *gin.Context) {
-
 	// @Param Authorization header string true "Authorization token"
 	// @Param clientName header string true "registered client name"
 	// // @Security BearerAuth
 	// // @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
-	// reqBearer := ctx.GetHeader("Authorization")
-	// if reqBearer == "" {
-	// 	resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
-	// 	ctx.JSON(http.StatusBadRequest, resp)
-	// 	return
-	// }
-	// reqBearer = reqBearer[len("Bearer "):]
+	if !ValidateClient(ctx) {
+		return
+	}
+	reqBearer := ctx.GetHeader("Authorization")
+	if reqBearer == "" {
+		resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
+		ctx.JSON(http.StatusBadRequest, resp)
+		return
+	}
+	reqBearer = reqBearer[len("Bearer "):]
 
-	// if doVerify := utilities.VerifyToken(reqBearer); doVerify != nil {
-	// 	ctx.JSON(http.StatusBadRequest, "invalid token")
-	// 	return
-	// }
+	if doVerify := utilities.VerifyToken(reqBearer); doVerify != nil {
+		ctx.JSON(http.StatusBadRequest, "invalid token")
+		return
+	}
 
 	//validate request body
 	title := &TitleObj{}
@@ -78,6 +82,10 @@ func CreateTitle(ctx *gin.Context) {
 // @Tags			admin
 // @Accept			*/*
 // @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}  []dbSchema.TitleResp
 // @Router			/api/admin/GetTitles [get]
 func GetTitles(ctx *gin.Context) {
@@ -85,9 +93,9 @@ func GetTitles(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	ctx.JSON(http.StatusOK, tit.GetTitles())
 }
 

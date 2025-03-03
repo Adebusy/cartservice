@@ -17,6 +17,10 @@ import (
 // @Accept			*/*
 // @User			json
 // @Param user body inputschema.CartObj true "Create new user"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCart [post]
 func CreateCart(ctx *gin.Context) {
@@ -24,9 +28,9 @@ func CreateCart(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CartObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
@@ -97,6 +101,10 @@ func CreateCart(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param user body inputschema.CartUserObj true "Create new cart member"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCartMember [post]
 func CreateCartMember(ctx *gin.Context) {
@@ -104,9 +112,9 @@ func CreateCartMember(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CartUserObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
@@ -161,16 +169,17 @@ func CreateCartMember(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param user body inputschema.RemoveUserFromCartObj true "Remove member from cart"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/RemoveUserFromCart [post]
 func RemoveUserFromCart(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+
+	if !ValidateClient(ctx) {
+		return
+	}
 	resp := inputschema.ResponseMessage{}
 	requestObj := &inputschema.RemoveUserFromCartObj{}
 	if doConvert := ctx.ShouldBindJSON(requestObj); doConvert != nil {
@@ -233,6 +242,10 @@ func RemoveUserFromCart(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param user body inputschema.CloseCartObj true "Close cart"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CloseCart [put]
 func CloseCart(ctx *gin.Context) {
@@ -240,9 +253,9 @@ func CloseCart(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CloseCartObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)

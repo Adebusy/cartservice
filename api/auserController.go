@@ -127,6 +127,10 @@ func CreateNewUser(ctx *gin.Context) {
 // @Tags			user
 // @Accept			*/*
 // @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Param user body inpuschema.CompleteSignUp true "CompleteSignUp user signup"
 // @Success		200	{object}	dbSchema.ResponseMessage
 // @Router			/api/user/CompleteSignUp [post]
@@ -135,9 +139,9 @@ func CompleteSignUp(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	usww := dbSchema.ConneectDeal(psg.GetDB())
 	reqIn := &inpuschema.CompleteSignUp{}
 	if err := ctx.ShouldBindJSON(reqIn); err != nil {
@@ -189,6 +193,10 @@ func CompleteSignUp(ctx *gin.Context) {
 // @Produce json
 // @Accept			*/*
 // @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByEmailAddress/{EmailAddress} [get]
 func GetUserByEmailAddress(ctx *gin.Context) {
@@ -196,9 +204,9 @@ func GetUserByEmailAddress(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	requestEmail := ctx.Param("EmailAddress")
 	getUSer := usww.GetUserByEmailAddress(requestEmail)
 	logAction := fmt.Sprintf("GetUserByEmailAddress %v", requestEmail)
@@ -214,6 +222,10 @@ func GetUserByEmailAddress(ctx *gin.Context) {
 // @Produce json
 // @Accept			*/*
 // @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByMobile/{MobileNumber} [get]
 func GetUserByMobile(ctx *gin.Context) {
@@ -221,9 +233,9 @@ func GetUserByMobile(ctx *gin.Context) {
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
 	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	userRespose := &inpuschema.UserResponse{}
 	requestMobile := ctx.Param("MobileNumber")
 	if getUSer := usww.GetUserByMobileNumber(requestMobile); getUSer.FirstName != "" {
@@ -309,13 +321,17 @@ func LogIn(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param user body inpuschema.EmailObj true "Send Email"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
 // @Success		200	{string}	string "Email sent successfully!!"
 // @Failure		400		{string} string	"Unable to send email at the monent!!"
 // @Router			/api/user/SendEmail [post]
 func SendEmail(ctx *gin.Context) {
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	// @Param Authorization header string true "Authorization token"
 	// @Param clientName header string true "registered client name"
 	// @Security BearerAuth
