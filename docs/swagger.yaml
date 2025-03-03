@@ -154,16 +154,12 @@ definitions:
       responseMessage:
         type: string
     type: object
-  obj.SignUpUser:
+  obj.SignUp:
     properties:
-      FirstName:
-        type: string
-      LastName:
+      Email:
         type: string
       MobileNumber:
         minLength: 8
-        type: string
-      NickName:
         type: string
       Password:
         minLength: 8
@@ -171,17 +167,11 @@ definitions:
       Status:
         minimum: 1
         type: integer
-      UserName:
-        minLength: 8
-        type: string
-      email:
-        type: string
     required:
+    - Email
     - MobileNumber
     - Password
     - Status
-    - UserName
-    - email
     type: object
   obj.TokenResp:
     properties:
@@ -607,7 +597,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/obj.SignUpUser'
+          $ref: '#/definitions/obj.SignUp'
       responses:
         "200":
           description: OK

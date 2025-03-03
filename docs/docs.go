@@ -546,7 +546,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/obj.SignUpUser"
+                            "$ref": "#/definitions/obj.SignUp"
                         }
                     }
                 ],
@@ -821,28 +821,21 @@ const docTemplate = `{
                 }
             }
         },
-        "obj.SignUpUser": {
+        "obj.SignUp": {
             "type": "object",
             "required": [
+                "Email",
                 "MobileNumber",
                 "Password",
-                "Status",
-                "UserName",
-                "email"
+                "Status"
             ],
             "properties": {
-                "FirstName": {
-                    "type": "string"
-                },
-                "LastName": {
+                "Email": {
                     "type": "string"
                 },
                 "MobileNumber": {
                     "type": "string",
                     "minLength": 8
-                },
-                "NickName": {
-                    "type": "string"
                 },
                 "Password": {
                     "type": "string",
@@ -851,13 +844,6 @@ const docTemplate = `{
                 "Status": {
                     "type": "integer",
                     "minimum": 1
-                },
-                "UserName": {
-                    "type": "string",
-                    "minLength": 8
-                },
-                "email": {
-                    "type": "string"
                 }
             }
         },

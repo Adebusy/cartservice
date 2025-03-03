@@ -3,6 +3,7 @@ package dataaccess
 import (
 	"time"
 
+	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
 
@@ -49,6 +50,7 @@ func ConneectDeal(db *gorm.DB) Iuser {
 
 type Iuser interface {
 	CreateUser(usr *User) string
+	SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string
 	GetUserByEmailAddress(EmailAddress string) User
 	GetUserByEmailUsername(EmailAddress string) User
 	GetUserByMobileNumber(MobileNumber string) User
@@ -70,9 +72,19 @@ type Iuser interface {
 
 func (cn DbConnect) CreateUser(usr *User) string {
 	if doinssert := cn.DbGorm.Table("TblUser").Create(&usr).Error; doinssert != nil {
+		logrus.Error(doinssert)
 		return "Unable to create user at the moment!!"
 	} else {
 		return "User created successfully!!"
+	}
+}
+
+func (cn DbConnect) SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string {
+	if doinssert := cn.DbGorm.Table("TblUser").Select("FirstName", "LastName", "EmailAddress", "MobileNumber", "Password", "Status", "CreatedAt").Create(map[string]interface{}{"FirstName": "", "LastName": "", "EmailAddress": emailAddress, "MobileNumber": mobileNumber, "Password": password, "Status": "5", "CreatedAt": createdAt}).Error; doinssert != nil {
+		logrus.Error(doinssert)
+		return "Unable to create create sign up at the moment!!"
+	} else {
+		return "User signed up successfully!!"
 	}
 }
 
