@@ -284,7 +284,7 @@ func LogIn(ctx *gin.Context) {
 	Password := ctx.Param("Password")
 	password, _ := utilities.HashPassword(Password)
 
-	if getUSer := usww.GetUserByEmailUsername(UserName); getUSer.EmailAddress != "" {
+	if getUSer := usww.GetUserByEmailAddress(UserName); getUSer.EmailAddress != "" {
 		if utilities.CheckPasswordHash(Password, password) {
 			userRespose.TitleId = getUSer.TitleId
 			userRespose.UserName = getUSer.UserName
