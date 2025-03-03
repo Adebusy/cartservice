@@ -6,6 +6,7 @@ import (
 
 	"github.com/Adebusy/cartbackendsvc/utilities"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func ValidateClient(ctx *gin.Context) bool {
@@ -31,6 +32,9 @@ func ValidateClient(ctx *gin.Context) bool {
 	}
 
 	reqBearer = reqBearer[len("Bearer "):]
+	logrus.Info("reqBearer")
+	logrus.Info(reqBearer)
+	logrus.Info("reqBearer")
 	if doVerify := utilities.VerifyToken(reqBearer); doVerify != nil {
 		ctx.JSON(http.StatusBadRequest, "invalid token")
 		return false
