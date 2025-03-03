@@ -19,7 +19,18 @@ type SignUp struct {
 	Email        string `json:"Email" validate:"required,email"`
 	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
 	Password     string `json:"Password" validate:"required,min=8"`
-	Status       int    `json:"Status" validate:"required,min=1"`
+}
+
+type CompleteSignUp struct {
+	EmailAddress string `gorm:"column:EmailAddress"`
+	MobileNumber string `gorm:"column:MobileNumber"`
+	TitleId      int    `gorm:"column:TitleId"`
+	UserName     string `gorm:"column:UserName"`
+	NickName     string `gorm:"column:NickName"`
+	FirstName    string `gorm:"column:FirstName"`
+	LastName     string `gorm:"column:LastName"`
+	Gender       string `gorm:"column:Gender"`
+	AgeRange     string `gorm:"column:AgeRange"`
 }
 
 type UserResponse struct {

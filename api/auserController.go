@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/smtp"
 	"os"
+	"strconv"
 	"time"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
@@ -105,19 +106,79 @@ func CreateNewUser(ctx *gin.Context) {
 		MobileNumber: reqIn.MobileNumber, Status: reqIn.Status, Password: string(hashedPassword),
 		CreatedAt: time.Now().Local().String()}
 
-	if CheckEmailExist := usww.GetUserByEmailAddress(req.EmailAddress); CheckEmailExist.UserName != "" {
-		ctx.JSON(http.StatusBadRequest, "User with email address "+req.EmailAddress+" already exist!!")
-		return
-	}
+	// if CheckEmailExist := usww.GetUserByEmailAddress(req.EmailAddress); CheckEmailExist.UserName != "" {
+	// 	ctx.JSON(http.StatusBadRequest, "User with email address "+req.EmailAddress+" already exist!!")
+	// 	return
+	// }
 
-	if CheckMobile := usww.GetUserByMobileNumber(req.MobileNumber); CheckMobile.UserName != "" {
-		ctx.JSON(http.StatusBadRequest, "User with mobile number "+req.MobileNumber+" already exist!!")
-		return
-	}
+	// if CheckMobile := usww.GetUserByMobileNumber(req.MobileNumber); CheckMobile.UserName != "" {
+	// 	ctx.JSON(http.StatusBadRequest, "User with mobile number "+req.MobileNumber+" already exist!!")
+	// 	return
+	// }
 
 	doCreate := usww.CreateUser(req)
 	logrus.Info(doCreate)
 	ctx.JSON(http.StatusOK, doCreate)
+}
+
+// CompleteSignUp godoc
+// @Summary		CompleteSignUp user signup.
+// @Description	CompleteSignUp user signup.
+// @Tags			user
+// @Accept			*/*
+// @User			json
+// @Param user body inpuschema.CompleteSignUp true "CompleteSignUp user signup"
+// @Success		200	{object}	dbSchema.ResponseMessage
+// @Router			/api/user/CompleteSignUp [post]
+func CompleteSignUp(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	usww := dbSchema.ConneectDeal(psg.GetDB())
+	reqIn := &inpuschema.CompleteSignUp{}
+	if err := ctx.ShouldBindJSON(reqIn); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println(err.Error())
+		return
+	}
+
+	//validate request
+	if validateObj := validateMe.Struct(reqIn); validateObj != nil {
+		ctx.JSON(http.StatusBadRequest, validateObj.Error())
+		return
+	}
+
+	req := dbSchema.CompleteSignUpReq{EmailAddress: reqIn.EmailAddress, TitleId: strconv.Itoa(reqIn.TitleId),
+		FirstName: reqIn.FirstName,
+		UserName:  reqIn.UserName, NickName: reqIn.NickName,
+		LastName:     reqIn.LastName,
+		Gender:       reqIn.Gender,
+		AgeRange:     reqIn.AgeRange,
+		Status:       1,
+		MobileNumber: reqIn.MobileNumber,
+		CreatedAt:    time.Now().Format("01-02-2006")}
+
+	if CheckEmailExist := usww.GetUserByEmailAddress(req.EmailAddress); CheckEmailExist.EmailAddress == "" {
+		ctx.JSON(http.StatusBadRequest, "User with email address "+req.EmailAddress+" does not exist!!")
+		return
+	}
+
+	if CheckMobile := usww.GetUserByMobileNumber(req.MobileNumber); CheckMobile.MobileNumber == "" {
+		ctx.JSON(http.StatusBadRequest, "User with mobile number "+req.MobileNumber+" does not exist!!")
+		return
+	}
+
+	doCreate := usww.UpdateUserRecord(req)
+	logrus.Info(doCreate)
+	Response := &inpuschema.ResponseMessage{ResponseCode: "00",
+		ResponseMessage: doCreate,
+	}
+
+	ctx.JSON(http.StatusOK, Response)
 }
 
 // GetUserByEmailAddress create new user

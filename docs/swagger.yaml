@@ -45,6 +45,13 @@ definitions:
       UserId:
         type: integer
     type: object
+  dataaccess.ResponseMessage:
+    properties:
+      responseCode:
+        type: string
+      responseMessage:
+        type: string
+    type: object
   dataaccess.TblStatus:
     properties:
       CreatedAt:
@@ -129,6 +136,27 @@ definitions:
       ringMasterEmail:
         type: string
     type: object
+  obj.CompleteSignUp:
+    properties:
+      ageRange:
+        type: string
+      emailAddress:
+        type: string
+      firstName:
+        type: string
+      gender:
+        type: string
+      lastName:
+        type: string
+      mobileNumber:
+        type: string
+      nickName:
+        type: string
+      titleId:
+        type: integer
+      userName:
+        type: string
+    type: object
   obj.EmailObj:
     properties:
       mailBody:
@@ -164,14 +192,10 @@ definitions:
       Password:
         minLength: 8
         type: string
-      Status:
-        minimum: 1
-        type: integer
     required:
     - Email
     - MobileNumber
     - Password
-    - Status
     type: object
   obj.TokenResp:
     properties:
@@ -474,6 +498,26 @@ paths:
       summary: Remove user from cart.
       tags:
       - cart
+  /api/user/CompleteSignUp:
+    post:
+      consumes:
+      - '*/*'
+      description: CompleteSignUp user signup.
+      parameters:
+      - description: CompleteSignUp user signup
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.CompleteSignUp'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.ResponseMessage'
+      summary: CompleteSignUp user signup.
+      tags:
+      - user
   /api/user/CreateNewUser:
     post:
       consumes:

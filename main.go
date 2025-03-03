@@ -70,8 +70,9 @@ func main() {
 	svc.GET("api/user/LogIn/:UserName/:Password", api.LogIn)                           //done
 	svc.GET("api/user/GetUserByMobile/:MobileNumber", api.GetUserByMobile)             //done
 	//svc.POST("api/user/UploadUserPicture", api.TestSevc)                               // to be done later
-	svc.POST("api/user/SendEmail", api.SendEmail) //done
-	svc.POST("api/user/LogOutUser", testSvc)      //to be done later
+	svc.POST("api/user/SendEmail", api.SendEmail)           //done
+	svc.POST("api/user/LogOutUser", testSvc)                //to be done later
+	svc.POST("api/user/CompleteSignUp", api.CompleteSignUp) //to be done later
 
 	svc.POST("api/cart/CreateCart", api.CreateCart)                 //done
 	svc.POST("api/cart/AddUserToCart", api.CreateCartMember)        //done

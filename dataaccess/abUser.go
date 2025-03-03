@@ -1,6 +1,7 @@
 package dataaccess
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -23,6 +24,20 @@ type User struct {
 	CreatedAt    string `gorm:"column:CreatedAt"`
 }
 
+type CompleteSignUpReq struct {
+	EmailAddress string `gorm:"column:EmailAddress"`
+	TitleId      string `gorm:"column:TitleId"`
+	UserName     string `gorm:"column:UserName"`
+	NickName     string `gorm:"column:NickName"`
+	FirstName    string `gorm:"column:FirstName"`
+	LastName     string `gorm:"column:LastName"`
+	MobileNumber string `gorm:"column:MobileNumber"`
+	Gender       string `gorm:"column:Gender"`
+	AgeRange     string `gorm:"column:AgeRange"`
+	Status       int    `gorm:"column:Status"`
+	CreatedAt    string `gorm:"column:CreatedAt"`
+}
+
 type TblUser struct {
 	Id           int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
 	TitleId      int       `gorm:"column:TitleId"`
@@ -40,6 +55,11 @@ type TblUser struct {
 	CreatedAt    time.Time `gorm:"column:CreatedAt"`
 }
 
+type ResponseMessage struct {
+	ResponseCode    string
+	ResponseMessage string
+}
+
 type DbConnect struct {
 	DbGorm *gorm.DB
 }
@@ -50,6 +70,7 @@ func ConneectDeal(db *gorm.DB) Iuser {
 
 type Iuser interface {
 	CreateUser(usr *User) string
+	UpdateUserRecord(usr CompleteSignUpReq) string
 	SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string
 	GetUserByEmailAddress(EmailAddress string) User
 	GetUserByEmailUsername(EmailAddress string) User
@@ -79,7 +100,30 @@ func (cn DbConnect) CreateUser(usr *User) string {
 	}
 }
 
+func (cn DbConnect) UpdateUserRecord(usr CompleteSignUpReq) string {
+
+	if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"EmailAddress\"=?", usr.EmailAddress).Updates(&usr).Error; doinssertupdate != nil {
+		logrus.Error(doinssertupdate)
+		return "Unable to create user at the moment!!"
+	} else {
+		logrus.Error(fmt.Sprintf("UpdateUserRecord for %s", usr.EmailAddress))
+		return "User created successfully!!"
+	}
+
+	// 	doinssertupdate := cn.DbGorm.Table("TblUser").Where("EmailAddress = ?", usr.EmailAddress).Updates(map[string]interface{}{"TitleId": usr.TitleId, "UserName": usr.UserName
+	// , "NickName": usr.NickName, "FirstName" })
+
+	//	if doinssert := cn.DbGorm.Table("TblUser").Create(&usr).Error; doinssert != nil {
+	//		logrus.Error(doinssert)
+	//		return "Unable to create user at the moment!!"
+	//	} else {
+	//
+	//		return "User created successfully!!"
+	//	}
+}
+
 func (cn DbConnect) SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string {
+
 	if doinssert := cn.DbGorm.Table("TblUser").Select("FirstName", "LastName", "EmailAddress", "MobileNumber", "Password", "Status", "CreatedAt").Create(map[string]interface{}{"FirstName": "", "LastName": "", "EmailAddress": emailAddress, "MobileNumber": mobileNumber, "Password": password, "Status": "5", "CreatedAt": createdAt}).Error; doinssert != nil {
 		logrus.Error(doinssert)
 		return "Unable to create create sign up at the moment!!"
@@ -96,7 +140,7 @@ func (cn DbConnect) GetUserByUserId(UserId int) User {
 
 func (cn DbConnect) GetUserByEmailAddress(EmailAddress string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
+	cn.DbGorm.Table("TblUser").Debug().Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
 	return res
 }
 

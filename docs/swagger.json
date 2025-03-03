@@ -355,6 +355,37 @@
                 }
             }
         },
+        "/api/user/CompleteSignUp": {
+            "post": {
+                "description": "CompleteSignUp user signup.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "CompleteSignUp user signup.",
+                "parameters": [
+                    {
+                        "description": "CompleteSignUp user signup",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/obj.CompleteSignUp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/CreateNewUser": {
             "post": {
                 "description": "Create new user cart user.",
@@ -650,6 +681,17 @@
                 }
             }
         },
+        "dataaccess.ResponseMessage": {
+            "type": "object",
+            "properties": {
+                "responseCode": {
+                    "type": "string"
+                },
+                "responseMessage": {
+                    "type": "string"
+                }
+            }
+        },
         "dataaccess.TblStatus": {
             "type": "object",
             "properties": {
@@ -779,6 +821,38 @@
                 }
             }
         },
+        "obj.CompleteSignUp": {
+            "type": "object",
+            "properties": {
+                "ageRange": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "mobileNumber": {
+                    "type": "string"
+                },
+                "nickName": {
+                    "type": "string"
+                },
+                "titleId": {
+                    "type": "integer"
+                },
+                "userName": {
+                    "type": "string"
+                }
+            }
+        },
         "obj.EmailObj": {
             "type": "object",
             "properties": {
@@ -823,8 +897,7 @@
             "required": [
                 "Email",
                 "MobileNumber",
-                "Password",
-                "Status"
+                "Password"
             ],
             "properties": {
                 "Email": {
@@ -837,10 +910,6 @@
                 "Password": {
                     "type": "string",
                     "minLength": 8
-                },
-                "Status": {
-                    "type": "integer",
-                    "minimum": 1
                 }
             }
         },
