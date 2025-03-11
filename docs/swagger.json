@@ -731,6 +731,84 @@
                 }
             }
         },
+        "/api/user/LogInWithEmailAddress/{EmailAddress}/{Password}": {
+            "get": {
+                "description": "Log user In with email address and password.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Log user In with email address and password.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "EmailAddress",
+                        "name": "EmailAddress",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "Password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/obj.UserResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/LogInWithMobileNumber/{MobileNumber}/{Password}": {
+            "get": {
+                "description": "Log user In with mobile number and password.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Log user In with mobile number and password.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "MobileNumber",
+                        "name": "MobileNumber",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "Password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/obj.UserResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/SendEmail": {
             "post": {
                 "security": [

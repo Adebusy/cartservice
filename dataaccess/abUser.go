@@ -71,9 +71,9 @@ func ConneectDeal(db *gorm.DB) Iuser {
 type Iuser interface {
 	CreateUser(usr *User) string
 	UpdateUserRecord(usr CompleteSignUpReq) string
-	SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string
+	SignUp(emailAddress, mobileNumber, password, createdAt string) string
 	GetUserByEmailAddress(EmailAddress string) User
-	GetUserByEmailUsername(EmailAddress string) User
+	GetUserByUsername(EmailAddress string) User
 	GetUserByMobileNumber(MobileNumber string) User
 	LoginUser(UserName, Password string) User
 	GetUserByUserId(UserId int) User
@@ -85,7 +85,7 @@ type Iuser interface {
 	GetCartByCartIdAndMemberId(CartId, cartMemberId int) TblCart
 	GetCartDetailsByCartIdandMastersId(CartId int, masterEmail string) TblCartMember
 	CreateCartMemberIn(crt TblCartMember) int
-	RemoveUserFromCart(CartId int, masterEmail string, UserEmail string) error
+	RemoveUserFromCart(CartId int, masterEmail, UserEmail string) error
 	CloseCart(cartId int) int
 
 	GetAllStatus() []TblStatus
@@ -109,17 +109,6 @@ func (cn DbConnect) UpdateUserRecord(usr CompleteSignUpReq) string {
 		logrus.Error(fmt.Sprintf("UpdateUserRecord for %s", usr.EmailAddress))
 		return "User created successfully!!"
 	}
-
-	// 	doinssertupdate := cn.DbGorm.Table("TblUser").Where("EmailAddress = ?", usr.EmailAddress).Updates(map[string]interface{}{"TitleId": usr.TitleId, "UserName": usr.UserName
-	// , "NickName": usr.NickName, "FirstName" })
-
-	//	if doinssert := cn.DbGorm.Table("TblUser").Create(&usr).Error; doinssert != nil {
-	//		logrus.Error(doinssert)
-	//		return "Unable to create user at the moment!!"
-	//	} else {
-	//
-	//		return "User created successfully!!"
-	//	}
 }
 
 func (cn DbConnect) SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string {
@@ -150,7 +139,7 @@ func (cn DbConnect) GetUserByMobileNumber(MobileNumber string) User {
 	return res
 }
 
-func (cn DbConnect) GetUserByEmailUsername(username string) User {
+func (cn DbConnect) GetUserByUsername(username string) User {
 	res := User{}
 	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt", "Password").Where("\"UserName\"=?", username).First(&res)
 	return res

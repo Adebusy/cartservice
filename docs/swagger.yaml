@@ -739,6 +739,58 @@ paths:
       summary: Log user In with username and password.
       tags:
       - user
+  /api/user/LogInWithEmailAddress/{EmailAddress}/{Password}:
+    get:
+      consumes:
+      - '*/*'
+      description: Log user In with email address and password.
+      parameters:
+      - description: EmailAddress
+        in: path
+        name: EmailAddress
+        required: true
+        type: string
+      - description: Password
+        in: path
+        name: Password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.UserResponse'
+      summary: Log user In with email address and password.
+      tags:
+      - user
+  /api/user/LogInWithMobileNumber/{MobileNumber}/{Password}:
+    get:
+      consumes:
+      - '*/*'
+      description: Log user In with mobile number and password.
+      parameters:
+      - description: MobileNumber
+        in: path
+        name: MobileNumber
+        required: true
+        type: string
+      - description: Password
+        in: path
+        name: Password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.UserResponse'
+      summary: Log user In with mobile number and password.
+      tags:
+      - user
   /api/user/SendEmail:
     post:
       consumes:

@@ -20,12 +20,18 @@ import (
 )
 
 var (
-	usww = dbSchema.ConneectDeal(psg.GetDB())
+	getdb = psg.GetDB()
+	usww  = dbSchema.ConneectDeal(getdb)
 	//crt        = dbSchema.ConnectCart(psg.GetDB())
-	crtItem    = dbSchema.ConnectCartItem(psg.GetDB())
-	prd        = dbSchema.ConnectProduct(psg.GetDB())
-	tit        = dbSchema.ConTitle(psg.GetDB())
-	client     = dbSchema.ConnectClient(psg.GetDB())
+	// crtItem    = dbSchema.ConnectCartItem(psg.GetDB())
+	// prd        = dbSchema.ConnectProduct(psg.GetDB())
+	// tit        = dbSchema.ConTitle(psg.GetDB())
+	// client     = dbSchema.ConnectClient(psg.GetDB())
+
+	crtItem    = dbSchema.ConnectCartItem(getdb)
+	prd        = dbSchema.ConnectProduct(getdb)
+	tit        = dbSchema.ConTitle(getdb)
+	client     = dbSchema.ConnectClient(getdb)
 	validateMe = validator.New()
 )
 
@@ -284,7 +290,7 @@ func LogIn(ctx *gin.Context) {
 	Password := ctx.Param("Password")
 	password, _ := utilities.HashPassword(Password)
 
-	if getUSer := usww.GetUserByEmailAddress(UserName); getUSer.EmailAddress != "" {
+	if getUSer := usww.GetUserByUsername(UserName); getUSer.EmailAddress != "" {
 		if utilities.CheckPasswordHash(Password, password) {
 			userRespose.TitleId = getUSer.TitleId
 			userRespose.UserName = getUSer.UserName
@@ -308,6 +314,114 @@ func LogIn(ctx *gin.Context) {
 		}
 	} else {
 		logAction := fmt.Sprintf("Incorrect username %s", UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+}
+
+// LogInWithMobileNumber for exiting user
+// @Summary		Log user In with mobile number and password.
+// @Description	Log user In with mobile number and password.
+// @Tags			user
+// @Param MobileNumber path string true "MobileNumber"
+// @Param Password path string true "Password"
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Success		200	{object}	inpuschema.UserResponse
+// @Router			/api/user/LogInWithMobileNumber/{MobileNumber}/{Password} [get]
+func LogInWithMobileNumber(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	userRespose := &inpuschema.UserResponse{}
+	MobileNumber := ctx.Param("MobileNumber")
+	Password := ctx.Param("Password")
+	password, _ := utilities.HashPassword(Password)
+
+	if getUSer := usww.GetUserByMobileNumber(MobileNumber); getUSer.EmailAddress != "" {
+		if utilities.CheckPasswordHash(Password, password) {
+			userRespose.TitleId = getUSer.TitleId
+			userRespose.UserName = getUSer.UserName
+			userRespose.NickName = getUSer.NickName
+			userRespose.FirstName = getUSer.FirstName
+			userRespose.LastName = getUSer.LastName
+			userRespose.Email = getUSer.EmailAddress
+			userRespose.MobileNumber = getUSer.MobileNumber
+			userRespose.Status = getUSer.Status
+			userRespose.Gender = getUSer.Gender
+			userRespose.Location = getUSer.Location
+			userRespose.CreatedAt = getUSer.CreatedAt
+			logrus.Info(fmt.Sprintf("LogIn for user with LogInWithMobileNumber %s", MobileNumber))
+			ctx.JSON(http.StatusOK, userRespose)
+			return
+		} else {
+			logAction := fmt.Sprintf("Incorrect password %s", MobileNumber)
+			logrus.Info(logAction)
+			ctx.JSON(http.StatusBadRequest, logAction)
+			return
+		}
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", MobileNumber)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+}
+
+// LogInWithEmailAddress for exiting user
+// @Summary		Log user In with email address and password.
+// @Description	Log user In with email address and password.
+// @Tags			user
+// @Param EmailAddress path string true "EmailAddress"
+// @Param Password path string true "Password"
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Success		200	{object}	inpuschema.UserResponse
+// @Router			/api/user/LogInWithEmailAddress/{EmailAddress}/{Password} [get]
+func LogInWithEmailAddress(ctx *gin.Context) {
+	// @Param Authorization header string true "Authorization token"
+	// @Param clientName header string true "registered client name"
+	// @Security BearerAuth
+	// @securityDefinitions.basic BearerAuth
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	userRespose := &inpuschema.UserResponse{}
+	EmailAddress := ctx.Param("EmailAddress")
+	Password := ctx.Param("Password")
+	password, _ := utilities.HashPassword(Password)
+
+	if getUSer := usww.GetUserByEmailAddress(EmailAddress); getUSer.EmailAddress != "" {
+		if utilities.CheckPasswordHash(Password, password) {
+			userRespose.TitleId = getUSer.TitleId
+			userRespose.UserName = getUSer.UserName
+			userRespose.NickName = getUSer.NickName
+			userRespose.FirstName = getUSer.FirstName
+			userRespose.LastName = getUSer.LastName
+			userRespose.Email = getUSer.EmailAddress
+			userRespose.MobileNumber = getUSer.MobileNumber
+			userRespose.Status = getUSer.Status
+			userRespose.Gender = getUSer.Gender
+			userRespose.Location = getUSer.Location
+			userRespose.CreatedAt = getUSer.CreatedAt
+			logrus.Info(fmt.Sprintf("LogIn for user with LogInWithEmailAddress %s", EmailAddress))
+			ctx.JSON(http.StatusOK, userRespose)
+			return
+		} else {
+			logAction := fmt.Sprintf("Incorrect password %s", EmailAddress)
+			logrus.Info(logAction)
+			ctx.JSON(http.StatusBadRequest, logAction)
+			return
+		}
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", EmailAddress)
 		logrus.Info(logAction)
 		ctx.JSON(http.StatusBadRequest, logAction)
 		return
