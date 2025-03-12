@@ -1,7 +1,6 @@
 package dataaccess
 
 import (
-	"fmt"
 	"time"
 
 	"gorm.io/gorm"
@@ -37,10 +36,7 @@ type ClientResp struct {
 
 func (cn DbConnect) GetClientByName(clientName string) TblClient {
 	res := TblClient{}
-	fmt.Println("dasdsas")
-	fmt.Printf("name is clientName %s", clientName)
-	cn.DbGorm.Table("TblClient").Select("Id", "Name", "Status", "Description", "DateAdded").Where("\"Name\"=? and \"Status\"=1", clientName).First(&res)
-	fmt.Printf("name is %s", res.Name)
+	cn.DbGorm.Table("TblClient").Debug().Select("Id", "Name", "Status", "Description", "DateAdded").Where("\"Name\"=? and \"Status\"=1", clientName).First(&res)
 	return res
 }
 
@@ -50,5 +46,4 @@ func (cn DbConnect) RegisterNewClient(req TblClient) string {
 	} else {
 		return "00"
 	}
-
 }

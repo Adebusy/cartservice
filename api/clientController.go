@@ -3,7 +3,9 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"time"
 
+	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/utilities"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -40,4 +42,56 @@ func ValidateClient(ctx *gin.Context) bool {
 		return false
 	}
 	return true
+}
+
+func CreateOrGetToken(username string) string {
+	var respToken string
+	res := dbSchema.TblClient{
+		Name:        username,
+		Status:      1,
+		Description: username,
+		DateAdded:   &time.Time{},
+	}
+
+	return CreateOrUpdateToken(username, res, respToken)
+
+	// if checkClient := client.GetClientByName(username); checkClient.Name != "" {
+	// 	if respToken, err := utilities.CreateToken(username); err != nil {
+	// 		return ""
+	// 	} else {
+	// 		if doReg := client.RegisterNewClient(res); doReg == "00" {
+
+	// 		}
+	// 		return respToken
+	// 	}
+	// } else {
+	// 	if doReg := client.RegisterNewClient(res); doReg == "00" {
+	// 		if respToken, err := utilities.CreateToken(username); err != nil {
+	// 			return respToken
+	// 		} else {
+	// 			return respToken
+	// 		}
+	// 	}
+	// }
+}
+
+func CreateOrUpdateToken(username string, res dbSchema.TblClient, respToken string) string {
+	fmt.Printf("checkClient.Name is")
+	if checkClient := client.GetClientByName(username); checkClient.Name == "" {
+		fmt.Printf("checkClient.Name is %s", checkClient.Name)
+		if doReg := client.RegisterNewClient(res); doReg == "00" {
+			if respToken, err := utilities.CreateToken(username); err != nil {
+				return respToken
+			} else {
+				return respToken
+			}
+		}
+	} else {
+		if respToken, err := utilities.CreateToken(username); err != nil {
+			return respToken
+		} else {
+			return respToken
+		}
+	}
+	return respToken
 }

@@ -285,24 +285,39 @@ func LogIn(ctx *gin.Context) {
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
+
+	getUSerobj := dbSchema.User{}
 	userRespose := &inpuschema.UserResponse{}
 	UserName := ctx.Param("UserName")
 	Password := ctx.Param("Password")
 	password, _ := utilities.HashPassword(Password)
 
-	if getUSer := usww.GetUserByUsername(UserName); getUSer.EmailAddress != "" {
+	if utilities.IsEmailValid(UserName) {
+		getUSerobj = usww.GetUserByEmailAddress(UserName)
+	} else if utilities.IsNumberValid(UserName) {
+		getUSerobj = usww.GetUserByMobileNumber(UserName)
+	}
+
+	if getUSerobj.EmailAddress != "" {
 		if utilities.CheckPasswordHash(Password, password) {
-			userRespose.TitleId = getUSer.TitleId
-			userRespose.UserName = getUSer.UserName
-			userRespose.NickName = getUSer.NickName
-			userRespose.FirstName = getUSer.FirstName
-			userRespose.LastName = getUSer.LastName
-			userRespose.Email = getUSer.EmailAddress
-			userRespose.MobileNumber = getUSer.MobileNumber
-			userRespose.Status = getUSer.Status
-			userRespose.Gender = getUSer.Gender
-			userRespose.Location = getUSer.Location
-			userRespose.CreatedAt = getUSer.CreatedAt
+			userRespose.TitleId = getUSerobj.TitleId
+			userRespose.UserName = getUSerobj.UserName
+			userRespose.NickName = getUSerobj.NickName
+			userRespose.FirstName = getUSerobj.FirstName
+			userRespose.LastName = getUSerobj.LastName
+			userRespose.Email = getUSerobj.EmailAddress
+			userRespose.MobileNumber = getUSerobj.MobileNumber
+			userRespose.Status = getUSerobj.Status
+			userRespose.Gender = getUSerobj.Gender
+			userRespose.Location = getUSerobj.Location
+			userRespose.CreatedAt = getUSerobj.CreatedAt
+			//userRespose.Token =
+			if newToken := CreateOrGetToken(userRespose.Email); newToken != "" {
+				userRespose.Token = newToken
+			}
+			// if token, err := utilities.CreateToken(UserName); err.Error() == "" {
+			// 	userRespose.Token = token
+			// }
 			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
 			ctx.JSON(http.StatusOK, userRespose)
 			return
@@ -318,6 +333,38 @@ func LogIn(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, logAction)
 		return
 	}
+	// if getUSer := usww.GetUserByUsername(UserName); getUSer.EmailAddress != "" {
+	// 	if utilities.CheckPasswordHash(Password, password) {
+	// 		userRespose.TitleId = getUSer.TitleId
+	// 		userRespose.UserName = getUSer.UserName
+	// 		userRespose.NickName = getUSer.NickName
+	// 		userRespose.FirstName = getUSer.FirstName
+	// 		userRespose.LastName = getUSer.LastName
+	// 		userRespose.Email = getUSer.EmailAddress
+	// 		userRespose.MobileNumber = getUSer.MobileNumber
+	// 		userRespose.Status = getUSer.Status
+	// 		userRespose.Gender = getUSer.Gender
+	// 		userRespose.Location = getUSer.Location
+	// 		userRespose.CreatedAt = getUSer.CreatedAt
+	// 		if token, err := utilities.CreateToken(UserName); err.Error() == "" {
+	// 			userRespose.Token = token
+	// 		}
+
+	// 		logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
+	// 		ctx.JSON(http.StatusOK, userRespose)
+	// 		return
+	// 	} else {
+	// 		logAction := fmt.Sprintf("Incorrect password %s", UserName)
+	// 		logrus.Info(logAction)
+	// 		ctx.JSON(http.StatusBadRequest, logAction)
+	// 		return
+	// 	}
+	// } else {
+	// 	logAction := fmt.Sprintf("Incorrect username %s", UserName)
+	// 	logrus.Info(logAction)
+	// 	ctx.JSON(http.StatusBadRequest, logAction)
+	// 	return
+	// }
 }
 
 // LogInWithMobileNumber for exiting user
@@ -481,3 +528,68 @@ func SendEmail(ctx *gin.Context) {
 	logrus.Info(logAction)
 	ctx.JSON(http.StatusOK, "Email sent successfully!!!")
 }
+
+// // LogIn exiting user In
+// // @Summary		Log user In with username and password.
+// // @Description	Log user In with username and password.
+// // @Tags			user
+// // @Param UserName path string true "Username"
+// // @Param Password path string true "Password"
+// // @Produce json
+// // @Accept			*/*
+// // @User			json
+// // @Success		200	{object}	inpuschema.UserResponse
+// // @Router			/api/user/LogIn/{UserName}/{Password} [get]
+// func LogIn(ctx *gin.Context) {
+// 	// @Param Authorization header string true "Authorization token"
+// 	// @Param clientName header string true "registered client name"
+// 	// @Security BearerAuth
+// 	// @securityDefinitions.basic BearerAuth
+// 	// if !ValidateClient(ctx) {
+// 	// 	return
+// 	// }
+
+// 	var getUSer dbSchema.User
+
+// 	userRespose := &inpuschema.UserResponse{}
+// 	UserName := ctx.Param("UserName")
+// 	Password := ctx.Param("Password")
+// 	password, _ := utilities.HashPassword(Password)
+
+// 	if utilities.IsEmailValid(UserName) {
+
+// 	}
+
+// 	if getUSer := usww.GetUserByUsername(UserName); getUSer.EmailAddress != "" {
+// 		if utilities.CheckPasswordHash(Password, password) {
+// 			userRespose.TitleId = getUSer.TitleId
+// 			userRespose.UserName = getUSer.UserName
+// 			userRespose.NickName = getUSer.NickName
+// 			userRespose.FirstName = getUSer.FirstName
+// 			userRespose.LastName = getUSer.LastName
+// 			userRespose.Email = getUSer.EmailAddress
+// 			userRespose.MobileNumber = getUSer.MobileNumber
+// 			userRespose.Status = getUSer.Status
+// 			userRespose.Gender = getUSer.Gender
+// 			userRespose.Location = getUSer.Location
+// 			userRespose.CreatedAt = getUSer.CreatedAt
+// 			if token, err := utilities.CreateToken(UserName); err.Error() == "" {
+// 				userRespose.Token = token
+// 			}
+
+// 			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
+// 			ctx.JSON(http.StatusOK, userRespose)
+// 			return
+// 		} else {
+// 			logAction := fmt.Sprintf("Incorrect password %s", UserName)
+// 			logrus.Info(logAction)
+// 			ctx.JSON(http.StatusBadRequest, logAction)
+// 			return
+// 		}
+// 	} else {
+// 		logAction := fmt.Sprintf("Incorrect username %s", UserName)
+// 		logrus.Info(logAction)
+// 		ctx.JSON(http.StatusBadRequest, logAction)
+// 		return
+// 	}
+// }

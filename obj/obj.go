@@ -47,6 +47,7 @@ type UserResponse struct {
 	MobileNumber string
 	Status       string
 	CreatedAt    string
+	Token        string
 }
 
 type CartObj struct {

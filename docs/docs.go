@@ -1323,6 +1323,9 @@ const docTemplate = `{
                 "titleId": {
                     "type": "string"
                 },
+                "token": {
+                    "type": "string"
+                },
                 "userName": {
                     "type": "string"
                 }

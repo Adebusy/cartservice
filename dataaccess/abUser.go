@@ -113,7 +113,7 @@ func (cn DbConnect) UpdateUserRecord(usr CompleteSignUpReq) string {
 
 func (cn DbConnect) SignUp(emailAddress string, mobileNumber string, password string, createdAt string) string {
 
-	if doinssert := cn.DbGorm.Table("TblUser").Select("FirstName", "LastName", "EmailAddress", "MobileNumber", "Password", "Status", "CreatedAt").Create(map[string]interface{}{"FirstName": "", "LastName": "", "EmailAddress": emailAddress, "MobileNumber": mobileNumber, "Password": password, "Status": "5", "CreatedAt": createdAt}).Error; doinssert != nil {
+	if doinssert := cn.DbGorm.Table("TblUser").Select("FirstName", "LastName", "EmailAddress", "MobileNumber", "Password", "Status", "CreatedAt").Create(map[string]interface{}{"FirstName": "", "LastName": "", "EmailAddress": emailAddress, "MobileNumber": mobileNumber, "Password": password, "Status": "4", "CreatedAt": createdAt}).Error; doinssert != nil {
 		logrus.Error(doinssert)
 		return "Unable to create create sign up at the moment!!"
 	} else {
@@ -129,7 +129,7 @@ func (cn DbConnect) GetUserByUserId(UserId int) User {
 
 func (cn DbConnect) GetUserByEmailAddress(EmailAddress string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Debug().Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
+	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
 	return res
 }
 
@@ -141,7 +141,7 @@ func (cn DbConnect) GetUserByMobileNumber(MobileNumber string) User {
 
 func (cn DbConnect) GetUserByUsername(username string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt", "Password").Where("\"UserName\"=?", username).First(&res)
+	cn.DbGorm.Table("TblUser").Select("Id", "TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Status", "CreatedAt", "Password").Where("\"UserName\"=?", username).First(&res)
 	return res
 }
 

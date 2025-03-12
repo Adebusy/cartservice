@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"regexp"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -62,6 +63,22 @@ func VerifyToken(tokenString string) error {
 	}
 
 	return nil
+}
+
+// isEmailValid checks if the email provided is valid by regex.
+func IsEmailValid(e string) bool {
+	emailRegex := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	return emailRegex.MatchString(e)
+}
+
+// isEmailValid checks if the email provided is valid by regex.
+func IsNumberValid(e string) bool {
+	var re = regexp.MustCompile(`^[0-9]+$`)
+	if re.MatchString(e) {
+		return true
+	} else {
+		return false
+	}
 }
 
 // func ValidateClient(ctx *gin.Context) bool {
