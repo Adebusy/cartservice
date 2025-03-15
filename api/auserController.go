@@ -13,6 +13,7 @@ import (
 	inpuschema "github.com/Adebusy/cartbackendsvc/obj"
 	psg "github.com/Adebusy/cartbackendsvc/postgresql"
 	"github.com/Adebusy/cartbackendsvc/utilities"
+	"github.com/EDDYCJY/go-gin-example/pkg/upload"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/sirupsen/logrus"
@@ -141,10 +142,6 @@ func CreateNewUser(ctx *gin.Context) {
 // @Success		200	{object}	dbSchema.ResponseMessage
 // @Router			/api/user/CompleteSignUp [post]
 func CompleteSignUp(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -206,10 +203,6 @@ func CompleteSignUp(ctx *gin.Context) {
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByEmailAddress/{EmailAddress} [get]
 func GetUserByEmailAddress(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -235,10 +228,6 @@ func GetUserByEmailAddress(ctx *gin.Context) {
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByMobile/{MobileNumber} [get]
 func GetUserByMobile(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -278,14 +267,6 @@ func GetUserByMobile(ctx *gin.Context) {
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/LogIn/{UserName}/{Password} [get]
 func LogIn(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
-
 	getUSerobj := dbSchema.User{}
 	userRespose := &inpuschema.UserResponse{}
 	UserName := ctx.Param("UserName")
@@ -311,6 +292,7 @@ func LogIn(ctx *gin.Context) {
 			userRespose.Gender = getUSerobj.Gender
 			userRespose.Location = getUSerobj.Location
 			userRespose.CreatedAt = getUSerobj.CreatedAt
+			userRespose.Id = uint(getUSerobj.Id)
 			//userRespose.Token =
 			if newToken := CreateOrGetToken(userRespose.Email); newToken != "" {
 				userRespose.Token = newToken
@@ -493,10 +475,6 @@ func SendEmail(ctx *gin.Context) {
 	if !ValidateClient(ctx) {
 		return
 	}
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	reqIn := &inpuschema.EmailObj{}
 	if err := ctx.ShouldBindJSON(reqIn); err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
@@ -593,3 +571,51 @@ func SendEmail(ctx *gin.Context) {
 // 		return
 // 	}
 // }
+
+// @Summary Import Image
+// @Produce  json
+// @Param image formData file true "Image File"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/user/UploadImage [post]
+func UploadImage(ctx *gin.Context) {
+	file, image, err := ctx.Request.FormFile("image")
+	if err != nil {
+		logrus.Warn(err)
+		ctx.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if image == nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	imageName := upload.GetImageName(image.Filename)
+	fullPath := upload.GetImageFullPath()
+	//savePath := upload.GetImagePath()
+	// src := fullPath + imageName
+
+	if !upload.CheckImageExt(imageName) || !upload.CheckImageSize(file) {
+		ctx.JSON(http.StatusBadRequest, "ERROR_UPLOAD_CHECK_IMAGE_FORMAT")
+		return
+	}
+
+	err = upload.CheckImage(fullPath)
+	if err != nil {
+		logrus.Warn(err)
+		ctx.JSON(http.StatusInternalServerError, "ERROR_UPLOAD_CHECK_IMAGE_FAIL")
+		return
+	}
+
+	// if err := c.SaveUploadedFile(image, src); err != nil {
+	// 	logrus.Warn(err)
+	// 	ctx.JSON(http.StatusInternalServerError, "ERROR_UPLOAD_SAVE_IMAGE_FAIL")
+	// 	return
+	// }
+
+	// appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
+	// 	"image_url":      upload.GetImageFullUrl(imageName),
+	// 	"image_save_url": savePath + imageName,
+	// })
+}

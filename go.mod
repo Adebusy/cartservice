@@ -19,7 +19,13 @@ require (
 	gorm.io/gorm v1.25.11
 )
 
-require github.com/gin-contrib/cors v1.7.2 // indirect
+require (
+	github.com/EDDYCJY/go-gin-example v0.0.0-20201228125222-28f372bf41f9 // indirect
+	github.com/dgrijalva/jwt-go v3.1.0+incompatible // indirect
+	github.com/gin-contrib/cors v1.7.2 // indirect
+	github.com/go-ini/ini v1.32.1-0.20180214101753-32e4be5f41bb // indirect
+	github.com/unknwon/com v1.0.1 // indirect
+)
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect

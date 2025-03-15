@@ -8,7 +8,6 @@ import (
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/utilities"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 func ValidateClient(ctx *gin.Context) bool {
@@ -25,8 +24,8 @@ func ValidateClient(ctx *gin.Context) bool {
 		ctx.JSON(http.StatusBadRequest, resp)
 		return false
 	}
-	//check client
 
+	//check client
 	if docheck := client.GetClientByName(clientName); docheck.Name == "" {
 		resp := fmt.Sprintf("Client %s is not registered!!", clientName)
 		ctx.JSON(http.StatusBadRequest, resp)
@@ -34,9 +33,6 @@ func ValidateClient(ctx *gin.Context) bool {
 	}
 
 	reqBearer = reqBearer[len("Bearer "):]
-	logrus.Info("reqBearer")
-	logrus.Info(reqBearer)
-	logrus.Info("reqBearer")
 	if doVerify := utilities.VerifyToken(reqBearer); doVerify != nil {
 		ctx.JSON(http.StatusBadRequest, "invalid token")
 		return false
@@ -54,25 +50,6 @@ func CreateOrGetToken(username string) string {
 	}
 
 	return CreateOrUpdateToken(username, res, respToken)
-
-	// if checkClient := client.GetClientByName(username); checkClient.Name != "" {
-	// 	if respToken, err := utilities.CreateToken(username); err != nil {
-	// 		return ""
-	// 	} else {
-	// 		if doReg := client.RegisterNewClient(res); doReg == "00" {
-
-	// 		}
-	// 		return respToken
-	// 	}
-	// } else {
-	// 	if doReg := client.RegisterNewClient(res); doReg == "00" {
-	// 		if respToken, err := utilities.CreateToken(username); err != nil {
-	// 			return respToken
-	// 		} else {
-	// 			return respToken
-	// 		}
-	// 	}
-	// }
 }
 
 func CreateOrUpdateToken(username string, res dbSchema.TblClient, respToken string) string {

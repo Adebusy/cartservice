@@ -24,10 +24,6 @@ import (
 // @Failure		400		{string} string	"Unable to add item to cart at the monent!!"
 // @Router			/api/cart/AddItemToCart [post]
 func AddItemToCart(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -93,10 +89,6 @@ func AddItemToCart(ctx *gin.Context) {
 // @Failure		400		{string} string	"Unable to remove item to cart at the monent!!"
 // @Router			/api/cart/RemoveItemFromCart [post]
 func RemoveItemFromCart(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}

@@ -24,10 +24,6 @@ import (
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCart [post]
 func CreateCart(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -108,10 +104,6 @@ func CreateCart(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCartMember [post]
 func CreateCartMember(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -176,7 +168,6 @@ func CreateCartMember(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/RemoveUserFromCart [post]
 func RemoveUserFromCart(ctx *gin.Context) {
-
 	if !ValidateClient(ctx) {
 		return
 	}
@@ -249,10 +240,6 @@ func RemoveUserFromCart(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CloseCart [put]
 func CloseCart(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	if !ValidateClient(ctx) {
 		return
 	}
