@@ -560,7 +560,7 @@ paths:
     get:
       consumes:
       - '*/*'
-      description: existing user destails by mobile number.
+      description: Get Cart By User Id.
       parameters:
       - description: Authorization token
         in: header
@@ -581,9 +581,9 @@ paths:
             $ref: '#/definitions/dataaccess.TblCart'
       security:
       - BearerAuth: []
-      summary: existing user destails by mobile number.
+      summary: Get Cart By User Id.
       tags:
-      - user
+      - cart
   /api/cart/RemoveItemFromCart:
     post:
       consumes:

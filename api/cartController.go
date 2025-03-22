@@ -278,10 +278,10 @@ func CloseCart(ctx *gin.Context) {
 	}
 }
 
-// GetUserByMobile existing user destails by mobile number
-// @Summary		existing user destails by mobile number.
-// @Description	existing user destails by mobile number.
-// @Tags			user
+// GetCartByUserId Get Cart By User Id
+// @Summary		Get Cart By User Id.
+// @Description	Get Cart By User Id.
+// @Tags			cart
 // @Produce json
 // @Accept			*/*
 // @User			json

@@ -413,7 +413,7 @@ const docTemplate = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "existing user destails by mobile number.",
+                "description": "Get Cart By User Id.",
                 "consumes": [
                     "*/*"
                 ],
@@ -421,9 +421,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "user"
+                    "cart"
                 ],
-                "summary": "existing user destails by mobile number.",
+                "summary": "Get Cart By User Id.",
                 "parameters": [
                     {
                         "type": "string",
