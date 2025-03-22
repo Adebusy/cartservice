@@ -286,7 +286,7 @@ func CloseCart(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param Authorization header string true "Authorization token"
-// @Param CartId path string true "User ID"
+// @Param UserId path string true "User ID"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	dbSchema.TblCart

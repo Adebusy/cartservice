@@ -435,7 +435,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "User ID",
-                        "name": "CartId",
+                        "name": "UserId",
                         "in": "path",
                         "required": true
                     }

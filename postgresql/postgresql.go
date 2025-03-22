@@ -7,6 +7,7 @@ import (
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/obj"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -17,11 +18,11 @@ var DbGorm *gorm.DB
 var err error
 
 func GetDB() *gorm.DB {
-	// if loadEnv := godotenv.Load(); loadEnv != nil {
-	// 	ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
-	// 	fmt.Println(ret)
-	// }
-	env := "live"
+	if loadEnv := godotenv.Load(); loadEnv != nil {
+		ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
+		fmt.Println(ret)
+	}
+	env := "local"
 	SERVER := os.Getenv("DATABASE_SERVER")
 	USERID := os.Getenv("USERID")
 	DATABASE := os.Getenv("DATABASE")
