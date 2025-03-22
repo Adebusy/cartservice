@@ -131,3 +131,9 @@ func (cn DbConnect) RemoveUserFromCart(CartId int, masterEmail string, UserEmail
 	dodelete := cn.DbGorm.Where("\"CartId\"=? and \"RingMasterEmail\"=? and \"MemberEmail\"=? ", CartId, masterEmail, UserEmail).Delete(&tblCartMember).Error
 	return dodelete
 }
+
+func (cn DbConnect) GetCartByUserId(userId int) TblCart {
+	res := TblCart{}
+	cn.DbGorm.Debug().Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=?", userId).First(&res)
+	return res
+}

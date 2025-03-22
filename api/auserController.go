@@ -225,7 +225,7 @@ func GetUserByEmailAddress(ctx *gin.Context) {
 // @Param clientName header string true "registered client name"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
-// @Success		200	{object}	inpuschema.UserResponse
+// @Success		200	{object}	inpuschema.CartObj
 // @Router			/api/user/GetUserByMobile/{MobileNumber} [get]
 func GetUserByMobile(ctx *gin.Context) {
 	if !ValidateClient(ctx) {
@@ -575,8 +575,8 @@ func SendEmail(ctx *gin.Context) {
 // @Summary Import Image
 // @Produce  json
 // @Param image formData file true "Image File"
-// @Success 200 {object} app.Response
-// @Failure 500 {object} app.Response
+// @Success 200 {object} string
+// @Failure 500 {object} string
 // @Router /api/user/UploadImage [post]
 func UploadImage(ctx *gin.Context) {
 	file, image, err := ctx.Request.FormFile("image")

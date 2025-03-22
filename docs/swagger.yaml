@@ -52,6 +52,29 @@ definitions:
       responseMessage:
         type: string
     type: object
+  dataaccess.TblCart:
+    properties:
+      Id:
+        type: integer
+      cartName:
+        type: string
+      cartTypeId:
+        type: integer
+      createdAt:
+        type: string
+      createdById:
+        type: integer
+      description:
+        type: string
+      groupId:
+        type: integer
+      lastUpdatedBy:
+        type: integer
+      status:
+        type: string
+      userId:
+        type: integer
+    type: object
   dataaccess.TblStatus:
     properties:
       CreatedAt:
@@ -84,6 +107,8 @@ definitions:
         type: string
       gender:
         type: string
+      id:
+        type: integer
       lastName:
         type: string
       location:
@@ -113,6 +138,8 @@ definitions:
         type: string
       groupId:
         type: integer
+      status:
+        type: string
       userId:
         type: integer
     type: object
@@ -529,6 +556,34 @@ paths:
       summary: Create new  Cart Member.
       tags:
       - cart
+  /api/cart/GetCartByUserId/{UserId}:
+    get:
+      consumes:
+      - '*/*'
+      description: existing user destails by mobile number.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: CartId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.TblCart'
+      security:
+      - BearerAuth: []
+      summary: existing user destails by mobile number.
+      tags:
+      - user
   /api/cart/RemoveItemFromCart:
     post:
       consumes:
@@ -709,7 +764,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/obj.UserResponse'
+            $ref: '#/definitions/obj.CartObj'
       security:
       - BearerAuth: []
       summary: existing user destails by mobile number.
@@ -849,6 +904,26 @@ paths:
       summary: SignUp new user cart user.
       tags:
       - user
+  /api/user/UploadImage:
+    post:
+      parameters:
+      - description: Image File
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Import Image
   /testSvc:
     get:
       consumes:

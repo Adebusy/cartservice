@@ -406,6 +406,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/cart/GetCartByUserId/{UserId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "existing user destails by mobile number.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "existing user destails by mobile number.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "CartId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.TblCart"
+                        }
+                    }
+                }
+            }
+        },
         "/api/cart/RemoveItemFromCart": {
             "post": {
                 "security": [
@@ -689,7 +733,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/obj.UserResponse"
+                            "$ref": "#/definitions/obj.CartObj"
                         }
                     }
                 }
@@ -899,6 +943,37 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/user/UploadImage": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Import Image",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Image File",
+                        "name": "image",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/testSvc": {
             "get": {
                 "description": "get the status of server.",
@@ -1003,6 +1078,41 @@ const docTemplate = `{
                 }
             }
         },
+        "dataaccess.TblCart": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer"
+                },
+                "cartName": {
+                    "type": "string"
+                },
+                "cartTypeId": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "createdById": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "integer"
+                },
+                "lastUpdatedBy": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "dataaccess.TblStatus": {
             "type": "object",
             "properties": {
@@ -1052,6 +1162,9 @@ const docTemplate = `{
                 "gender": {
                     "type": "string"
                 },
+                "id": {
+                    "type": "integer"
+                },
                 "lastName": {
                     "type": "string"
                 },
@@ -1095,6 +1208,9 @@ const docTemplate = `{
                 },
                 "groupId": {
                     "type": "integer"
+                },
+                "status": {
+                    "type": "string"
                 },
                 "userId": {
                     "type": "integer"

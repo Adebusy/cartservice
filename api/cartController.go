@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
@@ -275,4 +276,26 @@ func CloseCart(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, "Cart cannot be close at the monent!!")
 		return
 	}
+}
+
+// GetUserByMobile existing user destails by mobile number
+// @Summary		existing user destails by mobile number.
+// @Description	existing user destails by mobile number.
+// @Tags			user
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param CartId path string true "User ID"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	dbSchema.TblCart
+// @Router			/api/cart/GetCartByUserId/{UserId} [get]
+func GetCartByUserId(ctx *gin.Context) {
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	userId, _ := strconv.Atoi(ctx.Param("UserId"))
+	// update cart
+	ctx.JSON(http.StatusOK, usww.GetCartByUserId(userId))
 }

@@ -57,6 +57,7 @@ type CartObj struct {
 	Description string `gorm:"column:Description"`
 	GroupId     int    `gorm:"column:GroupId"`
 	CreatedById int    `gorm:"column:CreatedById"`
+	Status      string `gorm:"column:Status"`
 }
 
 type EmailObj struct {

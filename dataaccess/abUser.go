@@ -81,6 +81,7 @@ type Iuser interface {
 
 	CreateCart(crt TblCart) int
 	GetCartByCartId(CartId int) TblCart
+	// GetCartsByCartId(CartId int) []TblCart
 	GetCartTypeByCartId(CartTypeId int) CartType
 	CreateCartMember(cusr TblCartMember) int
 	GetCartByCartIdAndMemberId(CartId, cartMemberId int) TblCart
@@ -88,6 +89,7 @@ type Iuser interface {
 	CreateCartMemberIn(crt TblCartMember) int
 	RemoveUserFromCart(CartId int, masterEmail, UserEmail string) error
 	CloseCart(cartId int) int
+	GetCartByUserId(cartId int) TblCart
 
 	GetAllStatus() []TblStatus
 }
