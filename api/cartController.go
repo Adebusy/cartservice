@@ -299,3 +299,31 @@ func GetCartByUserId(ctx *gin.Context) {
 	// update cart
 	ctx.JSON(http.StatusOK, usww.GetCartByUserId(userId))
 }
+
+// GetCartByUserEmail Get Cart By User Id
+// @Summary		Get Cart By User Email.
+// @Description	Get Cart By User Email.
+// @Tags			cart
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param Email path string true "User Email"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	dbSchema.TblCart
+// @Router			/api/cart/GetCartByUserEmail/{EmailAddress} [get]
+func GetCartByUserEmail(ctx *gin.Context) {
+	if !ValidateClient(ctx) {
+		return
+	}
+	email := (ctx.Param("EmailAddress"))
+	cart := &dbSchema.TblCart{}
+	if getUSer := usww.GetUserByEmailAddress(email); getUSer.FirstName != "" {
+		if getCart := usww.GetCartByUserId(getUSer.Id); getCart.CartName != "" {
+			ctx.JSON(http.StatusOK, getCart)
+		} else {
+			ctx.JSON(http.StatusBadRequest, cart)
+		}
+	}
+}

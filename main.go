@@ -81,10 +81,10 @@ func main() {
 	svc.POST("api/cart/RemoveItemFromCart", api.RemoveItemFromCart) //done
 	svc.PUT("api/cart/CloseCart", api.CloseCart)                    //done
 	svc.POST("api/cart/RemoveUserFromCart", api.RemoveUserFromCart) //done
-
 	// svc.GET("api/cart/GetCartByCartId/:CartId", api.GetCartByCartId)     //done
-	svc.GET("api/cart/GetCarts", api.RemoveUserFromCart)             //done
-	svc.GET("api/cart/GetCartByUserId/:UserId", api.GetCartByUserId) //done
+	svc.GET("api/cart/GetCarts", api.RemoveUserFromCart)                     //done
+	svc.GET("api/cart/GetCartByUserId/:UserId", api.GetCartByUserId)         //done
+	svc.GET("api/cart/GetCartByEmail/:EmailAddress", api.GetCartByUserEmail) //done
 
 	svc.POST("api/admin/CreateTitle", api.CreateTitle)             //done
 	svc.GET("api/admin/GetTitles", api.GetTitles)                  //done

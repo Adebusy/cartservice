@@ -91,6 +91,8 @@ type Iuser interface {
 	CloseCart(cartId int) int
 	GetCartByUserId(cartId int) TblCart
 
+	GetCartByUserEmail(email string) TblCart
+
 	GetAllStatus() []TblStatus
 }
 
