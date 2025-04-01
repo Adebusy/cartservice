@@ -84,6 +84,7 @@ func main() {
 	// svc.GET("api/cart/GetCartByCartId/:CartId", api.GetCartByCartId)     //done
 	svc.GET("api/cart/GetCarts", api.RemoveUserFromCart)                     //done
 	svc.GET("api/cart/GetCartByUserId/:UserId", api.GetCartByUserId)         //done
+	svc.GET("api/cart/GetCartsByUserId/:UserId", api.GetCartsByUserId)       //done
 	svc.GET("api/cart/GetCartByEmail/:EmailAddress", api.GetCartByUserEmail) //done
 
 	svc.POST("api/admin/CreateTitle", api.CreateTitle)             //done
