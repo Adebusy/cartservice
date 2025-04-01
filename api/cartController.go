@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -314,10 +315,12 @@ func GetCartByUserId(ctx *gin.Context) {
 // @Success		200	{object}	[]dbSchema.TblCart
 // @Router			/api/cart/GetCartsByUserId/{UserId} [get]
 func GetCartsByUserId(ctx *gin.Context) {
+	fmt.Print("dadsadsa")
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
+	fmt.Printf("dsdsds %s", strconv.Itoa(userId))
 	// update cart
 	ctx.JSON(http.StatusOK, usww.GetCartsByUserId(userId))
 }
@@ -336,9 +339,9 @@ func GetCartsByUserId(ctx *gin.Context) {
 // @Success		200	{object}	dbSchema.TblCart
 // @Router			/api/cart/GetCartByUserEmail/{EmailAddress} [get]
 func GetCartByUserEmail(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	email := (ctx.Param("EmailAddress"))
 	cart := &dbSchema.TblCart{}
 	if getUSer := usww.GetUserByEmailAddress(email); getUSer.FirstName != "" {
