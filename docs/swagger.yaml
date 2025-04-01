@@ -556,6 +556,34 @@ paths:
       summary: Create new  Cart Member.
       tags:
       - cart
+  /api/cart/GetCartByUserEmail/{EmailAddress}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Cart By User Email.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User Email
+        in: path
+        name: Email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.TblCart'
+      security:
+      - BearerAuth: []
+      summary: Get Cart By User Email.
+      tags:
+      - cart
   /api/cart/GetCartByUserId/{UserId}:
     get:
       consumes:
@@ -582,6 +610,36 @@ paths:
       security:
       - BearerAuth: []
       summary: Get Cart By User Id.
+      tags:
+      - cart
+  /api/cart/GetCartsByUserId/{UserId}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Carts By User Id.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: UserId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dataaccess.TblCart'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get Carts By User Id.
       tags:
       - cart
   /api/cart/RemoveItemFromCart:
