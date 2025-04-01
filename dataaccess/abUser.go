@@ -93,6 +93,8 @@ type Iuser interface {
 
 	GetCartByUserEmail(email string) TblCart
 
+	GetCartsByUserId(cartId int) []TblCart
+
 	GetAllStatus() []TblStatus
 }
 

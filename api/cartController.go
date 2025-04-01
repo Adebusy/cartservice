@@ -300,6 +300,28 @@ func GetCartByUserId(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, usww.GetCartByUserId(userId))
 }
 
+// GetCartsByUserId Get Carts By User Id
+// @Summary		Get Carts By User Id.
+// @Description	Get Carts By User Id.
+// @Tags			cart
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param UserId path string true "User ID"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	[]dbSchema.TblCart
+// @Router			/api/cart/GetCartsByUserId/{UserId} [get]
+func GetCartsByUserId(ctx *gin.Context) {
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	userId, _ := strconv.Atoi(ctx.Param("UserId"))
+	// update cart
+	ctx.JSON(http.StatusOK, usww.GetCartsByUserId(userId))
+}
+
 // GetCartByUserEmail Get Cart By User Id
 // @Summary		Get Cart By User Email.
 // @Description	Get Cart By User Email.
