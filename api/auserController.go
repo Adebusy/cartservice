@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/hex"
 	"fmt"
 	"log"
 	"net/http"
@@ -21,14 +22,8 @@ import (
 )
 
 var (
-	getdb = psg.GetDB()
-	usww  = dbSchema.ConneectDeal(getdb)
-	//crt        = dbSchema.ConnectCart(psg.GetDB())
-	// crtItem    = dbSchema.ConnectCartItem(psg.GetDB())
-	// prd        = dbSchema.ConnectProduct(psg.GetDB())
-	// tit        = dbSchema.ConTitle(psg.GetDB())
-	// client     = dbSchema.ConnectClient(psg.GetDB())
-
+	getdb      = psg.GetDB()
+	usww       = dbSchema.ConneectDeal(getdb)
 	crtItem    = dbSchema.ConnectCartItem(getdb)
 	prd        = dbSchema.ConnectProduct(getdb)
 	tit        = dbSchema.ConTitle(getdb)
@@ -60,7 +55,9 @@ func SignUp(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, validateObj.Error())
 		return
 	}
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(reqIn.Password), 8)
+
+	enc := hex.EncodeToString([]byte(reqIn.Password))
+
 	if CheckEmailExist := usww.GetUserByEmailAddress(reqIn.Email); CheckEmailExist.UserName != "" {
 		ctx.JSON(http.StatusBadRequest, "User with email address "+reqIn.Email+" already exist!!")
 		return
@@ -71,7 +68,7 @@ func SignUp(ctx *gin.Context) {
 		return
 	}
 
-	doCreate := usww.SignUp(reqIn.Email, reqIn.MobileNumber, string(hashedPassword), currentTime.Format("01-02-2006"))
+	doCreate := usww.SignUp(reqIn.Email, reqIn.MobileNumber, enc, currentTime.Format("01-02-2006"))
 	logrus.Info(doCreate)
 	ctx.JSON(http.StatusOK, doCreate)
 }
@@ -86,13 +83,6 @@ func SignUp(ctx *gin.Context) {
 // @Success		200	{object}	dbSchema.User
 // @Router			/api/user/CreateNewUser [post]
 func CreateNewUser(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
 	usww := dbSchema.ConneectDeal(psg.GetDB())
 	reqIn := &inpuschema.UserObj{}
 	if err := ctx.ShouldBindJSON(reqIn); err != nil {
@@ -112,16 +102,6 @@ func CreateNewUser(ctx *gin.Context) {
 		LastName: reqIn.LastName, EmailAddress: reqIn.Email,
 		MobileNumber: reqIn.MobileNumber, Status: reqIn.Status, Password: string(hashedPassword),
 		CreatedAt: time.Now().Local().String()}
-
-	// if CheckEmailExist := usww.GetUserByEmailAddress(req.EmailAddress); CheckEmailExist.UserName != "" {
-	// 	ctx.JSON(http.StatusBadRequest, "User with email address "+req.EmailAddress+" already exist!!")
-	// 	return
-	// }
-
-	// if CheckMobile := usww.GetUserByMobileNumber(req.MobileNumber); CheckMobile.UserName != "" {
-	// 	ctx.JSON(http.StatusBadRequest, "User with mobile number "+req.MobileNumber+" already exist!!")
-	// 	return
-	// }
 
 	doCreate := usww.CreateUser(req)
 	logrus.Info(doCreate)
@@ -271,16 +251,21 @@ func LogIn(ctx *gin.Context) {
 	userRespose := &inpuschema.UserResponse{}
 	UserName := ctx.Param("UserName")
 	Password := ctx.Param("Password")
-	password, _ := utilities.HashPassword(Password)
+	enc := hex.EncodeToString([]byte(Password))
 
 	if utilities.IsEmailValid(UserName) {
 		getUSerobj = usww.GetUserByEmailAddress(UserName)
 	} else if utilities.IsNumberValid(UserName) {
 		getUSerobj = usww.GetUserByMobileNumber(UserName)
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
 	}
 
-	if getUSerobj.EmailAddress != "" {
-		if utilities.CheckPasswordHash(Password, password) {
+	if getUSerobj.EmailAddress != "" || getUSerobj.MobileNumber != "" {
+		if getUSerobj.Password == enc {
 			userRespose.TitleId = getUSerobj.TitleId
 			userRespose.UserName = getUSerobj.UserName
 			userRespose.NickName = getUSerobj.NickName
@@ -293,13 +278,9 @@ func LogIn(ctx *gin.Context) {
 			userRespose.Location = getUSerobj.Location
 			userRespose.CreatedAt = getUSerobj.CreatedAt
 			userRespose.Id = uint(getUSerobj.Id)
-			//userRespose.Token =
 			if newToken := CreateOrGetToken(userRespose.Email); newToken != "" {
 				userRespose.Token = newToken
 			}
-			// if token, err := utilities.CreateToken(UserName); err.Error() == "" {
-			// 	userRespose.Token = token
-			// }
 			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
 			ctx.JSON(http.StatusOK, userRespose)
 			return
@@ -315,38 +296,6 @@ func LogIn(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, logAction)
 		return
 	}
-	// if getUSer := usww.GetUserByUsername(UserName); getUSer.EmailAddress != "" {
-	// 	if utilities.CheckPasswordHash(Password, password) {
-	// 		userRespose.TitleId = getUSer.TitleId
-	// 		userRespose.UserName = getUSer.UserName
-	// 		userRespose.NickName = getUSer.NickName
-	// 		userRespose.FirstName = getUSer.FirstName
-	// 		userRespose.LastName = getUSer.LastName
-	// 		userRespose.Email = getUSer.EmailAddress
-	// 		userRespose.MobileNumber = getUSer.MobileNumber
-	// 		userRespose.Status = getUSer.Status
-	// 		userRespose.Gender = getUSer.Gender
-	// 		userRespose.Location = getUSer.Location
-	// 		userRespose.CreatedAt = getUSer.CreatedAt
-	// 		if token, err := utilities.CreateToken(UserName); err.Error() == "" {
-	// 			userRespose.Token = token
-	// 		}
-
-	// 		logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
-	// 		ctx.JSON(http.StatusOK, userRespose)
-	// 		return
-	// 	} else {
-	// 		logAction := fmt.Sprintf("Incorrect password %s", UserName)
-	// 		logrus.Info(logAction)
-	// 		ctx.JSON(http.StatusBadRequest, logAction)
-	// 		return
-	// 	}
-	// } else {
-	// 	logAction := fmt.Sprintf("Incorrect username %s", UserName)
-	// 	logrus.Info(logAction)
-	// 	ctx.JSON(http.StatusBadRequest, logAction)
-	// 	return
-	// }
 }
 
 // LogInWithMobileNumber for exiting user
