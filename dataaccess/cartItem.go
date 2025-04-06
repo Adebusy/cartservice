@@ -41,7 +41,7 @@ type ICartItem interface {
 }
 
 func (cn DbConnect) AddItemToCart(CartItem TblCartItem) int {
-	if createCartItem := cn.DbGorm.Table("TblCartItem").Create(&CartItem).Error; createCartItem != nil {
+	if createCartItem := cn.DbGorm.Debug().Table("TblCartItem").Create(&CartItem).Error; createCartItem != nil {
 		fmt.Printf("Error %s", createCartItem)
 		return 0
 	}
@@ -49,6 +49,6 @@ func (cn DbConnect) AddItemToCart(CartItem TblCartItem) int {
 }
 
 func (cn DbConnect) RemoveItemFromCart(ProductId, CartId, UserId int) error {
-	doDeleteItem := cn.DbGorm.Where("\"CartId\"=? and \"ProductId\"=? and \"UserId\"=?", CartId, ProductId, UserId).Delete(&TblCartItem{}).Error
+	doDeleteItem := cn.DbGorm.Debug().Where("\"CartId\"=? and \"ProductId\"=? and \"UserId\"=?", CartId, ProductId, UserId).Delete(&TblCartItem{}).Error
 	return doDeleteItem
 }
