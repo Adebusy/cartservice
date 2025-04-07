@@ -9,7 +9,7 @@ import (
 
 type CartItemObj struct {
 	CartId      int    `json:"CartId" validate:"omitempty"`
-	ProductId   int    `json:"ProductId" validate:"omitempty"`
+	Name        string `json:"Name" validate:"omitempty"`
 	Quantity    int    `json:"Quantity" validate:"omitempty"`
 	Description string `json:"Description" validate:"omitempty"`
 	UserId      int    `json:"UserId" validate:"omitempty"`
@@ -23,6 +23,7 @@ type RemoveCartItemObj struct {
 
 type TblCartItem struct {
 	Id          int       `json:"id" gorm:"unique;primaryKey;autoIncrement"`
+	Name        string    `json:"Name" validate:"omitempty"`
 	CartId      int       `json:"CartId" validate:"omitempty"`
 	ProductId   int       `json:"ProductId" validate:"omitempty"`
 	Quantity    int       `json:"Quantity" validate:"omitempty"`

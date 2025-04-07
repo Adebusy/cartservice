@@ -2,7 +2,7 @@ package obj
 
 type UserObj struct {
 	TitleId      string `json:"TitleId"`
-	UserName     string `json:"UserName" validate:"required,min=8"`
+	UserName     string `json:"UserName" validate:"required,min=4"`
 	NickName     string `json:"NickName"`
 	FirstName    string `json:"FirstName"`
 	LastName     string `json:"LastName"`

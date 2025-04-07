@@ -59,7 +59,7 @@ func AddItemToCart(ctx *gin.Context) {
 	crts := dbSchema.TblCartItem{
 		UserId:      cartItemObj.UserId,
 		CartId:      cartItemObj.CartId,
-		ProductId:   cartItemObj.ProductId,
+		Name:        cartItemObj.Name,
 		Description: cartItemObj.Description,
 		Quantity:    cartItemObj.Quantity,
 		DateAdded:   time.Now(),

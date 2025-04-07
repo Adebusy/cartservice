@@ -101,7 +101,7 @@ func CreateNewUser(ctx *gin.Context) {
 	req := &dbSchema.User{TitleId: reqIn.TitleId, FirstName: reqIn.FirstName, UserName: reqIn.UserName, NickName: reqIn.NickName,
 		LastName: reqIn.LastName, EmailAddress: reqIn.Email,
 		MobileNumber: reqIn.MobileNumber, Status: reqIn.Status, Password: string(hashedPassword),
-		CreatedAt: time.Now().Local().String()}
+		CreatedAt: time.Now().Format("01-02-2006")}
 
 	doCreate := usww.CreateUser(req)
 	logrus.Info(doCreate)

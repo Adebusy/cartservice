@@ -109,7 +109,7 @@ func (cn DbConnect) CreateUser(usr *User) string {
 
 func (cn DbConnect) UpdateUserRecord(usr CompleteSignUpReq) string {
 
-	if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"EmailAddress\"=?", usr.EmailAddress).Updates(&usr).Error; doinssertupdate != nil {
+	if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"EmailAddress\"=? or \"MobileNumber\"=?", usr.EmailAddress, usr.MobileNumber).Updates(&usr).Error; doinssertupdate != nil {
 		logrus.Error(doinssertupdate)
 		return "Unable to create user at the moment!!"
 	} else {

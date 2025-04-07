@@ -13,8 +13,8 @@ definitions:
         type: integer
       Description:
         type: string
-      ProductId:
-        type: integer
+      Name:
+        type: string
       Quantity:
         type: integer
       UserId:
@@ -255,7 +255,7 @@ definitions:
       TitleId:
         type: string
       UserName:
-        minLength: 8
+        minLength: 4
         type: string
       email:
         type: string

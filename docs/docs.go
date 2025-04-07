@@ -1108,8 +1108,8 @@ const docTemplate = `{
                 "Description": {
                     "type": "string"
                 },
-                "ProductId": {
-                    "type": "integer"
+                "Name": {
+                    "type": "string"
                 },
                 "Quantity": {
                     "type": "integer"
@@ -1484,7 +1484,7 @@ const docTemplate = `{
                 },
                 "UserName": {
                     "type": "string",
-                    "minLength": 8
+                    "minLength": 4
                 },
                 "email": {
                     "type": "string"
