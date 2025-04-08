@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
@@ -129,4 +130,25 @@ func RemoveItemFromCart(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, "Product delete successfully !!")
+}
+
+// GetCartItemByUserId Get Cart Item By User Id
+// @Summary		Get Cart By User Id.
+// @Description	Get Cart By User Id.
+// @Tags			cart
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param UserId path string true "User ID"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	[]dbSchema.TblCartItem
+// @Router			/api/cart/GetCartItemByUserId/{UserId} [get]
+func GetCartItemByUserId(ctx *gin.Context) {
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	userId, _ := strconv.Atoi(ctx.Param("UserId"))
+	ctx.JSON(http.StatusOK, usww.GetCartItemByUserId(userId))
 }

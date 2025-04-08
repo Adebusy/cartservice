@@ -494,6 +494,53 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/cart/GetCartItemByUserId/{UserId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Cart By User Id.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Get Cart By User Id.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "UserId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dataaccess.TblCartItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/cart/GetCartsByUserId/{UserId}": {
             "get": {
                 "security": [
@@ -1200,6 +1247,35 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dataaccess.TblCartItem": {
+            "type": "object",
+            "properties": {
+                "CartId": {
+                    "type": "integer"
+                },
+                "DateAdded": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "ProductId": {
+                    "type": "integer"
+                },
+                "Quantity": {
+                    "type": "integer"
+                },
+                "UserId": {
+                    "type": "integer"
+                },
+                "id": {
                     "type": "integer"
                 }
             }

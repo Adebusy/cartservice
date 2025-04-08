@@ -75,6 +75,25 @@ definitions:
       userId:
         type: integer
     type: object
+  dataaccess.TblCartItem:
+    properties:
+      CartId:
+        type: integer
+      DateAdded:
+        type: string
+      Description:
+        type: string
+      Name:
+        type: string
+      ProductId:
+        type: integer
+      Quantity:
+        type: integer
+      UserId:
+        type: integer
+      id:
+        type: integer
+    type: object
   dataaccess.TblStatus:
     properties:
       CreatedAt:
@@ -607,6 +626,36 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/dataaccess.TblCart'
+      security:
+      - BearerAuth: []
+      summary: Get Cart By User Id.
+      tags:
+      - cart
+  /api/cart/GetCartItemByUserId/{UserId}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Cart By User Id.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: UserId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dataaccess.TblCartItem'
+            type: array
       security:
       - BearerAuth: []
       summary: Get Cart By User Id.

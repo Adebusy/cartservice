@@ -39,6 +39,7 @@ func ConnectCartItem(db *gorm.DB) ICartItem {
 type ICartItem interface {
 	AddItemToCart(CartItem TblCartItem) int
 	RemoveItemFromCart(ProductId, CartId, UserId int) error
+	GetCartItemByUserId(userId int) []TblCartItem
 }
 
 func (cn DbConnect) AddItemToCart(CartItem TblCartItem) int {
@@ -52,4 +53,16 @@ func (cn DbConnect) AddItemToCart(CartItem TblCartItem) int {
 func (cn DbConnect) RemoveItemFromCart(ProductId, CartId, UserId int) error {
 	doDeleteItem := cn.DbGorm.Debug().Where("\"CartId\"=? and \"ProductId\"=? and \"UserId\"=?", CartId, ProductId, UserId).Delete(&TblCartItem{}).Error
 	return doDeleteItem
+}
+
+func (cn DbConnect) GetCartItemByUserId(UserId int) []TblCartItem {
+	resp := []TblCartItem{}
+	cn.DbGorm.Debug().Where("\"UserId\"=?", UserId).Select(&TblCartItem{}).Find(&resp)
+	return resp
+}
+
+func (cn DbConnect) GetCartItemByCartId(CartId int) []TblCartItem {
+	resp := []TblCartItem{}
+	cn.DbGorm.Debug().Where("\"CartId\"=?", CartId).Select(&TblCartItem{}).Find(&resp)
+	return resp
 }
