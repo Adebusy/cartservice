@@ -140,15 +140,16 @@ func RemoveItemFromCart(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
 // @Param UserId path string true "User ID"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	[]dbSchema.TblCartItem
 // @Router			/api/cart/GetCartItemsByUserId/{UserId} [get]
 func GetCartItemsByUserId(ctx *gin.Context) {
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
 	ctx.JSON(http.StatusOK, usww.GetCartItemsByUserId(userId))
 }
@@ -161,6 +162,7 @@ func GetCartItemsByUserId(ctx *gin.Context) {
 // @Accept			*/*
 // @User			json
 // @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
 // @Param UserId path string true "Cart ID"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
