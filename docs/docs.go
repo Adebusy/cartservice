@@ -530,7 +530,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Cart ID",
-                        "name": "UserId",
+                        "name": "CartId",
                         "in": "path",
                         "required": true
                     }
@@ -579,6 +579,13 @@ const docTemplate = `{
                         "description": "registered client name",
                         "name": "clientName",
                         "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User Id",
+                        "name": "UserId",
+                        "in": "path",
                         "required": true
                     }
                 ],
