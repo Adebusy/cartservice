@@ -141,7 +141,6 @@ func RemoveItemFromCart(ctx *gin.Context) {
 // @User			json
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Param UserId path string true "User ID"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	[]dbSchema.TblCartItem
