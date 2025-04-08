@@ -631,7 +631,37 @@ paths:
       summary: Get Cart By User Id.
       tags:
       - cart
-  /api/cart/GetCartItemByUserId/{UserId}:
+  /api/cart/GetCartItemsByCartId/{CartId}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Cart By Cart Id.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Cart ID
+        in: path
+        name: UserId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dataaccess.TblCartItem'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get Cart By Cart Id.
+      tags:
+      - cart
+  /api/cart/GetCartItemsByUserId/{UserId}:
     get:
       consumes:
       - '*/*'

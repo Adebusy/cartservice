@@ -39,7 +39,8 @@ func ConnectCartItem(db *gorm.DB) ICartItem {
 type ICartItem interface {
 	AddItemToCart(CartItem TblCartItem) int
 	RemoveItemFromCart(ProductId, CartId, UserId int) error
-	GetCartItemByUserId(userId int) []TblCartItem
+	GetCartItemsByUserId(UserId int) []TblCartItem
+	GetCartItemsByCartId(CartId int) []TblCartItem
 }
 
 func (cn DbConnect) AddItemToCart(CartItem TblCartItem) int {
@@ -55,14 +56,14 @@ func (cn DbConnect) RemoveItemFromCart(ProductId, CartId, UserId int) error {
 	return doDeleteItem
 }
 
-func (cn DbConnect) GetCartItemByUserId(UserId int) []TblCartItem {
+func (cn DbConnect) GetCartItemsByUserId(UserId int) []TblCartItem {
 	resp := []TblCartItem{}
-	cn.DbGorm.Debug().Where("\"UserId\"=?", UserId).Select(&TblCartItem{}).Find(&resp)
+	cn.DbGorm.Select([]string{"Id", "CartId", "ProductId", "Quantity", "Description", "DateAdded", "UserId"}).Where("\"UserId\"=?", UserId).Find(&resp)
 	return resp
 }
 
-func (cn DbConnect) GetCartItemByCartId(CartId int) []TblCartItem {
+func (cn DbConnect) GetCartItemsByCartId(CartId int) []TblCartItem {
 	resp := []TblCartItem{}
-	cn.DbGorm.Debug().Where("\"CartId\"=?", CartId).Select(&TblCartItem{}).Find(&resp)
+	cn.DbGorm.Select([]string{"Id", "CartId", "ProductId", "Quantity", "Description", "DateAdded", "UserId"}).Where("\"CartId\"=?", CartId).Find(&resp)
 	return resp
 }

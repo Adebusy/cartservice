@@ -97,7 +97,9 @@ type Iuser interface {
 
 	GetAllStatus() []TblStatus
 
-	GetCartItemByUserId(userId int) []TblCartItem
+	GetCartItemsByUserId(userId int) []TblCartItem
+
+	GetCartItemsByCartId(cartId int) []TblCartItem
 }
 
 func (cn DbConnect) CreateUser(usr *User) string {

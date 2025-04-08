@@ -132,7 +132,7 @@ func RemoveItemFromCart(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, "Product delete successfully !!")
 }
 
-// GetCartItemByUserId Get Cart Item By User Id
+// GetCartItemsByUserId Get Cart Item By User Id
 // @Summary		Get Cart By User Id.
 // @Description	Get Cart By User Id.
 // @Tags			cart
@@ -144,11 +144,32 @@ func RemoveItemFromCart(ctx *gin.Context) {
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	[]dbSchema.TblCartItem
-// @Router			/api/cart/GetCartItemByUserId/{UserId} [get]
-func GetCartItemByUserId(ctx *gin.Context) {
+// @Router			/api/cart/GetCartItemsByUserId/{UserId} [get]
+func GetCartItemsByUserId(ctx *gin.Context) {
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
-	ctx.JSON(http.StatusOK, usww.GetCartItemByUserId(userId))
+	ctx.JSON(http.StatusOK, usww.GetCartItemsByUserId(userId))
+}
+
+// GetCartItemsByCartId Get Cart Item By Cart Id
+// @Summary		Get Cart By Cart Id.
+// @Description	Get Cart By Cart Id.
+// @Tags			cart
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param UserId path string true "Cart ID"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	[]dbSchema.TblCartItem
+// @Router			/api/cart/GetCartItemsByCartId/{CartId} [get]
+func GetCartItemsByCartId(ctx *gin.Context) {
+	if !ValidateClient(ctx) {
+		return
+	}
+	cartId, _ := strconv.Atoi(ctx.Param("CartId"))
+	ctx.JSON(http.StatusOK, usww.GetCartItemsByCartId(cartId))
 }

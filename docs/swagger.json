@@ -491,7 +491,54 @@
                 }
             }
         },
-        "/api/cart/GetCartItemByUserId/{UserId}": {
+        "/api/cart/GetCartItemsByCartId/{CartId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Cart By Cart Id.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Get Cart By Cart Id.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cart ID",
+                        "name": "UserId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dataaccess.TblCartItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/GetCartItemsByUserId/{UserId}": {
             "get": {
                 "security": [
                     {
