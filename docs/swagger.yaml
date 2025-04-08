@@ -642,6 +642,11 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
       - description: Cart ID
         in: path
         name: UserId
@@ -672,9 +677,9 @@ paths:
         name: Authorization
         required: true
         type: string
-      - description: User ID
-        in: path
-        name: UserId
+      - description: registered client name
+        in: header
+        name: clientName
         required: true
         type: string
       produces:
