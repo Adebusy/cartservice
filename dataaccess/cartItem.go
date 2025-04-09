@@ -58,12 +58,12 @@ func (cn DbConnect) RemoveItemFromCart(ProductId, CartId, UserId int) error {
 
 func (cn DbConnect) GetCartItemsByUserId(UserId int) []TblCartItem {
 	resp := []TblCartItem{}
-	cn.DbGorm.Select([]string{"Id", "CartId", "ProductId", "Quantity", "Description", "DateAdded", "UserId"}).Where("\"UserId\"=?", UserId).Find(&resp)
+	cn.DbGorm.Select([]string{"Id", "Name", "CartId", "ProductId", "Quantity", "Description", "DateAdded", "UserId"}).Where("\"UserId\"=?", UserId).Find(&resp)
 	return resp
 }
 
 func (cn DbConnect) GetCartItemsByCartId(CartId int) []TblCartItem {
 	resp := []TblCartItem{}
-	cn.DbGorm.Select([]string{"Id", "CartId", "ProductId", "Quantity", "Description", "DateAdded", "UserId"}).Where("\"CartId\"=?", CartId).Find(&resp)
+	cn.DbGorm.Select([]string{"Id", "Name", "CartId", "ProductId", "Quantity", "Description", "DateAdded", "UserId"}).Where("\"CartId\"=?", CartId).Find(&resp)
 	return resp
 }
