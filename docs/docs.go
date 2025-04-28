@@ -755,6 +755,228 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/group/AddUserToCartGroup": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This action can only be performed by the group admin.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "Add user group from existing cart.",
+                "parameters": [
+                    {
+                        "description": "Add user to Group",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.TblTeamGroupObj"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create group was successfully!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to Create Group at the monent!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/CreateGroup": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This action can only be performed by the admin.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "create group from existing cart.",
+                "parameters": [
+                    {
+                        "description": "Create Group",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.TblGroupObj"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create group was successfully!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to Create Group at the monent!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/GetGroupMemberByCartID/{CartId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get group member by carID.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "Get group member by carID.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cart Id",
+                        "name": "CartId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dataaccess.TblGroupUser"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/group/RemoveUserFromCartGroup": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This action can only be performed by the group admin.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "Remove user group from existing cart.",
+                "parameters": [
+                    {
+                        "description": "Remove user from Group",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.RmoveUserFromGroupObj"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User remove successfully!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to remove user from group at the monent!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/CompleteSignUp": {
             "post": {
                 "security": [
@@ -1277,6 +1499,26 @@ const docTemplate = `{
                 }
             }
         },
+        "dataaccess.RmoveUserFromGroupObj": {
+            "type": "object",
+            "properties": {
+                "AdminId": {
+                    "type": "integer"
+                },
+                "CartId": {
+                    "type": "integer"
+                },
+                "GroupName": {
+                    "type": "string"
+                },
+                "GroupTypeId": {
+                    "type": "integer"
+                },
+                "UserId": {
+                    "type": "integer"
+                }
+            }
+        },
         "dataaccess.TblCart": {
             "type": "object",
             "properties": {
@@ -1341,6 +1583,59 @@ const docTemplate = `{
                 }
             }
         },
+        "dataaccess.TblGroupObj": {
+            "type": "object",
+            "properties": {
+                "CartId": {
+                    "type": "integer"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "GroupName": {
+                    "type": "string"
+                },
+                "GroupTypeId": {
+                    "description": "RoleId      int    ` + "`" + `json:\"RoleId\"` + "`" + `",
+                    "type": "integer"
+                },
+                "UserId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dataaccess.TblGroupUser": {
+            "type": "object",
+            "properties": {
+                "CartId": {
+                    "type": "integer"
+                },
+                "DateAdded": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "GroupName": {
+                    "type": "string"
+                },
+                "GroupTypeId": {
+                    "type": "integer"
+                },
+                "Id": {
+                    "type": "integer"
+                },
+                "RoleId": {
+                    "type": "integer"
+                },
+                "Status": {
+                    "type": "integer"
+                },
+                "UserId": {
+                    "type": "integer"
+                }
+            }
+        },
         "dataaccess.TblStatus": {
             "type": "object",
             "properties": {
@@ -1352,6 +1647,29 @@ const docTemplate = `{
                 },
                 "StatusName": {
                     "type": "string"
+                }
+            }
+        },
+        "dataaccess.TblTeamGroupObj": {
+            "type": "object",
+            "properties": {
+                "AdminId": {
+                    "type": "integer"
+                },
+                "CartId": {
+                    "type": "integer"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "GroupName": {
+                    "type": "string"
+                },
+                "GroupTypeId": {
+                    "type": "integer"
+                },
+                "UserId": {
+                    "type": "integer"
                 }
             }
         },

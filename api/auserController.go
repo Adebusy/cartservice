@@ -28,6 +28,7 @@ var (
 	prd        = dbSchema.ConnectProduct(getdb)
 	tit        = dbSchema.ConTitle(getdb)
 	client     = dbSchema.ConnectClient(getdb)
+	grp        = dbSchema.ConnectGroup(getdb)
 	validateMe = validator.New()
 )
 

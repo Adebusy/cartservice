@@ -97,6 +97,11 @@ func main() {
 	svc.GET("/api/admin/GetToken/:clientname", api.GetToken)       //done
 	svc.POST("api/admin/RegisterNewClient", api.RegisterNewClient) //done
 
+	svc.POST("api/group/CreateGroup", api.CreateGroup)                               //done
+	svc.GET("/api/group/GetGroupMemberByCartID/:CartId", api.GetGroupMemberByCartID) //done
+	svc.POST("api/group/AddUserToCartGroup", api.AddUserToCartGroup)                 //done
+	svc.POST("api/group/RemoveUserFromCartGroup", api.RemoveUserFromCartGroup)       //done
+
 	svc.POST("api/group/CreateGroupType", testSvc)
 	svc.POST("api/group/DeleteGroupType", testSvc)
 

@@ -25,12 +25,39 @@ type TblGroupType struct {
 type TblGroupUser struct {
 	Id          int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
 	GroupName   string    `json:"GroupName"`
+	Status      int       `json:"Status" validate:"omitempty"`
 	Description string    `json:"Description"`
 	UserId      int       `json:"UserId"`
 	RoleId      int       `json:"RoleId"`
-	Status      bool      `json:"Status" validate:"omitempty"`
 	GroupTypeId int       `json:"GroupTypeId"`
+	CartId      int       `json:"CartId"`
 	DateAdded   time.Time `json:"DateAdded"`
+}
+
+type TblGroupObj struct {
+	GroupName   string `json:"GroupName"`
+	Description string `json:"Description"`
+	UserId      int    `json:"UserId"`
+	// RoleId      int    `json:"RoleId"`
+	GroupTypeId int `json:"GroupTypeId"`
+	CartId      int `json:"CartId"`
+}
+
+type TblTeamGroupObj struct {
+	GroupName   string `json:"GroupName"`
+	Description string `json:"Description"`
+	UserId      int    `json:"UserId"`
+	GroupTypeId int    `json:"GroupTypeId"`
+	CartId      int    `json:"CartId"`
+	AdminId     int    `json:"AdminId"`
+}
+
+type RmoveUserFromGroupObj struct {
+	GroupName   string `json:"GroupName"`
+	AdminId     int    `json:"AdminId"`
+	GroupTypeId int    `json:"GroupTypeId"`
+	CartId      int    `json:"CartId"`
+	UserId      int    `json:"UserId"`
 }
 
 type TblOrderItem struct {

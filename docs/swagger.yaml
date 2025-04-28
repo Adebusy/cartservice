@@ -52,6 +52,19 @@ definitions:
       responseMessage:
         type: string
     type: object
+  dataaccess.RmoveUserFromGroupObj:
+    properties:
+      AdminId:
+        type: integer
+      CartId:
+        type: integer
+      GroupName:
+        type: string
+      GroupTypeId:
+        type: integer
+      UserId:
+        type: integer
+    type: object
   dataaccess.TblCart:
     properties:
       Id:
@@ -94,6 +107,41 @@ definitions:
       id:
         type: integer
     type: object
+  dataaccess.TblGroupObj:
+    properties:
+      CartId:
+        type: integer
+      Description:
+        type: string
+      GroupName:
+        type: string
+      GroupTypeId:
+        description: RoleId      int    `json:"RoleId"`
+        type: integer
+      UserId:
+        type: integer
+    type: object
+  dataaccess.TblGroupUser:
+    properties:
+      CartId:
+        type: integer
+      DateAdded:
+        type: string
+      Description:
+        type: string
+      GroupName:
+        type: string
+      GroupTypeId:
+        type: integer
+      Id:
+        type: integer
+      RoleId:
+        type: integer
+      Status:
+        type: integer
+      UserId:
+        type: integer
+    type: object
   dataaccess.TblStatus:
     properties:
       CreatedAt:
@@ -102,6 +150,21 @@ definitions:
         type: integer
       StatusName:
         type: string
+    type: object
+  dataaccess.TblTeamGroupObj:
+    properties:
+      AdminId:
+        type: integer
+      CartId:
+        type: integer
+      Description:
+        type: string
+      GroupName:
+        type: string
+      GroupTypeId:
+        type: integer
+      UserId:
+        type: integer
     type: object
   dataaccess.TitleResp:
     properties:
@@ -799,6 +862,149 @@ paths:
       summary: Remove user from cart.
       tags:
       - cart
+  /api/group/AddUserToCartGroup:
+    post:
+      consumes:
+      - '*/*'
+      description: This action can only be performed by the group admin.
+      parameters:
+      - description: Add user to Group
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dataaccess.TblTeamGroupObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Create group was successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to Create Group at the monent!!
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Add user group from existing cart.
+      tags:
+      - group
+  /api/group/CreateGroup:
+    post:
+      consumes:
+      - '*/*'
+      description: This action can only be performed by the admin.
+      parameters:
+      - description: Create Group
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dataaccess.TblGroupObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Create group was successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to Create Group at the monent!!
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: create group from existing cart.
+      tags:
+      - group
+  /api/group/GetGroupMemberByCartID/{CartId}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get group member by carID.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      - description: Cart Id
+        in: path
+        name: CartId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dataaccess.TblGroupUser'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get group member by carID.
+      tags:
+      - group
+  /api/group/RemoveUserFromCartGroup:
+    post:
+      consumes:
+      - '*/*'
+      description: This action can only be performed by the group admin.
+      parameters:
+      - description: Remove user from Group
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dataaccess.RmoveUserFromGroupObj'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: User remove successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to remove user from group at the monent!!
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Remove user group from existing cart.
+      tags:
+      - group
   /api/user/CompleteSignUp:
     post:
       consumes:
