@@ -90,9 +90,9 @@ func AddItemToCart(ctx *gin.Context) {
 // @Failure		400		{string} string	"Unable to remove item to cart at the monent!!"
 // @Router			/api/cart/RemoveItemFromCart [post]
 func RemoveItemFromCart(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	RemoveCartItemObj := &dbSchema.RemoveCartItemObj{}
 	if doConvert := ctx.ShouldBindJSON(RemoveCartItemObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
