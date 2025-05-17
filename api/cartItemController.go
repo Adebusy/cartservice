@@ -124,7 +124,7 @@ func RemoveItemFromCart(ctx *gin.Context) {
 	}
 
 	//do remove
-	if doDeleteProduct := crtItem.RemoveItemFromCart(RemoveCartItemObj.ProductId, RemoveCartItemObj.CartId, RemoveCartItemObj.UserId); doDeleteProduct != nil {
+	if doDeleteProduct := crtItem.RemoveItemFromCart(RemoveCartItemObj.CartItemId, RemoveCartItemObj.CartId, RemoveCartItemObj.UserId); doDeleteProduct != nil {
 		logrus.Error(doDeleteProduct)
 		ctx.JSON(http.StatusBadRequest, "Service is unable to remove this product at the moment, Please try again later!!")
 		return

@@ -176,6 +176,34 @@ func GetGroupMemberByCartID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, createGoupUser)
 }
 
+// GetGroupByUserID Get group by carID
+// @Summary		Get group by carID.
+// @Description	Get group by carID.
+// @Tags			group
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Param CartId path string true "Cart Id"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	[]dbSchema.TblGroupUser
+// @Router			/api/group/GetGroupByUserID/{userId} [get]
+func GetGroupByUserID(ctx *gin.Context) {
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	CartId, _ := strconv.Atoi(ctx.Param("CartId"))
+	createGoupUser := grp.GetGroupMemberByCartID(CartId)
+	if len(createGoupUser) == 0 {
+		logrus.Error(createGoupUser)
+		ctx.JSON(http.StatusBadRequest, "Service is unable to create or add user to group ATM, Please try again later!!")
+		return
+	}
+	ctx.JSON(http.StatusOK, createGoupUser)
+}
+
 // RemoveUserFromCartGroup godoc
 // @Summary		Remove user group from existing cart.
 // @Description	This action can only be performed by the group admin.

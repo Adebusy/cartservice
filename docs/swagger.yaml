@@ -40,7 +40,7 @@ definitions:
     properties:
       CartId:
         type: integer
-      ProductId:
+      CartItemId:
         type: integer
       UserId:
         type: integer
@@ -932,6 +932,41 @@ paths:
       security:
       - BearerAuth: []
       summary: create group from existing cart.
+      tags:
+      - group
+  /api/group/GetGroupByUserID/{userId}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get group by carID.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      - description: Cart Id
+        in: path
+        name: CartId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dataaccess.TblGroupUser'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get group by carID.
       tags:
       - group
   /api/group/GetGroupMemberByCartID/{CartId}:

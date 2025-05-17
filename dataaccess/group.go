@@ -16,6 +16,7 @@ func ConnectGroup(db *gorm.DB) IGroup {
 type IGroup interface {
 	CreateGroupUser(prod *TblGroupUser) int
 	GetGroupMemberByCartID(cartId int) []TblGroupUser
+	GetGroupByUserID(cartId int) []TblGroupUser
 	GetGroupAdminByUserIdAndRoleID(roleId, userId int) TblGroupUser
 	RemoveUserFromGroup(userId, cartId int, GroupName string) int
 	// DeleteProductByProductId(productId int) error
@@ -34,6 +35,12 @@ func (cn GConnect) CreateGroupUser(prod *TblGroupUser) int {
 func (cn GConnect) GetGroupMemberByCartID(cartId int) []TblGroupUser {
 	prod := []TblGroupUser{}
 	cn.DbGorm.Table("TblGroupUser").Select("Id", "GroupName", "Status", "Description", "UserId", "RoleId", "GroupTypeId", "CartId", "DateAdded").Where("\"CartId\"=?", cartId).Find(&prod)
+	return prod
+}
+
+func (cn GConnect) GetGroupByUserID(userId int) []TblGroupUser {
+	prod := []TblGroupUser{}
+	cn.DbGorm.Table("TblGroupUser").Select("Id", "GroupName", "Status", "Description", "UserId", "RoleId", "GroupTypeId", "CartId", "DateAdded").Where("\"UserId\"=?", userId).Find(&prod)
 	return prod
 }
 

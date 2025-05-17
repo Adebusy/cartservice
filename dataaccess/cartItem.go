@@ -16,9 +16,9 @@ type CartItemObj struct {
 }
 
 type RemoveCartItemObj struct {
-	CartId    int `json:"CartId" validate:"omitempty"`
-	ProductId int `json:"ProductId" validate:"omitempty"`
-	UserId    int `json:"UserId" validate:"omitempty"`
+	CartId     int `json:"CartId" validate:"omitempty"`
+	CartItemId int `json:"CartItemId" validate:"omitempty"`
+	UserId     int `json:"UserId" validate:"omitempty"`
 }
 
 type TblCartItem struct {
@@ -51,8 +51,8 @@ func (cn DbConnect) AddItemToCart(CartItem TblCartItem) int {
 	return CartItem.Id
 }
 
-func (cn DbConnect) RemoveItemFromCart(ProductId, CartId, UserId int) error {
-	doDeleteItem := cn.DbGorm.Debug().Where("\"CartId\"=? and \"ProductId\"=? and \"UserId\"=?", CartId, ProductId, UserId).Delete(&TblCartItem{}).Error
+func (cn DbConnect) RemoveItemFromCart(Id, CartId, UserId int) error {
+	doDeleteItem := cn.DbGorm.Debug().Where("\"CartId\"=? and \"Id\"=? and \"UserId\"=?", CartId, Id, UserId).Delete(&TblCartItem{}).Error
 	return doDeleteItem
 }
 

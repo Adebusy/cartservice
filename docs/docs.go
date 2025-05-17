@@ -867,6 +867,60 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/group/GetGroupByUserID/{userId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get group by carID.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "group"
+                ],
+                "summary": "Get group by carID.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cart Id",
+                        "name": "CartId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dataaccess.TblGroupUser"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/group/GetGroupMemberByCartID/{CartId}": {
             "get": {
                 "security": [
@@ -1480,7 +1534,7 @@ const docTemplate = `{
                 "CartId": {
                     "type": "integer"
                 },
-                "ProductId": {
+                "CartItemId": {
                     "type": "integer"
                 },
                 "UserId": {
