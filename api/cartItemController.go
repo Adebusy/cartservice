@@ -106,10 +106,10 @@ func RemoveItemFromCart(ctx *gin.Context) {
 	}
 
 	// check Check product to be removed
-	if GetProductByProductId := prd.GetProductByProductId(RemoveCartItemObj.ProductId); GetProductByProductId.ProductName == "" {
-		ctx.JSON(http.StatusBadRequest, "Product does not exist.")
-		return
-	}
+	// if GetProductByProductId := prd.GetProductByProductId(RemoveCartItemObj.ProductId); GetProductByProductId.ProductName == "" {
+	// 	ctx.JSON(http.StatusBadRequest, "Product does not exist.")
+	// 	return
+	// }
 
 	doCheckCreatedById := usww.GetUserByUserId(RemoveCartItemObj.UserId)
 	if doCheckCreatedById.EmailAddress == "" {
