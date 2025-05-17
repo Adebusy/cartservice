@@ -938,7 +938,7 @@ paths:
     get:
       consumes:
       - '*/*'
-      description: Get group by carID.
+      description: Get group by userID.
       parameters:
       - description: Authorization token
         in: header
@@ -950,9 +950,9 @@ paths:
         name: clientName
         required: true
         type: string
-      - description: Cart Id
+      - description: User Id
         in: path
-        name: CartId
+        name: UserId
         required: true
         type: string
       produces:
@@ -966,7 +966,7 @@ paths:
             type: array
       security:
       - BearerAuth: []
-      summary: Get group by carID.
+      summary: Get group by userID.
       tags:
       - group
   /api/group/GetGroupMemberByCartID/{CartId}:

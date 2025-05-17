@@ -874,7 +874,7 @@ const docTemplate = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "Get group by carID.",
+                "description": "Get group by userID.",
                 "consumes": [
                     "*/*"
                 ],
@@ -884,7 +884,7 @@ const docTemplate = `{
                 "tags": [
                     "group"
                 ],
-                "summary": "Get group by carID.",
+                "summary": "Get group by userID.",
                 "parameters": [
                     {
                         "type": "string",
@@ -902,8 +902,8 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Cart Id",
-                        "name": "CartId",
+                        "description": "User Id",
+                        "name": "UserId",
                         "in": "path",
                         "required": true
                     }

@@ -16,7 +16,7 @@ func ConnectGroup(db *gorm.DB) IGroup {
 type IGroup interface {
 	CreateGroupUser(prod *TblGroupUser) int
 	GetGroupMemberByCartID(cartId int) []TblGroupUser
-	GetGroupByUserID(cartId int) []TblGroupUser
+	GetGroupByUserID(userId int) []TblGroupUser
 	GetGroupAdminByUserIdAndRoleID(roleId, userId int) TblGroupUser
 	RemoveUserFromGroup(userId, cartId int, GroupName string) int
 	// DeleteProductByProductId(productId int) error

@@ -871,7 +871,7 @@
                         "BearerAuth": []
                     }
                 ],
-                "description": "Get group by carID.",
+                "description": "Get group by userID.",
                 "consumes": [
                     "*/*"
                 ],
@@ -881,7 +881,7 @@
                 "tags": [
                     "group"
                 ],
-                "summary": "Get group by carID.",
+                "summary": "Get group by userID.",
                 "parameters": [
                     {
                         "type": "string",
@@ -899,8 +899,8 @@
                     },
                     {
                         "type": "string",
-                        "description": "Cart Id",
-                        "name": "CartId",
+                        "description": "User Id",
+                        "name": "UserId",
                         "in": "path",
                         "required": true
                     }

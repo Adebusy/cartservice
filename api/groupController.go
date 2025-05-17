@@ -176,16 +176,16 @@ func GetGroupMemberByCartID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, createGoupUser)
 }
 
-// GetGroupByUserID Get group by carID
-// @Summary		Get group by carID.
-// @Description	Get group by carID.
+// GetGroupByUserID Get group by userID
+// @Summary		Get group by userID.
+// @Description	Get group by userID.
 // @Tags			group
 // @Produce json
 // @Accept			*/*
 // @User			json
 // @Param Authorization header string true "Authorization token"
 // @Param clientName header string true "registered client name"
-// @Param CartId path string true "Cart Id"
+// @Param UserId path string true "User Id"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	[]dbSchema.TblGroupUser
@@ -194,8 +194,8 @@ func GetGroupByUserID(ctx *gin.Context) {
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
-	CartId, _ := strconv.Atoi(ctx.Param("CartId"))
-	createGoupUser := grp.GetGroupMemberByCartID(CartId)
+	userId, _ := strconv.Atoi(ctx.Param("userId"))
+	createGoupUser := grp.GetGroupByUserID(userId)
 	if len(createGoupUser) == 0 {
 		logrus.Error(createGoupUser)
 		ctx.JSON(http.StatusBadRequest, "Service is unable to create or add user to group ATM, Please try again later!!")
