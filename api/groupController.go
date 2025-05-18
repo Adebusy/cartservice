@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -194,7 +195,11 @@ func GetGroupByUserID(ctx *gin.Context) {
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
+	fmt.Println("get here")
+	fmt.Print("get here")
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
+	fmt.Print("get here 2")
+	fmt.Println("get here 22")
 	createGoupUser := grp.GetGroupByUserID(userId)
 	if len(createGoupUser) == 0 {
 		logrus.Error(createGoupUser)
