@@ -263,7 +263,7 @@ func RemoveUserFromCartGroup(ctx *gin.Context) {
 		return
 	}
 	//do remove
-	if removeUserFromGoup := grp.RemoveUserFromGroup(2, GroupObj.CartId, GroupObj.GroupName); removeUserFromGoup == 0 {
+	if removeUserFromGoup := grp.RemoveUserFromGroup(2, GroupObj.UserId, GroupObj.GroupName); removeUserFromGoup == 0 {
 		logrus.Error(removeUserFromGoup)
 		ctx.JSON(http.StatusBadRequest, "Service is unable to create or add user to group ATM, Please try again later!!")
 		return
