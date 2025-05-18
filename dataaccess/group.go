@@ -1,6 +1,8 @@
 package dataaccess
 
 import (
+	"fmt"
+
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
@@ -52,6 +54,10 @@ func (cn GConnect) GetGroupAdminByUserIdAndRoleID(roleId, userId int) TblGroupUs
 
 func (cn GConnect) RemoveUserFromGroup(roleId, userId int, groupName string) int {
 	prod := TblGroupUser{}
-	cn.DbGorm.Table("TblGroupUser").Debug().Where("\"UserId\"=? and \"RoleId\"=? and \"GroupName\"=?", userId, roleId, groupName).Delete(prod)
-	return prod.Id
+	if err := cn.DbGorm.Table("TblGroupUser").Where("\"UserId\"=? and \"RoleId\"=? and \"GroupName\"=?", userId, roleId, groupName).Delete(prod).Error; err != nil {
+		fmt.Print(err)
+		return 0
+	}
+
+	return 1
 }
