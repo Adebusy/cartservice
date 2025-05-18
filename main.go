@@ -102,7 +102,7 @@ func main() {
 	svc.POST("api/group/AddUserToCartGroup", api.AddUserToCartGroup)                 //done
 	svc.POST("api/group/RemoveUserFromCartGroup", api.RemoveUserFromCartGroup)       //done
 
-	svc.GET("/api/group/GetGroupByUserID/:userId", api.GetGroupByUserID) //done
+	svc.GET("/api/group/GetGroupByUserID/:UserId", api.GetGroupByUserID) //done
 
 	svc.POST("api/group/CreateGroupType", testSvc)
 	svc.POST("api/group/DeleteGroupType", testSvc)

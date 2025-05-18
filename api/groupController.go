@@ -189,12 +189,12 @@ func GetGroupMemberByCartID(ctx *gin.Context) {
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	[]dbSchema.TblGroupUser
-// @Router			/api/group/GetGroupByUserID/{userId} [get]
+// @Router			/api/group/GetGroupByUserID/{UserId} [get]
 func GetGroupByUserID(ctx *gin.Context) {
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
-	userId, _ := strconv.Atoi(ctx.Param("userId"))
+	userId, _ := strconv.Atoi(ctx.Param("UserId"))
 	createGoupUser := grp.GetGroupByUserID(userId)
 	if len(createGoupUser) == 0 {
 		logrus.Error(createGoupUser)
