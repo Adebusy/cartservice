@@ -40,7 +40,7 @@ func (cn GConnect) GetGroupMemberByCartID(cartId int) []TblGroupUser {
 
 func (cn GConnect) GetGroupByUserID(userId int) []TblGroupUser {
 	prod := []TblGroupUser{}
-	cn.DbGorm.Table("TblGroupUser").Select("Id", "GroupName", "Status", "Description", "UserId", "RoleId", "GroupTypeId", "CartId", "DateAdded").Where("\"UserId\"=?", userId).Find(&prod)
+	cn.DbGorm.Table("TblGroupUser").Debug().Select("Id", "GroupName", "Status", "Description", "UserId", "RoleId", "GroupTypeId", "CartId", "DateAdded").Where("\"UserId\"=?", userId).Find(&prod)
 	return prod
 }
 
