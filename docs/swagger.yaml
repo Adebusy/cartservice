@@ -934,11 +934,11 @@ paths:
       summary: create group from existing cart.
       tags:
       - group
-  /api/group/GetGroupByUserID/{userId}:
+  /api/group/GetGroupByUserID/{UserId}:
     get:
       consumes:
       - '*/*'
-      description: Get group by userID.
+      description: Get group by UserId.
       parameters:
       - description: Authorization token
         in: header
@@ -966,7 +966,7 @@ paths:
             type: array
       security:
       - BearerAuth: []
-      summary: Get group by userID.
+      summary: Get group by UserId.
       tags:
       - group
   /api/group/GetGroupMemberByCartID/{CartId}:

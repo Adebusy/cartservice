@@ -867,14 +867,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/group/GetGroupByUserID/{userId}": {
+        "/api/group/GetGroupByUserID/{UserId}": {
             "get": {
                 "security": [
                     {
                         "BearerAuth": []
                     }
                 ],
-                "description": "Get group by userID.",
+                "description": "Get group by UserId.",
                 "consumes": [
                     "*/*"
                 ],
@@ -884,7 +884,7 @@ const docTemplate = `{
                 "tags": [
                     "group"
                 ],
-                "summary": "Get group by userID.",
+                "summary": "Get group by UserId.",
                 "parameters": [
                     {
                         "type": "string",

@@ -176,9 +176,9 @@ func GetGroupMemberByCartID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, createGoupUser)
 }
 
-// GetGroupByUserID Get group by userID
-// @Summary		Get group by userID.
-// @Description	Get group by userID.
+// GetGroupByUserID Get group by UserId
+// @Summary		Get group by UserId.
+// @Description	Get group by UserId.
 // @Tags			group
 // @Produce json
 // @Accept			*/*
