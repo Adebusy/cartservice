@@ -52,6 +52,6 @@ func (cn GConnect) GetGroupAdminByUserIdAndRoleID(roleId, userId int) TblGroupUs
 
 func (cn GConnect) RemoveUserFromGroup(roleId, userId int, groupName string) int {
 	prod := TblGroupUser{}
-	cn.DbGorm.Table("TblGroupUser").Where("\"UserId\"=? and \"RoleId\"=? and \"GroupName\"=?", userId, roleId, groupName).Delete(prod)
+	cn.DbGorm.Table("TblGroupUser").Debug().Where("\"UserId\"=? and \"RoleId\"=? and \"GroupName\"=?", userId, roleId, groupName).Delete(prod)
 	return prod.Id
 }
