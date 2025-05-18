@@ -25,7 +25,7 @@ type TblGroupType struct {
 type TblGroupUser struct {
 	Id          int       `json:"Id" gorm:"unique;primaryKey;autoIncrement"`
 	GroupName   string    `json:"GroupName"`
-	Status      int       `json:"Status" validate:"omitempty"`
+	Status      bool      `json:"Status" validate:"omitempty"`
 	Description string    `json:"Description"`
 	UserId      int       `json:"UserId"`
 	RoleId      int       `json:"RoleId"`
@@ -53,11 +53,10 @@ type TblTeamGroupObj struct {
 }
 
 type RmoveUserFromGroupObj struct {
-	GroupName   string `json:"GroupName"`
-	AdminId     int    `json:"AdminId"`
-	GroupTypeId int    `json:"GroupTypeId"`
-	CartId      int    `json:"CartId"`
-	UserId      int    `json:"UserId"`
+	GroupName string `json:"GroupName"`
+	AdminId   int    `json:"AdminId"`
+	CartId    int    `json:"CartId"`
+	UserId    int    `json:"UserId"`
 }
 
 type TblOrderItem struct {
