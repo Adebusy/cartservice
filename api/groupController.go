@@ -246,7 +246,7 @@ func RemoveUserFromCartGroup(ctx *gin.Context) {
 		return
 	}
 
-	checkIfGroupUserAlreadyAdded := grp.GetGroupAdminByUserIdAndRoleID(2, GroupObj.AdminId)
+	checkIfGroupUserAlreadyAdded := grp.GetGroupAdminByUserIdAndRoleID(2, GroupObj.UserId)
 	if checkIfGroupUserAlreadyAdded.GroupName == "" {
 		ctx.JSON(http.StatusBadRequest, "This user has not been added to this group.")
 		return
