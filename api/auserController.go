@@ -374,10 +374,6 @@ func LogOut(ctx *gin.Context) {
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/LogInWithMobileNumber/{MobileNumber}/{Password} [get]
 func LogInWithMobileNumber(ctx *gin.Context) {
-	// @Param Authorization header string true "Authorization token"
-	// @Param clientName header string true "registered client name"
-	// @Security BearerAuth
-	// @securityDefinitions.basic BearerAuth
 	// if !ValidateClient(ctx) {
 	// 	return
 	// }
