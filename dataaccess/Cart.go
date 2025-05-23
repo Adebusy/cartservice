@@ -138,6 +138,12 @@ func (cn DbConnect) GetCartByUserId(userId int) TblCart {
 	return res
 }
 
+func (cn DbConnect) GetCartByUserIdandStatus(userId, status int) TblCart {
+	res := TblCart{}
+	cn.DbGorm.Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=? and \"Status\"=?", userId, status).First(&res)
+	return res
+}
+
 func (cn DbConnect) GetCartByUserEmail(email string) TblCart {
 	res := TblCart{}
 	cn.DbGorm.Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=?", email).First(&res)
@@ -147,5 +153,11 @@ func (cn DbConnect) GetCartByUserEmail(email string) TblCart {
 func (cn DbConnect) GetCartsByUserId(userId int) []TblCart {
 	res := []TblCart{}
 	cn.DbGorm.Debug().Select([]string{"Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy"}).Where("\"UserId\"=?", userId).Find(&res)
+	return res
+}
+
+func (cn DbConnect) GetCartsByUserIdandStatus(userId, status int) []TblCart {
+	res := []TblCart{}
+	cn.DbGorm.Debug().Select([]string{"Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy"}).Where("\"UserId\"=? and \"Status\"=?", userId, status).Find(&res)
 	return res
 }

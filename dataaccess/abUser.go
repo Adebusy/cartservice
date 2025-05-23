@@ -90,6 +90,8 @@ type Iuser interface {
 	RemoveUserFromCart(CartId int, masterEmail, UserEmail string) error
 	CloseCart(cartId int) int
 	GetCartByUserId(cartId int) TblCart
+	GetCartByUserIdandStatus(userId, status int) TblCart
+	GetCartsByUserIdandStatus(userId, status int) []TblCart
 
 	GetCartByUserEmail(email string) TblCart
 

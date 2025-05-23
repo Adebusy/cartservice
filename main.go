@@ -71,7 +71,7 @@ func main() {
 	svc.GET("api/user/GetUserByMobile/:MobileNumber", api.GetUserByMobile)             //done
 	//svc.POST("api/user/UploadImage", api.TestSevc)                               // to be done later
 	svc.POST("api/user/SendEmail", api.SendEmail)           //done
-	svc.POST("api/user/LogOutUser", testSvc)                //to be done later
+	svc.POST("api/user/LogOut", testSvc)                    //to be done later
 	svc.POST("api/user/CompleteSignUp", api.CompleteSignUp) //to be done later
 
 	svc.POST("api/cart/CreateCart", api.CreateCart)                 //done
@@ -86,6 +86,9 @@ func main() {
 	svc.GET("api/cart/GetCartByUserId/:UserId", api.GetCartByUserId)         //done
 	svc.GET("api/cart/GetCartsByUserId/:UserId", api.GetCartsByUserId)       //done
 	svc.GET("api/cart/GetCartByEmail/:EmailAddress", api.GetCartByUserEmail) //done
+
+	svc.GET("api/cart/GetClosedCartsByUserId/:UserId", api.GetClosedCartsByUserId) //done
+	svc.GET("api/cart/GetOpenCartsByUserId/:UserId", api.GetOpenCartsByUserId)     //done
 
 	svc.GET("api/cart/GetCartItemsByUserId/:UserId", api.GetCartItemsByUserId) //done
 
