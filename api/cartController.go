@@ -106,9 +106,9 @@ func CreateCart(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCartMember [post]
 func CreateCartMember(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	carObj := &inputschema.CartUserObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)

@@ -75,7 +75,7 @@ func main() {
 	svc.POST("api/user/CompleteSignUp", api.CompleteSignUp) //to be done later
 
 	svc.POST("api/cart/CreateCart", api.CreateCart)                 //done
-	svc.POST("api/cart/AddUserToCart", api.CreateCartMember)        //done
+	svc.POST("api/cart/CreateCartMember", api.CreateCartMember)     //done
 	svc.POST("api/cart/AddItemToCart", api.AddItemToCart)           //done
 	svc.POST("api/cart/CreateCartType", testSvc)                    //to be done later
 	svc.POST("api/cart/RemoveItemFromCart", api.RemoveItemFromCart) //done
