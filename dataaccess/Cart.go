@@ -140,7 +140,7 @@ func (cn DbConnect) GetCartByUserId(userId int) TblCart {
 
 func (cn DbConnect) GetCartByUserIdandStatus(userId, status int) TblCart {
 	res := TblCart{}
-	cn.DbGorm.Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=? and \"Status\"=?", userId, status).First(&res)
+	cn.DbGorm.Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=? and \"Status\"='?'", userId, status).First(&res)
 	return res
 }
 
