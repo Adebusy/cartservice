@@ -299,6 +299,69 @@ func LogIn(ctx *gin.Context) {
 	}
 }
 
+// LogOut exiting user In
+// @Summary		Log user Out with username and password.
+// @Description	Log user Out with username and password.
+// @Tags			user
+// @Param UserName path string true "Username"
+// @Param Password path string true "Password"
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Success		200	{object}	string
+// @Router			/api/user/LogOut/{UserName}/{Password} [get]
+func LogOut(ctx *gin.Context) {
+	getUSerobj := dbSchema.User{}
+	userRespose := &inpuschema.UserResponse{}
+	UserName := ctx.Param("UserName")
+	Password := ctx.Param("Password")
+	enc := hex.EncodeToString([]byte(Password))
+
+	if utilities.IsEmailValid(UserName) {
+		getUSerobj = usww.GetUserByEmailAddress(UserName)
+	} else if utilities.IsNumberValid(UserName) {
+		getUSerobj = usww.GetUserByMobileNumber(UserName)
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+
+	if getUSerobj.EmailAddress != "" || getUSerobj.MobileNumber != "" {
+		if getUSerobj.Password == enc {
+			userRespose.TitleId = getUSerobj.TitleId
+			userRespose.UserName = getUSerobj.UserName
+			userRespose.NickName = getUSerobj.NickName
+			userRespose.FirstName = getUSerobj.FirstName
+			userRespose.LastName = getUSerobj.LastName
+			userRespose.Email = getUSerobj.EmailAddress
+			userRespose.MobileNumber = getUSerobj.MobileNumber
+			userRespose.Status = getUSerobj.Status
+			userRespose.Gender = getUSerobj.Gender
+			userRespose.Location = getUSerobj.Location
+			userRespose.CreatedAt = getUSerobj.CreatedAt
+			userRespose.Id = uint(getUSerobj.Id)
+			if newToken := CreateOrGetToken(userRespose.Email); newToken != "" {
+				userRespose.Token = newToken
+			}
+			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
+			ctx.JSON(http.StatusOK, userRespose)
+			return
+		} else {
+			logAction := fmt.Sprintf("Incorrect password %s", UserName)
+			logrus.Info(logAction)
+			ctx.JSON(http.StatusBadRequest, logAction)
+			return
+		}
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+}
+
 // LogInWithMobileNumber for exiting user
 // @Summary		Log user In with mobile number and password.
 // @Description	Log user In with mobile number and password.

@@ -239,12 +239,13 @@ func RemoveUserFromCart(ctx *gin.Context) {
 // @Param clientName header string true "registered client name"
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
-// @Success		200	{object}	inputschema.ResponseMessage
+// @Success 200	{string} string	"Cart closed successfully!"
 // @Router			/api/cart/CloseCart [put]
 func CloseCart(ctx *gin.Context) {
 	if !ValidateClient(ctx) {
 		return
 	}
+
 	carObj := &inputschema.CloseCartObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)

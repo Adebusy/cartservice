@@ -60,8 +60,6 @@ definitions:
         type: integer
       GroupName:
         type: string
-      GroupTypeId:
-        type: integer
       UserId:
         type: integer
     type: object
@@ -138,7 +136,7 @@ definitions:
       RoleId:
         type: integer
       Status:
-        type: integer
+        type: boolean
       UserId:
         type: integer
     type: object
@@ -566,9 +564,9 @@ paths:
         type: string
       responses:
         "200":
-          description: OK
+          description: Cart closed successfully!
           schema:
-            $ref: '#/definitions/obj.ResponseMessage'
+            type: string
       security:
       - BearerAuth: []
       summary: Close  Cart.
@@ -1234,6 +1232,32 @@ paths:
           schema:
             $ref: '#/definitions/obj.UserResponse'
       summary: Log user In with mobile number and password.
+      tags:
+      - user
+  /api/user/LogOut/{UserName}/{Password}:
+    get:
+      consumes:
+      - '*/*'
+      description: Log user Out with username and password.
+      parameters:
+      - description: Username
+        in: path
+        name: UserName
+        required: true
+        type: string
+      - description: Password
+        in: path
+        name: Password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Log user Out with username and password.
       tags:
       - user
   /api/user/SendEmail:

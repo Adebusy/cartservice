@@ -21,6 +21,12 @@ type SignUp struct {
 	Password     string `json:"Password" validate:"required,min=8"`
 }
 
+type LogOut struct {
+	Email        string `json:"Email" validate:"required,email"`
+	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
+	Password     string `json:"Password" validate:"required,min=8"`
+}
+
 type CompleteSignUp struct {
 	EmailAddress string `gorm:"column:EmailAddress"`
 	MobileNumber string `gorm:"column:MobileNumber"`

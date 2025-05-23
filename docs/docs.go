@@ -298,9 +298,9 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Cart closed successfully!",
                         "schema": {
-                            "$ref": "#/definitions/obj.ResponseMessage"
+                            "type": "string"
                         }
                     }
                 }
@@ -1331,6 +1331,45 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/user/LogOut/{UserName}/{Password}": {
+            "get": {
+                "description": "Log user Out with username and password.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Log user Out with username and password.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Username",
+                        "name": "UserName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "Password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/SendEmail": {
             "post": {
                 "security": [
@@ -1565,9 +1604,6 @@ const docTemplate = `{
                 "GroupName": {
                     "type": "string"
                 },
-                "GroupTypeId": {
-                    "type": "integer"
-                },
                 "UserId": {
                     "type": "integer"
                 }
@@ -1683,7 +1719,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "Status": {
-                    "type": "integer"
+                    "type": "boolean"
                 },
                 "UserId": {
                     "type": "integer"

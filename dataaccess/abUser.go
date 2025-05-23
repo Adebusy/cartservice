@@ -100,6 +100,17 @@ type Iuser interface {
 	GetCartItemsByUserId(userId int) []TblCartItem
 
 	GetCartItemsByCartId(cartId int) []TblCartItem
+
+	LogOut(token, username string) string
+}
+
+func (cn DbConnect) LogOut(token, username string) string {
+	if doinssert := cn.DbGorm.Table("TblBlacklisted").Create("&usr").Error; doinssert != nil {
+		logrus.Error(doinssert)
+		return "Unable to create user at the moment!!"
+	} else {
+		return "User created successfully!!"
+	}
 }
 
 func (cn DbConnect) CreateUser(usr *User) string {

@@ -49,6 +49,39 @@ func CreateToken(username string) (string, error) {
 	return tokenString, nil
 }
 
+func DeactivateToken(username string) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256,
+		jwt.MapClaims{
+			"username": username,
+			"exp":      time.Now().Add(time.Hour * 24).Unix(),
+		})
+
+	tokenString, err := token.SignedString(secretKey)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
+}
+
+func Logout(token, username string) {
+	// ttl := time.Now().Add(time.Hour * 0).Unix()
+
+	// if err != nil {
+	// 	c.JSON(http.StatusUnauthorized, "unauthorized")
+	// 	return
+	// }
+
+	// deleted, delErr := DeleteAuth(au.AccessUuid)
+
+	// if delErr != nil || deleted == 0 {
+	// 	c.JSON(http.StatusUnauthorized, "unauthorized")
+	// 	return
+	// }
+
+	//c.JSON(http.StatusOK, "Successfully logged out")
+}
+
 func VerifyToken(tokenString string) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return secretKey, nil
@@ -80,29 +113,3 @@ func IsNumberValid(e string) bool {
 		return false
 	}
 }
-
-// func ValidateClient(ctx *gin.Context) bool {
-// 	reqBearer := ctx.GetHeader("Authorization")
-// 	if reqBearer == "" {
-// 		resp := fmt.Sprintf("Bearer is required!! %s", reqBearer)
-// 		ctx.JSON(http.StatusBadRequest, resp)
-// 		return false
-// 	}
-
-// 	clientName := ctx.GetHeader("clientName")
-// 	if clientName == "" {
-// 		resp := fmt.Sprintf("Client name is required in the header!! %s", clientName)
-// 		ctx.JSON(http.StatusBadRequest, resp)
-// 		return false
-// 	}
-// 	//check client
-
-// 	docheck := dataaccess.GetClientByName(clientName)
-
-// 	reqBearer = reqBearer[len("Bearer "):]
-// 	if doVerify := VerifyToken(reqBearer); doVerify != nil {
-// 		ctx.JSON(http.StatusBadRequest, "invalid token")
-// 		return false
-// 	}
-// 	return true
-// }
