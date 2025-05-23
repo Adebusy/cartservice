@@ -53,9 +53,7 @@ func CreateOrGetToken(username string) string {
 }
 
 func CreateOrUpdateToken(username string, res dbSchema.TblClient, respToken string) string {
-	fmt.Printf("checkClient.Name is")
 	if checkClient := client.GetClientByName(username); checkClient.Name == "" {
-		fmt.Printf("checkClient.Name is %s", checkClient.Name)
 		if doReg := client.RegisterNewClient(res); doReg == "00" {
 			if respToken, err := utilities.CreateToken(username); err != nil {
 				return respToken
