@@ -74,14 +74,13 @@ func main() {
 	svc.POST("api/user/LogOut", testSvc)                    //to be done later
 	svc.POST("api/user/CompleteSignUp", api.CompleteSignUp) //to be done later
 
-	svc.POST("api/cart/CreateCart", api.CreateCart)                 //done
-	svc.POST("api/cart/CreateCartMember", api.CreateCartMember)     //done
-	svc.POST("api/cart/AddItemToCart", api.AddItemToCart)           //done
-	svc.POST("api/cart/CreateCartType", testSvc)                    //to be done later
-	svc.POST("api/cart/RemoveItemFromCart", api.RemoveItemFromCart) //done
-	svc.PUT("api/cart/CloseCart", api.CloseCart)                    //done
-	svc.POST("api/cart/RemoveUserFromCart", api.RemoveUserFromCart) //done
-	// svc.GET("api/cart/GetCartByCartId/:CartId", api.GetCartByCartId)     //done
+	svc.POST("api/cart/CreateCart", api.CreateCart)                          //done
+	svc.POST("api/cart/CreateCartMember", api.CreateCartMember)              //done
+	svc.POST("api/cart/AddItemToCart", api.AddItemToCart)                    //done
+	svc.POST("api/cart/CreateCartType", testSvc)                             //to be done later
+	svc.POST("api/cart/RemoveItemFromCart", api.RemoveItemFromCart)          //done
+	svc.PUT("api/cart/CloseCart", api.CloseCart)                             //done
+	svc.POST("api/cart/RemoveUserFromCart", api.RemoveUserFromCart)          //done
 	svc.GET("api/cart/GetCarts", api.RemoveUserFromCart)                     //done
 	svc.GET("api/cart/GetCartByUserId/:UserId", api.GetCartByUserId)         //done
 	svc.GET("api/cart/GetCartsByUserId/:UserId", api.GetCartsByUserId)       //done

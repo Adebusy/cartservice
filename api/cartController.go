@@ -106,9 +106,9 @@ func CreateCart(ctx *gin.Context) {
 // @Success		200	{object}	inputschema.ResponseMessage
 // @Router			/api/cart/CreateCartMember [post]
 func CreateCartMember(ctx *gin.Context) {
-	// if !ValidateClient(ctx) {
-	// 	return
-	// }
+	if !ValidateClient(ctx) {
+		return
+	}
 	carObj := &inputschema.CartUserObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
 		ctx.JSON(http.StatusBadRequest, doConvert)
@@ -148,10 +148,10 @@ func CreateCartMember(ctx *gin.Context) {
 	}
 
 	if doCreate := usww.CreateCartMember(crts); doCreate != 0 {
-		ctx.JSON(http.StatusOK, "Cart created successfully!!")
+		ctx.JSON(http.StatusOK, "A new member added to cart successfully!!")
 		return
 	} else {
-		ctx.JSON(http.StatusBadRequest, "Cart cannot be created at the monent!!")
+		ctx.JSON(http.StatusBadRequest, "Member cannot not be added to card at the monent!!")
 		return
 	}
 }
