@@ -242,9 +242,9 @@ func RemoveUserFromCart(ctx *gin.Context) {
 // @Success 200	{string} string	"Cart closed successfully!"
 // @Router			/api/cart/CloseCart [put]
 func CloseCart(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 
 	carObj := &inputschema.CloseCartObj{}
 	if doConvert := ctx.ShouldBindJSON(carObj); doConvert != nil {
