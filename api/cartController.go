@@ -320,7 +320,7 @@ func GetOpenCartsByUserId(ctx *gin.Context) {
 	// 	return
 	// }
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
-	ctx.JSON(http.StatusOK, usww.GetCartsByUserIdandStatus(userId, 1))
+	ctx.JSON(http.StatusOK, usww.GetOpenCartsByUserIdandStatus(userId, 1))
 }
 
 // GetClosedCartsByUserId Get Closed Carts By User Id
@@ -343,7 +343,7 @@ func GetClosedCartsByUserId(ctx *gin.Context) {
 
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
 	// update cart
-	ctx.JSON(http.StatusOK, usww.GetCartsByUserIdandStatus(userId, 0))
+	ctx.JSON(http.StatusOK, usww.GetClosedCartsByUserIdandStatus(userId, 0))
 }
 
 // GetCartsByUserId Get Carts By User Id

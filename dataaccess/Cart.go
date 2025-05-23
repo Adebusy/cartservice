@@ -156,10 +156,14 @@ func (cn DbConnect) GetCartsByUserId(userId int) []TblCart {
 	return res
 }
 
-func (cn DbConnect) GetCartsByUserIdandStatus(userId, status int) []TblCart {
+func (cn DbConnect) GetClosedCartsByUserIdandStatus(userId, status int) []TblCart {
 	res := []TblCart{}
-	//cn.DbGorm.Debug().Select([]string{"Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy"}).Where("\"UserId\"=? and \"Status\"='?'", userId, status).Find(&res)
 	cn.DbGorm.Debug().Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=? and \"Status\"='0'", userId).Find(&res)
-	//cn.DbGorm.Select("Id", "StatusName", "CreatedAt").Find(&stat)
+	return res
+}
+
+func (cn DbConnect) GetOpenCartsByUserIdandStatus(userId, status int) []TblCart {
+	res := []TblCart{}
+	cn.DbGorm.Debug().Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=? and \"Status\"='1'", userId).Find(&res)
 	return res
 }
