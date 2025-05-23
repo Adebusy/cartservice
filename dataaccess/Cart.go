@@ -158,6 +158,8 @@ func (cn DbConnect) GetCartsByUserId(userId int) []TblCart {
 
 func (cn DbConnect) GetCartsByUserIdandStatus(userId, status int) []TblCart {
 	res := []TblCart{}
-	cn.DbGorm.Debug().Select([]string{"Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy"}).Where("\"UserId\"=? and \"Status\"='?'", userId, status).Find(&res)
+	//cn.DbGorm.Debug().Select([]string{"Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy"}).Where("\"UserId\"=? and \"Status\"='?'", userId, status).Find(&res)
+	cn.DbGorm.Debug().Select("Id", "UserId", "CartTypeId", "CartName", "Description", "GroupId", "CreatedById", "Status", "CreatedAt", "LastUpdatedBy").Where("\"UserId\"=? and \"Status\"='?'", userId, status).Find(&res)
+	//cn.DbGorm.Select("Id", "StatusName", "CreatedAt").Find(&stat)
 	return res
 }
