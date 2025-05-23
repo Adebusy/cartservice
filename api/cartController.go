@@ -316,9 +316,9 @@ func GetCartByUserId(ctx *gin.Context) {
 // @Success		200	{object}	[]dbSchema.TblCart
 // @Router			/api/cart/GetOpenCartsByUserId/{UserId} [get]
 func GetOpenCartsByUserId(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
 	ctx.JSON(http.StatusOK, usww.GetCartsByUserIdandStatus(userId, 1))
 }
@@ -337,9 +337,9 @@ func GetOpenCartsByUserId(ctx *gin.Context) {
 // @Success		200	{object}	[]dbSchema.TblCart
 // @Router			/api/cart/GetClosedCartsByUserId/{UserId} [get]
 func GetClosedCartsByUserId(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 
 	userId, _ := strconv.Atoi(ctx.Param("UserId"))
 	// update cart
