@@ -1125,6 +1125,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/user/ChangePassword": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "ChangePassword user password.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "ChangePassword user password.",
+                "parameters": [
+                    {
+                        "description": "Update password",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/obj.ChangePassword"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "registered client name",
+                        "name": "clientName",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password updated successfully!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to update password at the monent!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/CompleteSignUp": {
             "post": {
                 "security": [
@@ -1961,6 +2017,20 @@ const docTemplate = `{
                 },
                 "ringStatus": {
                     "type": "integer"
+                }
+            }
+        },
+        "obj.ChangePassword": {
+            "type": "object",
+            "properties": {
+                "currentPassword": {
+                    "type": "string"
+                },
+                "newPassword": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
                 }
             }
         },

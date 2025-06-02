@@ -509,6 +509,68 @@ func SendEmail(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, "Email sent successfully!!!")
 }
 
+// ChangePassword godoc
+// @Summary		ChangePassword user password.
+// @Description	ChangePassword user password.
+// @Tags			user
+// @Accept			*/*
+// @User			json
+// @Param user body inpuschema.ChangePassword true "Update password"
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{string}	string "Password updated successfully!!"
+// @Failure		400		{string} string	"Unable to update password at the monent!!"
+// @Router			/api/user/ChangePassword [post]
+func ChangePassword(ctx *gin.Context) {
+	reqIn := &inpuschema.ChangePassword{}
+	if err := ctx.ShouldBindJSON(reqIn); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println(err.Error())
+		return
+	}
+
+	getUSerobj := dbSchema.User{}
+	userRespose := &inpuschema.UserResponse{}
+	enc := hex.EncodeToString([]byte(reqIn.CurrentPassword))
+	newPasswordenc := hex.EncodeToString([]byte(reqIn.NewPassword))
+
+	if utilities.IsEmailValid(reqIn.UserName) {
+		getUSerobj = usww.GetUserByEmailAddress(reqIn.UserName)
+	} else if utilities.IsNumberValid(reqIn.UserName) {
+		getUSerobj = usww.GetUserByMobileNumber(reqIn.UserName)
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", reqIn.UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+
+	if getUSerobj.EmailAddress != "" || getUSerobj.MobileNumber != "" {
+		if getUSerobj.Password == enc {
+			userRespose.Email = getUSerobj.EmailAddress
+			userRespose.MobileNumber = getUSerobj.MobileNumber
+			if doupdate := usww.ChangePassword(userRespose.Email, userRespose.MobileNumber, newPasswordenc); doupdate != 0 {
+				ctx.JSON(http.StatusOK, "Password updated successfully!!")
+				return
+			} else {
+				ctx.JSON(http.StatusBadRequest, "Unable to update password at the moment")
+			}
+		} else {
+			logAction := fmt.Sprintf("Incorrect current password %s", reqIn.UserName)
+			logrus.Info(logAction)
+			ctx.JSON(http.StatusBadRequest, logAction)
+			return
+		}
+	} else {
+		logAction := fmt.Sprintf("Incorrect username or password for  %s", reqIn.UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+}
+
 // // LogIn exiting user In
 // // @Summary		Log user In with username and password.
 // // @Description	Log user In with username and password.

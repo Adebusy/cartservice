@@ -3,6 +3,7 @@ package utilities
 import (
 	"fmt"
 	"log"
+	"net/smtp"
 	"os"
 	"regexp"
 	"time"
@@ -111,5 +112,28 @@ func IsNumberValid(e string) bool {
 		return true
 	} else {
 		return false
+	}
+}
+
+func SendEmail(toEmail, mailBody string) string {
+
+	smtpHost := os.Getenv("SMTP_HOST")
+	smtpPort := os.Getenv("SMTP_PORT")
+	username := os.Getenv("SMTP_USERNAME")
+	password := os.Getenv("SMTP_PASSWORD")
+	sender := os.Getenv("SMTP_SENDER")
+	recipient := toEmail
+	from := "From: " + sender + "\n"
+	to := "To: " + recipient + "\n"
+	subject := "Subject: Digital cart update\n"
+	body := mailBody
+	message := []byte(from + to + subject + "\n" + body)
+	auth := smtp.PlainAuth("", username, password, smtpHost)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, sender, []string{recipient}, message)
+	if err != nil {
+		log.Fatalf("Failed to send email: %v", err)
+		return "01"
+	} else {
+		return "00"
 	}
 }

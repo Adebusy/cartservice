@@ -72,6 +72,12 @@ type EmailObj struct {
 	MailBody string `gorm:"column:MailBody"`
 }
 
+type ChangePassword struct {
+	UserName        string `gorm:"column:UserName"`
+	CurrentPassword string `gorm:"column:CurrentPassword"`
+	NewPassword     string `gorm:"column:NewPassword"`
+}
+
 type CartUserObj struct {
 	RingMasterEmail string `gorm:"column:RingMasterEmail"`
 	MemberEmail     string `gorm:"column:MemberEmail"`

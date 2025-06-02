@@ -104,6 +104,8 @@ type Iuser interface {
 	GetCartItemsByCartId(cartId int) []TblCartItem
 
 	LogOut(token, username string) string
+
+	ChangePassword(emailAddress, mobileNumber, password string) int
 }
 
 func (cn DbConnect) LogOut(token, username string) string {
@@ -133,6 +135,33 @@ func (cn DbConnect) UpdateUserRecord(usr CompleteSignUpReq) string {
 		logrus.Error(fmt.Sprintf("UpdateUserRecord for %s", usr.EmailAddress))
 		return "User created successfully!!"
 	}
+}
+
+func (cn DbConnect) ChangePassword(emailAddress, mobileNumber, password string) int {
+
+	retval := 0
+	if emailAddress != "" {
+		if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"EmailAddress\"=? ", emailAddress).Update("Password", password).Error; doinssertupdate != nil {
+			logrus.Error(doinssertupdate)
+			retval = 1
+			return retval
+		} else {
+			logrus.Error(fmt.Sprintf("UpdateUserRecord for %s", emailAddress))
+			return retval
+		}
+	}
+
+	if mobileNumber != "" {
+		if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"MobileNumber\"=? ", mobileNumber).Update("Password", password).Error; doinssertupdate != nil {
+			logrus.Error(doinssertupdate)
+			retval = 1
+			return retval
+		} else {
+			logrus.Error(fmt.Sprintf("UpdateUserRecord for %s", emailAddress))
+			return retval
+		}
+	}
+	return retval
 }
 
 func (cn DbConnect) SignUp(emailAddress, mobileNumber, password, createdAt string) string {

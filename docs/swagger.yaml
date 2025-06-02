@@ -234,6 +234,15 @@ definitions:
       ringStatus:
         type: integer
     type: object
+  obj.ChangePassword:
+    properties:
+      currentPassword:
+        type: string
+      newPassword:
+        type: string
+      userName:
+        type: string
+    type: object
   obj.CloseCartObj:
     properties:
       cartId:
@@ -1098,6 +1107,42 @@ paths:
       summary: Remove user group from existing cart.
       tags:
       - group
+  /api/user/ChangePassword:
+    post:
+      consumes:
+      - '*/*'
+      description: ChangePassword user password.
+      parameters:
+      - description: Update password
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.ChangePassword'
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Password updated successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to update password at the monent!!
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: ChangePassword user password.
+      tags:
+      - user
   /api/user/CompleteSignUp:
     post:
       consumes:

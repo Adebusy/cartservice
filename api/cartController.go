@@ -8,6 +8,7 @@ import (
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	inputschema "github.com/Adebusy/cartbackendsvc/obj"
+	"github.com/Adebusy/cartbackendsvc/utilities"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -127,16 +128,17 @@ func CreateCartMember(ctx *gin.Context) {
 		return
 	}
 
-	//do check userID
-	if doCheckCreatedById := usww.GetUserByEmailAddress(carObj.MemberEmail); doCheckCreatedById.EmailAddress == "" {
-		ctx.JSON(http.StatusBadRequest, "Member Email does not exist.")
-		return
-	}
-
 	//check if initiator is the cart master
 	if GetCartDetailsByCartId := usww.GetCartDetailsByCartIdandMastersId(carObj.CartId, carObj.RingMasterEmail); GetCartDetailsByCartId.RingMasterEmail == "" {
 		ctx.JSON(http.StatusBadRequest, "This user does not have the permission required to execute this action.")
 		return
+	}
+
+	//do check userID
+	if doCheckCreatedById := usww.GetUserByEmailAddress(carObj.MemberEmail); doCheckCreatedById.EmailAddress == "" {
+		utilities.SendEmail(carObj.MemberEmail, "please download application.")
+		//ctx.JSON(http.StatusBadRequest, "Member Email does not exist.")
+		//return
 	}
 
 	crts := dbSchema.TblCartMember{
@@ -147,7 +149,9 @@ func CreateCartMember(ctx *gin.Context) {
 		DateAdded:       time.Now(),
 	}
 
+	CartByCartId := usww.GetCartByCartId(carObj.CartId)
 	if doCreate := usww.CreateCartMember(crts); doCreate != 0 {
+		utilities.SendEmail(carObj.MemberEmail, fmt.Sprintf("Hello, You have been invited to join a cart %s. please chec", CartByCartId.CartName))
 		ctx.JSON(http.StatusOK, "A new member added to cart successfully!!")
 		return
 	} else {
