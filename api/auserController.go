@@ -223,7 +223,7 @@ func UpdateUserDetails(ctx *gin.Context) {
 	doCreate := usww.UpdateUserRecord(req)
 	logrus.Info(doCreate)
 	Response := &inpuschema.ResponseMessage{ResponseCode: "00",
-		ResponseMessage: doCreate,
+		ResponseMessage: "records updated successfully!",
 	}
 
 	ctx.JSON(http.StatusOK, Response)

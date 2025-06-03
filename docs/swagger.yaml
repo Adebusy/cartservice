@@ -1421,6 +1421,38 @@ paths:
       summary: SignUp new user cart user.
       tags:
       - user
+  /api/user/UpdateUserDetails:
+    post:
+      consumes:
+      - '*/*'
+      description: Update User Details.
+      parameters:
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      - description: Update User Details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.CompleteSignUp'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dataaccess.ResponseMessage'
+      security:
+      - BearerAuth: []
+      summary: Update User Details.
+      tags:
+      - user
   /api/user/UploadImage:
     post:
       parameters:
