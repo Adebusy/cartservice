@@ -169,6 +169,66 @@ func CompleteSignUp(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, Response)
 }
 
+// UpdateUserDetails godoc
+// @Summary		Update User Details.
+// @Description	Update User Details.
+// @Tags			user
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Param user body inpuschema.CompleteSignUp true "Update User Details"
+// @Success		200	{object}	dbSchema.ResponseMessage
+// @Router			/api/user/UpdateUserDetails [post]
+func UpdateUserDetails(ctx *gin.Context) {
+	if !ValidateClient(ctx) {
+		return
+	}
+	usww := dbSchema.ConneectDeal(psg.GetDB())
+	reqIn := &inpuschema.CompleteSignUp{}
+	if err := ctx.ShouldBindJSON(reqIn); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println(err.Error())
+		return
+	}
+
+	//validate request
+	if validateObj := validateMe.Struct(reqIn); validateObj != nil {
+		ctx.JSON(http.StatusBadRequest, validateObj.Error())
+		return
+	}
+
+	req := dbSchema.CompleteSignUpReq{EmailAddress: reqIn.EmailAddress, TitleId: strconv.Itoa(reqIn.TitleId),
+		FirstName: reqIn.FirstName,
+		UserName:  reqIn.UserName, NickName: reqIn.NickName,
+		LastName:     reqIn.LastName,
+		Gender:       reqIn.Gender,
+		AgeRange:     reqIn.AgeRange,
+		Status:       1,
+		MobileNumber: reqIn.MobileNumber,
+		CreatedAt:    time.Now().Format("01-02-2006")}
+
+	if CheckEmailExist := usww.GetUserByEmailAddress(req.EmailAddress); CheckEmailExist.EmailAddress == "" {
+		ctx.JSON(http.StatusBadRequest, "User with email address "+req.EmailAddress+" does not exist!!")
+		return
+	}
+
+	if CheckMobile := usww.GetUserByMobileNumber(req.MobileNumber); CheckMobile.MobileNumber == "" {
+		ctx.JSON(http.StatusBadRequest, "User with mobile number "+req.MobileNumber+" does not exist!!")
+		return
+	}
+
+	doCreate := usww.UpdateUserRecord(req)
+	logrus.Info(doCreate)
+	Response := &inpuschema.ResponseMessage{ResponseCode: "00",
+		ResponseMessage: doCreate,
+	}
+
+	ctx.JSON(http.StatusOK, Response)
+}
+
 // GetUserByEmailAddress create new user
 // @Summary		Get user by email address new cart user.
 // @Description	Get user by email address new cart user.

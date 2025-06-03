@@ -136,7 +136,7 @@ func CreateCartMember(ctx *gin.Context) {
 
 	//do check userID
 	if doCheckCreatedById := usww.GetUserByEmailAddress(carObj.MemberEmail); doCheckCreatedById.EmailAddress == "" {
-		utilities.SendEmail(carObj.MemberEmail, "please download application.")
+		utilities.SendEmail(carObj.MemberEmail, "please download the digital cart application from apple store.")
 		//ctx.JSON(http.StatusBadRequest, "Member Email does not exist.")
 		//return
 	}
@@ -151,7 +151,7 @@ func CreateCartMember(ctx *gin.Context) {
 
 	CartByCartId := usww.GetCartByCartId(carObj.CartId)
 	if doCreate := usww.CreateCartMember(crts); doCreate != 0 {
-		utilities.SendEmail(carObj.MemberEmail, fmt.Sprintf("Hello, You have been invited to join a cart %s. please chec", CartByCartId.CartName))
+		utilities.SendEmail(carObj.MemberEmail, fmt.Sprintf("Hello, You have been invited to join a cart %s. please check", CartByCartId.CartName))
 		ctx.JSON(http.StatusOK, "A new member added to cart successfully!!")
 		return
 	} else {
