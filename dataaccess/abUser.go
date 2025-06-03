@@ -141,7 +141,7 @@ func (cn DbConnect) ChangePassword(emailAddress, mobileNumber, password string) 
 
 	retval := 0
 	if emailAddress != "" {
-		if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"EmailAddress\"=? ", emailAddress).Update("Password", password).Error; doinssertupdate != nil {
+		if doinssertupdate := cn.DbGorm.Table("TblUser").Debug().Where("\"EmailAddress\"=? ", emailAddress).Update("Password", password).Error; doinssertupdate == nil {
 			logrus.Error(doinssertupdate)
 			retval = 1
 			return retval
