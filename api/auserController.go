@@ -244,9 +244,9 @@ func UpdateUserDetails(ctx *gin.Context) {
 // @Success		200	{object}	inpuschema.UserResponse
 // @Router			/api/user/GetUserByEmailAddress/{EmailAddress} [get]
 func GetUserByEmailAddress(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
 	requestEmail := ctx.Param("EmailAddress")
 	getUSer := usww.GetUserByEmailAddress(requestEmail)
 	logAction := fmt.Sprintf("GetUserByEmailAddress %v", requestEmail)
