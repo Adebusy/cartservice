@@ -131,7 +131,6 @@ func SendEmail(toEmail, mailBody string) string {
 	auth := smtp.PlainAuth("", username, password, smtpHost)
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, sender, []string{recipient}, message)
 	if err != nil {
-		fmt.Printf("from %s to %s body: %s", from, to, body)
 		log.Fatalf("Failed to send email: %v", err.Error())
 		return "01"
 	} else {

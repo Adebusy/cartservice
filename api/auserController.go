@@ -596,6 +596,13 @@ func ChangePassword(ctx *gin.Context) {
 	enc := hex.EncodeToString([]byte(reqIn.CurrentPassword))
 	newPasswordenc := hex.EncodeToString([]byte(reqIn.NewPassword))
 
+	if reqIn.CurrentPassword == reqIn.NewPassword {
+		logAction := "Current password is equal to new password"
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+
 	if utilities.IsEmailValid(reqIn.UserName) {
 		getUSerobj = usww.GetUserByEmailAddress(reqIn.UserName)
 	} else if utilities.IsNumberValid(reqIn.UserName) {
