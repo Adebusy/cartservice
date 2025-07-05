@@ -152,6 +152,7 @@ func CreateCartMember(ctx *gin.Context) {
 	CartByCartId := usww.GetCartByCartId(carObj.CartId)
 	if doCreate := usww.CreateCartMember(crts); doCreate != 0 {
 		utilities.SendEmail(carObj.MemberEmail, fmt.Sprintf("Hello, You have been invited to join a cart %s. please check", CartByCartId.CartName))
+		TAct.CreateAction(dbSchema.TblAction{EmailAddress: carObj.MemberEmail, MobileNumber: "", RequestType: "Notification", Message: fmt.Sprintf("Hello, You have been invited to join a cart %s. please check", CartByCartId.CartName), Status: 1, DateAdded: time.Now()})
 		ctx.JSON(http.StatusOK, "A new member added to cart successfully!!")
 		return
 	} else {

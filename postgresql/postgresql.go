@@ -59,7 +59,7 @@ func GetDB() *gorm.DB {
 		logrus.Error(err)
 	}
 
-	DbGorm.AutoMigrate(&dbSchema.TblTempPassword{})
+	DbGorm.AutoMigrate(&dbSchema.TblAction{})
 
 	if dbStatus.CreateTable {
 		DbGorm.AutoMigrate(&dbSchema.TblRole{})

@@ -30,6 +30,7 @@ var (
 	client     = dbSchema.ConnectClient(getdb)
 	grp        = dbSchema.ConnectGroup(getdb)
 	Tmp        = dbSchema.ConnnectTemp(getdb)
+	TAct       = dbSchema.ConnnectAction(getdb)
 	validateMe = validator.New()
 )
 
@@ -260,6 +261,7 @@ func ValidateAndSendTempPassword(ctx *gin.Context) {
 
 		if creatTemp := usww.CreateTempPassword(tempTable); creatTemp != 0 {
 			if sendNot := utilities.SendEmail(requestEmail, fmt.Sprintf("Here is a temporary password generate for your profile %s.", getToken)); sendNot == "00" {
+				TAct.CreateAction(dbSchema.TblAction{EmailAddress: requestEmail, MobileNumber: "", RequestType: "Notification", Message: fmt.Sprintf("Here is a temporary password generate for your profile %s.", getToken), Status: 1, DateAdded: time.Now()})
 				res.ResponseCode = "00"
 				res.ResponseMessage = fmt.Sprintf("Here is a temporary password generate for your profile %s.", getToken)
 				ctx.JSON(http.StatusOK, res)
@@ -303,7 +305,6 @@ func ValidateTempToken(ctx *gin.Context) {
 	tempPassword := ctx.Param("TempPassword")
 	getUSer := usw.GetUserByEmailAddress(requestEmail)
 	if getUSer.EmailAddress != "" {
-		fmt.Print("Dassa\n")
 		if creatTemp := usww.CheckTokenwithEmail(requestEmail, tempPassword); creatTemp != 0 {
 			res.ResponseCode = "00"
 			res.ResponseMessage = "Token validate successfully."
