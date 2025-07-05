@@ -1222,6 +1222,43 @@
                 }
             }
         },
+        "/api/user/ChangePasswordWithoutValidation": {
+            "post": {
+                "description": "ChangePasswordWithoutValidation user password.",
+                "consumes": [
+                    "*/*"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "ChangePasswordWithoutValidation user password.",
+                "parameters": [
+                    {
+                        "description": "Change password",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/obj.ChangePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password updated successfully!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to change password at the monent!!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/CompleteSignUp": {
             "post": {
                 "security": [

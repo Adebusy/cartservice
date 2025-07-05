@@ -1171,6 +1171,30 @@ paths:
       summary: ChangePassword user password.
       tags:
       - user
+  /api/user/ChangePasswordWithoutValidation:
+    post:
+      consumes:
+      - '*/*'
+      description: ChangePasswordWithoutValidation user password.
+      parameters:
+      - description: Change password
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/obj.ChangePassword'
+      responses:
+        "200":
+          description: Password updated successfully!!
+          schema:
+            type: string
+        "400":
+          description: Unable to change password at the monent!!
+          schema:
+            type: string
+      summary: ChangePasswordWithoutValidation user password.
+      tags:
+      - user
   /api/user/CompleteSignUp:
     post:
       consumes:

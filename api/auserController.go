@@ -732,6 +732,61 @@ func ChangePassword(ctx *gin.Context) {
 	}
 }
 
+// ChangePasswordWithoutValidation godoc
+// @Summary		ChangePasswordWithoutValidation user password.
+// @Description	ChangePasswordWithoutValidation user password.
+// @Tags			user
+// @Accept			*/*
+// @User			json
+// @Param user body inpuschema.ChangePassword true "Change password"
+// @Success		200	{string}	string "Password updated successfully!!"
+// @Failure		400		{string} string	"Unable to change password at the monent!!"
+// @Router			/api/user/ChangePasswordWithoutValidation [post]
+func ChangePasswordWithoutValidation(ctx *gin.Context) {
+	reqIn := &inpuschema.ChangePassword{}
+	if err := ctx.ShouldBindJSON(reqIn); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println(err.Error())
+		return
+	}
+
+	getUSerobj := dbSchema.User{}
+	userRespose := &inpuschema.UserResponse{}
+	newPasswordenc := hex.EncodeToString([]byte(reqIn.NewPassword))
+
+	if reqIn.CurrentPassword == reqIn.NewPassword {
+		logAction := "Current password is equal to new password"
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+
+	if utilities.IsEmailValid(reqIn.UserName) {
+		getUSerobj = usww.GetUserByEmailAddress(reqIn.UserName)
+	} else {
+		logAction := fmt.Sprintf("Incorrect username %s", reqIn.UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+
+	if getUSerobj.EmailAddress != "" {
+		userRespose.Email = getUSerobj.EmailAddress
+		// userRespose.MobileNumber = getUSerobj.MobileNumber
+		if doupdate := usww.ChangePassword(userRespose.Email, "", newPasswordenc); doupdate != 0 {
+			ctx.JSON(http.StatusOK, "Password changed successfully!!")
+			return
+		} else {
+			ctx.JSON(http.StatusBadRequest, "Unable to change password at the moment")
+		}
+	} else {
+		logAction := fmt.Sprintf("Incorrect email address  %s", reqIn.UserName)
+		logrus.Info(logAction)
+		ctx.JSON(http.StatusBadRequest, logAction)
+		return
+	}
+}
+
 // @Summary Import Image
 // @Produce  json
 // @Param image formData file true "Image File"

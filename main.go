@@ -82,6 +82,7 @@ func main() {
 
 	svc.GET("api/user/ValidateAndSendTempPassword/:EmailAddress", api.ValidateAndSendTempPassword) //done
 	svc.GET("/api/user/ValidateTempToken/:EmailAddress/:TempPassword", api.ValidateTempToken)      //done
+	svc.POST("api/user/ChangePasswordWithoutValidation", api.ChangePasswordWithoutValidation)      //done
 
 	svc.POST("api/cart/CreateCart", api.CreateCart)                          //done
 	svc.POST("api/cart/CreateCartMember", api.CreateCartMember)              //done
