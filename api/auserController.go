@@ -841,6 +841,7 @@ func UploadImage(ctx *gin.Context) {
 // @Description	get user notification by email.
 // @Tags			user
 // @Param EmailAddress path string true "User email address"
+// @Param NotificationType path string true "Notification type"
 // @Produce json
 // @Accept			*/*
 // @User			json
@@ -849,32 +850,14 @@ func UploadImage(ctx *gin.Context) {
 // @Security BearerAuth
 // @securityDefinitions.basic BearerAuth
 // @Success		200	{object}	inpuschema.CartObj
-// @Router			/api/user/GetAllNotificationsByEmail/{EmailAddress} [get]
+// @Router			/api/user/GetAllNotificationsByEmail/{EmailAddress}/{NotificationType} [get]
 func GetAllNotificationsByEmail(ctx *gin.Context) {
-	if !ValidateClient(ctx) {
-		return
-	}
-
-	userRespose := &inpuschema.UserResponse{}
-	requestMobile := ctx.Param("MobileNumber")
-	if getUSer := usww.GetUserByMobileNumber(requestMobile); getUSer.FirstName != "" {
-		userRespose.TitleId = getUSer.TitleId
-		userRespose.UserName = getUSer.UserName
-		userRespose.NickName = getUSer.NickName
-		userRespose.FirstName = getUSer.FirstName
-		userRespose.LastName = getUSer.LastName
-		userRespose.Email = getUSer.EmailAddress
-		userRespose.MobileNumber = getUSer.MobileNumber
-		userRespose.Gender = getUSer.Gender
-		userRespose.Location = getUSer.Location
-		userRespose.AgeRange = getUSer.AgeRange
-		userRespose.Status = getUSer.Status
-		userRespose.CreatedAt = getUSer.CreatedAt
-		ctx.JSON(http.StatusOK, userRespose)
-		return
-	}
-
-	logAction := fmt.Sprintf("GetUserByMobile %v", requestMobile)
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	EmailAddress := ctx.Param("EmailAddress")
+	NotificationType := ctx.Param("NotificationType")
+	logAction := fmt.Sprintf("GetAllNotificationsByEmail %s and %s", EmailAddress, NotificationType)
 	logrus.Info(logAction)
-	ctx.JSON(http.StatusBadRequest, userRespose)
+	ctx.JSON(http.StatusBadRequest, TAct.GetAction(EmailAddress, NotificationType))
 }

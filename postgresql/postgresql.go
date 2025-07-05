@@ -7,6 +7,7 @@ import (
 
 	dbSchema "github.com/Adebusy/cartbackendsvc/dataaccess"
 	"github.com/Adebusy/cartbackendsvc/obj"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -17,10 +18,10 @@ var DbGorm *gorm.DB
 var err error
 
 func GetDB() *gorm.DB {
-	// if loadEnv := godotenv.Load(); loadEnv != nil {
-	// 	ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
-	// 	fmt.Println(ret)
-	// }
+	if loadEnv := godotenv.Load(); loadEnv != nil {
+		ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
+		fmt.Println(ret)
+	}
 
 	env := os.Getenv("env")
 
@@ -59,8 +60,6 @@ func GetDB() *gorm.DB {
 		logrus.Error(err)
 	}
 
-	DbGorm.AutoMigrate(&dbSchema.TblAction{})
-
 	if dbStatus.CreateTable {
 		DbGorm.AutoMigrate(&dbSchema.TblRole{})
 		DbGorm.AutoMigrate(&dbSchema.TblGroupType{})
@@ -76,6 +75,7 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 		DbGorm.AutoMigrate(&dbSchema.TblCartType{})
 		DbGorm.AutoMigrate(&dbSchema.TblTempPassword{})
+		DbGorm.AutoMigrate(&dbSchema.TblAction{})
 	}
 
 	dbStatus.IsDropExistingTables = false

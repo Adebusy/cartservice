@@ -78,11 +78,10 @@ func main() {
 
 	svc.POST("/api/user/UpdateUserDetails", api.UpdateUserDetails) //done
 
-	svc.GET("api/user/GetAllNotificationsByEmail/:EmailAddress", api.GetAllNotificationsByEmail) //done
-
-	svc.GET("api/user/ValidateAndSendTempPassword/:EmailAddress", api.ValidateAndSendTempPassword) //done
-	svc.GET("/api/user/ValidateTempToken/:EmailAddress/:TempPassword", api.ValidateTempToken)      //done
-	svc.POST("api/user/ChangePasswordWithoutValidation", api.ChangePasswordWithoutValidation)      //done
+	svc.GET("api/user/ValidateAndSendTempPassword/:EmailAddress", api.ValidateAndSendTempPassword)                 //done
+	svc.GET("/api/user/ValidateTempToken/:EmailAddress/:TempPassword", api.ValidateTempToken)                      //done
+	svc.POST("api/user/ChangePasswordWithoutValidation", api.ChangePasswordWithoutValidation)                      //done
+	svc.GET("api/user/GetAllNotificationsByEmail/:EmailAddress/:NotificationType", api.GetAllNotificationsByEmail) //done
 
 	svc.POST("api/cart/CreateCart", api.CreateCart)                          //done
 	svc.POST("api/cart/CreateCartMember", api.CreateCartMember)              //done
