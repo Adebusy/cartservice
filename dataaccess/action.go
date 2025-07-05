@@ -41,6 +41,6 @@ func (cn TAction) CreateAction(temp TblAction) int {
 
 func (cn TAction) GetAction(email, requesttype string) []TblAction {
 	resp := []TblAction{}
-	cn.DbGorm.Table("TblTempPassword").Select("Id", "EmailAddress", "MobileNumber", "RequestType", "Message", "Status", "DateAdded").Where("\"EmailAddress\"=? and \"RequestType\"=? ", email, requesttype).Select(&resp)
+	cn.DbGorm.Table("TblTempPassword").Select("Id", "EmailAddress", "MobileNumber", "RequestType", "Message", "Status", "DateAdded").Where("\"EmailAddress\"=? and \"RequestType\"=? ", email, requesttype).Find(&resp)
 	return resp
 }
