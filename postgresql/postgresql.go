@@ -30,6 +30,9 @@ func GetDB() *gorm.DB {
 	PASSWORD := os.Getenv("PASSWORD")
 	PORT := os.Getenv("DB_PORT")
 
+	fmt.Print("dadasddsa\n")
+	fmt.Printf("dasdssadsa %s", PORT)
+
 	var dbStatus obj.ConfigStruct
 	var connectionString string
 

@@ -602,6 +602,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/cart/GetCartMembersListByCartId/{CartId}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Cart By Cart Id.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cart"
+                ],
+                "summary": "Get Cart By Cart Id.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Cart ID",
+                        "name": "UserId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dataaccess.TblCart"
+                        }
+                    }
+                }
+            }
+        },
         "/api/cart/GetCartsByUserId/{UserId}": {
             "get": {
                 "security": [

@@ -306,6 +306,40 @@ func GetCartByUserId(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, usww.GetCartByUserId(userId))
 }
 
+// GetCartMembersListByCartId Get Cart By Cart Id
+// @Summary		Get Cart By Cart Id.
+// @Description	Get Cart By Cart Id.
+// @Tags			cart
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param UserId path string true "Cart ID"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	dbSchema.TblCart
+// @Router			/api/cart/GetCartMembersListByCartId/{CartId} [get]
+func GetCartMembersListByCartId(ctx *gin.Context) {
+	// if !ValidateClient(ctx) {
+	// 	return
+	// }
+	retlist := []cartMember{}
+	cartId, _ := strconv.Atoi(ctx.Param("CartId"))
+	// rawget := usww.GetCartMemberByCartId(cartId)
+	for _, i := range usww.GetCartMemberByCartId(cartId) {
+		if getdet := usww.GetUserByEmailAddress(i.MemberEmail); getdet.EmailAddress != "" {
+			retlist = append(retlist, cartMember{Name: getdet.FirstName, Email: getdet.EmailAddress, MobileNumber: getdet.MobileNumber})
+		}
+	}
+	ctx.JSON(http.StatusOK, retlist)
+}
+
+type cartMember struct {
+	Name         string `json:"Name" validate:"required,email"`
+	Email        string `json:"Email" validate:"required,email"`
+	MobileNumber string `json:"MobileNumber" validate:"required,min=8"`
+}
+
 // GetOpenCartsByUserId Get Carts By User Id
 // @Summary		Get Carts By User Id.
 // @Description	Get Carts By User Id.

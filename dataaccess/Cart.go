@@ -91,6 +91,13 @@ func (cn DbConnect) CreateCartMember(crt TblCartMember) int {
 		return crt.Id
 	}
 }
+
+func (cn DbConnect) GetCartMemberByCartId(CartId int) []TblCartMember {
+	tblCartMember := []TblCartMember{}
+	cn.DbGorm.Select("Id", "RingMasterEmail", "MemberEmail", "CartId", "RingStatus", "DateAdded").Where("\"CartId\" = ?", CartId).Find(&tblCartMember)
+	return tblCartMember
+}
+
 func (cn DbConnect) CreateCartMemberIn(crt TblCartMember) int {
 
 	dogetcart := cn.DbGorm.Create(&crt)
