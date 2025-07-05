@@ -1223,6 +1223,39 @@ paths:
       summary: Create new user cart user.
       tags:
       - user
+  /api/user/GetAllNotificationsByEmail/{EmailAddress}:
+    get:
+      consumes:
+      - '*/*'
+      description: get user notification by email.
+      parameters:
+      - description: User email address
+        in: path
+        name: EmailAddress
+        required: true
+        type: string
+      - description: Authorization token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: registered client name
+        in: header
+        name: clientName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.CartObj'
+      security:
+      - BearerAuth: []
+      summary: get user notification by email.
+      tags:
+      - user
   /api/user/GetUserByEmailAddress/{EmailAddress}:
     get:
       consumes:
@@ -1501,6 +1534,53 @@ paths:
           schema:
             type: string
       summary: Import Image
+  /api/user/ValidateAndSendTempPassword/{EmailAddress}:
+    get:
+      consumes:
+      - '*/*'
+      description: Validate email and send temp password.
+      parameters:
+      - description: User email address
+        in: path
+        name: EmailAddress
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.ResponseMessage'
+      summary: Validate email and send temp password.
+      tags:
+      - user
+  /api/user/ValidateTempToken/{EmailAddress}/{TempPassword}:
+    get:
+      consumes:
+      - '*/*'
+      description: Validate email and send temp token.
+      parameters:
+      - description: User email address
+        in: path
+        name: EmailAddress
+        required: true
+        type: string
+      - description: temporary Password
+        in: path
+        name: tempPassword
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/obj.ResponseMessage'
+      summary: Validate email and send temp token.
+      tags:
+      - user
   /testSvc:
     get:
       consumes:

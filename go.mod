@@ -1,8 +1,8 @@
 module github.com/Adebusy/cartbackendsvc
 
-go 1.21.0
+go 1.23.0
 
-toolchain go1.21.3
+toolchain go1.23.10
 
 require (
 	github.com/gin-gonic/gin v1.10.0
@@ -14,7 +14,7 @@ require (
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.16.3
-	golang.org/x/crypto v0.29.0
+	golang.org/x/crypto v0.39.0
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.11
 )
@@ -25,6 +25,7 @@ require (
 	github.com/gin-contrib/cors v1.7.2 // indirect
 	github.com/go-ini/ini v1.32.1-0.20180214101753-32e4be5f41bb // indirect
 	github.com/unknwon/com v1.0.1 // indirect
+	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b // indirect
 )
 
 require (
@@ -76,11 +77,11 @@ require (
 	github.com/valyala/fasthttp v1.55.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/arch v0.12.0 // indirect
-	golang.org/x/net v0.31.0 // indirect
-	golang.org/x/sync v0.9.0 // indirect
-	golang.org/x/sys v0.27.0 // indirect
-	golang.org/x/text v0.20.0 // indirect
-	golang.org/x/tools v0.24.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sync v0.15.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/text v0.26.0 // indirect
+	golang.org/x/tools v0.34.0 // indirect
 	google.golang.org/protobuf v1.35.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

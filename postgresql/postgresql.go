@@ -30,9 +30,6 @@ func GetDB() *gorm.DB {
 	PASSWORD := os.Getenv("PASSWORD")
 	PORT := os.Getenv("DB_PORT")
 
-	fmt.Print("dadasddsa\n")
-	fmt.Printf("dasdssadsa %s", PORT)
-
 	var dbStatus obj.ConfigStruct
 	var connectionString string
 
@@ -62,6 +59,8 @@ func GetDB() *gorm.DB {
 		logrus.Error(err)
 	}
 
+	DbGorm.AutoMigrate(&dbSchema.TblTempPassword{})
+
 	if dbStatus.CreateTable {
 		DbGorm.AutoMigrate(&dbSchema.TblRole{})
 		DbGorm.AutoMigrate(&dbSchema.TblGroupType{})
@@ -76,6 +75,7 @@ func GetDB() *gorm.DB {
 		DbGorm.AutoMigrate(&dbSchema.TblUser{})
 		DbGorm.AutoMigrate(&dbSchema.TblClient{})
 		DbGorm.AutoMigrate(&dbSchema.TblCartType{})
+		DbGorm.AutoMigrate(&dbSchema.TblTempPassword{})
 	}
 
 	dbStatus.IsDropExistingTables = false

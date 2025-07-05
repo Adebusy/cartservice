@@ -107,6 +107,8 @@ type Iuser interface {
 	LogOut(token, username string) string
 
 	ChangePassword(emailAddress, mobileNumber, password string) int
+
+	// CreateTempPassword(temp TblTempPassword) int
 }
 
 func (cn DbConnect) LogOut(token, username string) string {
@@ -183,7 +185,7 @@ func (cn DbConnect) GetUserByUserId(UserId int) User {
 
 func (cn DbConnect) GetUserByEmailAddress(EmailAddress string) User {
 	res := User{}
-	cn.DbGorm.Table("TblUser").Select("Id", "TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Password", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
+	cn.DbGorm.Table("TblUser").Debug().Select("Id", "TitleId", "UserName", "NickName", "FirstName", "LastName", "EmailAddress", "MobileNumber", "Gender", "Location", "AgeRange", "Password", "Status", "CreatedAt").Where("\"EmailAddress\"=?", EmailAddress).First(&res)
 	return res
 }
 

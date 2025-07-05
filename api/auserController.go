@@ -29,6 +29,7 @@ var (
 	tit        = dbSchema.ConTitle(getdb)
 	client     = dbSchema.ConnectClient(getdb)
 	grp        = dbSchema.ConnectGroup(getdb)
+	Tmp        = dbSchema.ConnnectTemp(getdb)
 	validateMe = validator.New()
 )
 
@@ -227,6 +228,99 @@ func UpdateUserDetails(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, Response)
+}
+
+// ValidateAndSendTempPassword Validate email And Send Temp Password
+// @Summary		Validate email and send temp password.
+// @Description	Validate email and send temp password.
+// @Tags			user
+// @Param EmailAddress path string true "User email address"
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Success		200	{object}	inpuschema.ResponseMessage
+// @Router			/api/user/ValidateAndSendTempPassword/{EmailAddress} [get]
+func ValidateAndSendTempPassword(ctx *gin.Context) {
+	res := inpuschema.ResponseMessage{}
+	usww := dbSchema.ConnnectTemp(psg.GetDB())
+	usw := dbSchema.ConneectDeal(psg.GetDB())
+	requestEmail := ctx.Param("EmailAddress")
+	getUSer := usw.GetUserByEmailAddress(requestEmail)
+	logAction := fmt.Sprintf("ValidateAndSendTempPassword %v", requestEmail)
+	logrus.Info(logAction)
+	if getUSer.EmailAddress != "" {
+		//generate temp password
+		getToken := utilities.TempPassword(6, true, false, true)
+		tempTable := dbSchema.TblTempPassword{
+			EmailAddress: requestEmail,
+			TempPassword: getToken,
+			Status:       1,
+			DateAdded:    time.Now(),
+		}
+
+		if creatTemp := usww.CreateTempPassword(tempTable); creatTemp != 0 {
+			if sendNot := utilities.SendEmail(requestEmail, fmt.Sprintf("Here is a temporary password generate for your profile %s.", getToken)); sendNot == "00" {
+				res.ResponseCode = "00"
+				res.ResponseMessage = fmt.Sprintf("Here is a temporary password generate for your profile %s.", getToken)
+				ctx.JSON(http.StatusOK, res)
+				return
+			} else {
+				res.ResponseCode = "01"
+				res.ResponseMessage = "service is unable to process request at the momment!!"
+				ctx.JSON(http.StatusBadRequest, res)
+				return
+			}
+		} else {
+			res.ResponseCode = "01"
+			res.ResponseMessage = "service is unable to process request at the momment!!"
+			ctx.JSON(http.StatusBadRequest, res)
+			return
+		}
+	} else {
+		res.ResponseCode = "01"
+		res.ResponseMessage = "service is unable to process request at the momment!!"
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+}
+
+// ValidateTempToken Validate email And Send Temp Password
+// @Summary		Validate email and send temp token.
+// @Description	Validate email and send temp token.
+// @Tags			user
+// @Param EmailAddress path string true "User email address"
+// @Param tempPassword path string true "temporary Password"
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Success		200	{object}	inpuschema.ResponseMessage
+// @Router			/api/user/ValidateTempToken/{EmailAddress}/{TempPassword}  [get]
+func ValidateTempToken(ctx *gin.Context) {
+	res := inpuschema.ResponseMessage{}
+	usww := dbSchema.ConnnectTemp(psg.GetDB())
+	usw := dbSchema.ConneectDeal(psg.GetDB())
+	requestEmail := ctx.Param("EmailAddress")
+	tempPassword := ctx.Param("TempPassword")
+	getUSer := usw.GetUserByEmailAddress(requestEmail)
+	if getUSer.EmailAddress != "" {
+		fmt.Print("Dassa\n")
+		if creatTemp := usww.CheckTokenwithEmail(requestEmail, tempPassword); creatTemp != 0 {
+			res.ResponseCode = "00"
+			res.ResponseMessage = "Token validate successfully."
+			ctx.JSON(http.StatusOK, res)
+			return
+		} else {
+			res.ResponseCode = "01"
+			res.ResponseMessage = "service is unable to process request at the momment!!"
+			ctx.JSON(http.StatusBadRequest, res)
+			return
+		}
+	} else {
+		res.ResponseCode = "01"
+		res.ResponseMessage = "Invalid email or token"
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
 }
 
 // GetUserByEmailAddress create new user
@@ -638,71 +732,6 @@ func ChangePassword(ctx *gin.Context) {
 	}
 }
 
-// // LogIn exiting user In
-// // @Summary		Log user In with username and password.
-// // @Description	Log user In with username and password.
-// // @Tags			user
-// // @Param UserName path string true "Username"
-// // @Param Password path string true "Password"
-// // @Produce json
-// // @Accept			*/*
-// // @User			json
-// // @Success		200	{object}	inpuschema.UserResponse
-// // @Router			/api/user/LogIn/{UserName}/{Password} [get]
-// func LogIn(ctx *gin.Context) {
-// 	// @Param Authorization header string true "Authorization token"
-// 	// @Param clientName header string true "registered client name"
-// 	// @Security BearerAuth
-// 	// @securityDefinitions.basic BearerAuth
-// 	// if !ValidateClient(ctx) {
-// 	// 	return
-// 	// }
-
-// 	var getUSer dbSchema.User
-
-// 	userRespose := &inpuschema.UserResponse{}
-// 	UserName := ctx.Param("UserName")
-// 	Password := ctx.Param("Password")
-// 	password, _ := utilities.HashPassword(Password)
-
-// 	if utilities.IsEmailValid(UserName) {
-
-// 	}
-
-// 	if getUSer := usww.GetUserByUsername(UserName); getUSer.EmailAddress != "" {
-// 		if utilities.CheckPasswordHash(Password, password) {
-// 			userRespose.TitleId = getUSer.TitleId
-// 			userRespose.UserName = getUSer.UserName
-// 			userRespose.NickName = getUSer.NickName
-// 			userRespose.FirstName = getUSer.FirstName
-// 			userRespose.LastName = getUSer.LastName
-// 			userRespose.Email = getUSer.EmailAddress
-// 			userRespose.MobileNumber = getUSer.MobileNumber
-// 			userRespose.Status = getUSer.Status
-// 			userRespose.Gender = getUSer.Gender
-// 			userRespose.Location = getUSer.Location
-// 			userRespose.CreatedAt = getUSer.CreatedAt
-// 			if token, err := utilities.CreateToken(UserName); err.Error() == "" {
-// 				userRespose.Token = token
-// 			}
-
-// 			logrus.Info(fmt.Sprintf("LogIn for user %s", UserName))
-// 			ctx.JSON(http.StatusOK, userRespose)
-// 			return
-// 		} else {
-// 			logAction := fmt.Sprintf("Incorrect password %s", UserName)
-// 			logrus.Info(logAction)
-// 			ctx.JSON(http.StatusBadRequest, logAction)
-// 			return
-// 		}
-// 	} else {
-// 		logAction := fmt.Sprintf("Incorrect username %s", UserName)
-// 		logrus.Info(logAction)
-// 		ctx.JSON(http.StatusBadRequest, logAction)
-// 		return
-// 	}
-// }
-
 // @Summary Import Image
 // @Produce  json
 // @Param image formData file true "Image File"
@@ -749,4 +778,47 @@ func UploadImage(ctx *gin.Context) {
 	// 	"image_url":      upload.GetImageFullUrl(imageName),
 	// 	"image_save_url": savePath + imageName,
 	// })
+}
+
+// GetAllNotificationsByEmail  user notifications by email
+// @Summary		get user notification by email.
+// @Description	get user notification by email.
+// @Tags			user
+// @Param EmailAddress path string true "User email address"
+// @Produce json
+// @Accept			*/*
+// @User			json
+// @Param Authorization header string true "Authorization token"
+// @Param clientName header string true "registered client name"
+// @Security BearerAuth
+// @securityDefinitions.basic BearerAuth
+// @Success		200	{object}	inpuschema.CartObj
+// @Router			/api/user/GetAllNotificationsByEmail/{EmailAddress} [get]
+func GetAllNotificationsByEmail(ctx *gin.Context) {
+	if !ValidateClient(ctx) {
+		return
+	}
+
+	userRespose := &inpuschema.UserResponse{}
+	requestMobile := ctx.Param("MobileNumber")
+	if getUSer := usww.GetUserByMobileNumber(requestMobile); getUSer.FirstName != "" {
+		userRespose.TitleId = getUSer.TitleId
+		userRespose.UserName = getUSer.UserName
+		userRespose.NickName = getUSer.NickName
+		userRespose.FirstName = getUSer.FirstName
+		userRespose.LastName = getUSer.LastName
+		userRespose.Email = getUSer.EmailAddress
+		userRespose.MobileNumber = getUSer.MobileNumber
+		userRespose.Gender = getUSer.Gender
+		userRespose.Location = getUSer.Location
+		userRespose.AgeRange = getUSer.AgeRange
+		userRespose.Status = getUSer.Status
+		userRespose.CreatedAt = getUSer.CreatedAt
+		ctx.JSON(http.StatusOK, userRespose)
+		return
+	}
+
+	logAction := fmt.Sprintf("GetUserByMobile %v", requestMobile)
+	logrus.Info(logAction)
+	ctx.JSON(http.StatusBadRequest, userRespose)
 }
