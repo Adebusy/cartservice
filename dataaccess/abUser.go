@@ -81,7 +81,6 @@ type Iuser interface {
 
 	CreateCart(crt TblCart) int
 	GetCartByCartId(CartId int) TblCart
-	// GetCartsByCartId(CartId int) []TblCart
 	GetCartTypeByCartId(CartTypeId int) CartType
 	CreateCartMember(cusr TblCartMember) int
 	GetCartByCartIdAndMemberId(CartId, cartMemberId int) TblCart
@@ -107,8 +106,6 @@ type Iuser interface {
 	LogOut(token, username string) string
 
 	ChangePassword(emailAddress, mobileNumber, password string) int
-
-	// CreateTempPassword(temp TblTempPassword) int
 }
 
 func (cn DbConnect) LogOut(token, username string) string {

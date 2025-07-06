@@ -137,6 +137,7 @@ func CreateCartMember(ctx *gin.Context) {
 	//do check userID
 	if doCheckCreatedById := usww.GetUserByEmailAddress(carObj.MemberEmail); doCheckCreatedById.EmailAddress == "" {
 		utilities.SendEmail(carObj.MemberEmail, "please download the digital cart application from apple store.")
+		TAct.CreateAction(dbSchema.TblAction{EmailAddress: carObj.MemberEmail, MobileNumber: "", RequestType: "Notification", Message: "please download the digital cart application from apple store.", Status: 1, DateAdded: time.Now()})
 		//ctx.JSON(http.StatusBadRequest, "Member Email does not exist.")
 		//return
 	}

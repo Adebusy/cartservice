@@ -21,7 +21,6 @@ type IGroup interface {
 	GetGroupByUserID(userId int) []TblGroupUser
 	GetGroupAdminByUserIdAndRoleID(roleId, userId int) TblGroupUser
 	RemoveUserFromGroup(userId, cartId int, GroupName string) int
-	// DeleteProductByProductId(productId int) error
 }
 
 func (cn GConnect) CreateGroupUser(prod *TblGroupUser) int {

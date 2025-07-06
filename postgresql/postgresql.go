@@ -17,10 +17,10 @@ var DbGorm *gorm.DB
 var err error
 
 func GetDB() *gorm.DB {
-	// if loadEnv := godotenv.Load(); loadEnv != nil {
-	// 	ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
-	// 	fmt.Println(ret)
-	// }
+	//if loadEnv := godotenv.Load(); loadEnv != nil {
+	//ret := fmt.Sprintf("Unable to load environment variable. %s", loadEnv.Error())
+	//	fmt.Println(ret)
+	//}
 
 	env := os.Getenv("env")
 

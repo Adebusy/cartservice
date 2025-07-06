@@ -38,9 +38,8 @@ type TblGroupObj struct {
 	GroupName   string `json:"GroupName"`
 	Description string `json:"Description"`
 	UserId      int    `json:"UserId"`
-	// RoleId      int    `json:"RoleId"`
-	GroupTypeId int `json:"GroupTypeId"`
-	CartId      int `json:"CartId"`
+	GroupTypeId int    `json:"GroupTypeId"`
+	CartId      int    `json:"CartId"`
 }
 
 type TblTeamGroupObj struct {
